@@ -41,28 +41,6 @@ parallel.
 
 ---
 
-## Connecting to a Cluster
-
-You usually access an HPC system through a **login node** using SSH.
-
-```bash
-ssh username@hpc-login.example.org
-```
-Once connected, you can see what resources are available using the
-scheduler’s commands (for example, SLURM):
-
-```bash
-sinfo
-```
-
-:::{exercise} Exploring the Cluster
-	1.	Log in to your training cluster using ssh.
-	2.	Run sinfo to see available partitions and nodes.
-	3.	Try squeue to view currently running jobs.
-:::
-
----
-
 ## Parallel Computing
 
 High-Performance Computing relies on **parallel computing**, splitting a problem into smaller parts that can be executed *simultaneously* on multiple processors.
@@ -72,7 +50,7 @@ Instead of running one instruction at a time on one CPU core, parallel computing
 Parallelism can occur at different levels:
 - **Within a single CPU** (multiple cores)
 - **Across multiple CPUs** (distributed nodes)
-- **On specialized accelerators** (GPUs)
+- **On specialized accelerators** (GPUs or TPUs)
 
 ---
 
@@ -85,16 +63,8 @@ This is the model used in:
 - Multicore laptops and workstations  
 - *Single compute nodes* on a cluster  
 
-Programs use **threads** to execute in parallel (e.g., with OpenMP in C/C++/Fortran or multiprocessing in Python).
+Programs use **threads** to execute in parallel (e.g., with OpenMP in C/C++/Fortran or **multiprocessing in Python**).
 
-Example (OpenMP-style pseudocode):
-
-```c
-#pragma omp parallel for
-for (int i = 0; i < N; i++) {
-    a[i] = b[i] + c[i];
-}
-```
 Advantages:
 	•	Easy communication between threads (shared variables)
 	•	Low latency data access
@@ -103,8 +73,8 @@ Limitations:
 	•	Limited by the number of cores on one machine
 	•	Risk of race conditions if data access is not synchronized
 
-:::{exercise} Shared-Memory Example
-Try using Python’s multiprocessing module to parallelize a simple loop:
+Example:
+```python
 from multiprocessing import Pool
 
 def square(x):
@@ -114,6 +84,7 @@ if __name__ == "__main__":
     with Pool(4) as p:
         result = p.map(square, range(8))
     print(result)
+```
 
 How many CPU cores does your machine have? Try changing the number of workers.
 :::
@@ -158,7 +129,6 @@ Limitations:
 	•	Requires explicit communication (send/receive)
 	•	More complex programming model
   •	More latency, requires minimizing movement of data.
-
 
 
 ### Hybrid Architectures: CPU, GPU, and TPU
@@ -206,138 +176,7 @@ Originally developed by Google, TPUs are now used in both cloud and research HPC
 TPUs focus on **tensor computations** and achieve very high performance and energy efficiency for machine learning workloads.  
 They are less flexible than CPUs or GPUs but excel in neural network training and inference.
 
----
-
-#### Putting It All Together
-
-Modern HPC clusters combine these processor types to create **heterogeneous nodes**.  
-A single node may contain multiple CPUs and several GPUs or TPUs, interconnected through high-speed buses.
-
-| Processor Type | Main Role | Best Suited For |
-|-----------------|------------|-----------------|
-| **CPU** | General-purpose control, coordination, and I/O | Serial and logic-heavy tasks |
-| **GPU** | Massive parallel numerical computation | Data-parallel workloads and simulations |
-| **TPU** | Specialized tensor acceleration | Machine learning and AI workloads |
-
-This combination allows each processor type to handle the tasks for which it is best optimized, enabling both high performance and efficient energy use.
-
----
-
-#### Hybrid Programming Models
-
-To take full advantage of hybrid systems, programmers often combine multiple parallel models within one application:
-
-- **MPI + OpenMP:** Distributed memory between nodes and shared memory within each node.  
-- **MPI + CUDA or OpenACC:** Distributed communication across nodes, GPU acceleration within nodes.  
-- **MPI + XLA or TPU runtime:** MPI coordination with tensor operations handled on TPUs.
-
-This layered approach leverages:
-- **Distributed memory** across cluster nodes  
-- **Shared memory** and **accelerators** within each node  
-
-Such **hybrid parallelism** is now the dominant model in large-scale scientific and industrial computing.
-
----
-
-:::{keypoints}
-- Modern HPC systems combine CPUs, GPUs, and TPUs in hybrid architectures.  
-- CPUs handle coordination and control, while GPUs and TPUs execute highly parallel workloads.  
-- GPUs excel at general numerical parallelism; TPUs specialize in tensor operations for AI.  
-- Hybrid programming models (MPI with OpenMP, CUDA, or TPU backends) enable efficient use of all resources.
-:::
-
----
-
-### Hybrid Programming Models
-
-Modern HPC applications are rarely limited to a single parallel programming model.  
-Instead, they often combine multiple layers of parallelism to make the best use of available hardware — an approach known as **hybrid programming**.
-
-Hybrid programming allows developers to exploit **distributed memory parallelism** across nodes and **shared memory or accelerator parallelism** within nodes.  
-This enables applications to scale efficiently from a few cores to thousands of nodes on large supercomputers.
-
----
-
-#### MPI + OpenMP: Hybrid Parallelism on CPU Nodes
-
-When an HPC cluster consists of CPU-only nodes, a common hybrid model combines **MPI (Message Passing Interface)** and **OpenMP (Open Multi-Processing)**.
-
-- **MPI** handles communication between nodes in the cluster.  
-  Each MPI process runs on a separate node or subset of nodes and uses message passing to exchange data.  
-
-- **OpenMP** provides shared-memory parallelism within each node.  
-  Multiple threads inside a single MPI process can execute concurrently on the cores of that node.
-
-This structure creates a **two-level hierarchy** of parallelism:
-1. **Inter-node parallelism** — achieved through MPI (distributed memory).  
-2. **Intra-node parallelism** — achieved through OpenMP (shared memory).
-
-**Benefits of MPI + OpenMP hybridization:**
-- Reduces the total number of MPI processes, decreasing communication overhead.  
-- Exploits the full capacity of multi-core CPUs within each node.  
-- Balances scalability (via MPI) and efficiency (via OpenMP threads).  
-
-**Challenges:**
-- Requires careful balancing between MPI processes and OpenMP threads per node.  
-- Data locality and thread affinity must be managed to avoid performance loss.
-
-This model is widely used in simulation codes such as computational fluid dynamics, finite element methods, and electronic structure calculations.
-
----
-
-#### MPI + GPU: Hybrid Parallelism on Heterogeneous Nodes
-
-When HPC nodes include GPUs or other accelerators, the hybrid model extends naturally to **MPI + GPU programming**.  
-In this approach, **MPI** is still responsible for communication between nodes, while **GPU programming frameworks** (such as CUDA, HIP, or OpenACC) handle massive data-parallel computations within each node.
-
-The workflow typically looks like this:
-- Each node runs one or more MPI processes.  
-- Each MPI process controls one or more GPUs.  
-- Within a node, the heavy numerical work is offloaded from the CPU to the GPU.  
-
-This model provides three complementary layers of parallelism:
-1. **MPI level:** communication and coordination between nodes.  
-2. **Node level:** management and scheduling by the CPU host.  
-3. **Device level:** massive parallel computation executed by the GPU.  
-
-**Benefits of MPI + GPU hybridization:**
-- Enables scaling across thousands of GPUs distributed among cluster nodes.  
-- Delivers enormous speedups for highly parallel workloads (e.g., molecular dynamics, deep learning, weather modeling).  
-- Frees CPU resources for orchestration and non-parallel tasks.
-
-**Challenges:**
-- Requires explicit management of data transfer between CPU and GPU memory.  
-- Increased complexity in software development and debugging.  
-- Performance depends on matching problem size and data layout to GPU architecture.
-
-Hybrid MPI + GPU programming has become the dominant model for modern supercomputers, including those in the **Top500** list, as nearly all of them are now GPU-accelerated.
-
----
-
-#### Choosing the Right Hybrid Model
-
-The choice between MPI + OpenMP and MPI + GPU depends on:
-- **Hardware configuration:** CPU-only clusters vs. GPU-accelerated clusters.  
-- **Application characteristics:** memory usage, data dependencies, and computational intensity.  
-- **Scalability goals:** how far the problem needs to scale across nodes and cores.  
-
-| Hybrid Model | Hardware | Parallelism Within Node | Inter-node Parallelism | Typical Use |
-|---------------|-----------|--------------------------|------------------------|--------------|
-| **MPI + OpenMP** | Multi-core CPU nodes | Shared-memory (threads) | MPI processes | General-purpose scientific computing |
-| **MPI + GPU** | CPU + GPU nodes | GPU data parallelism | MPI processes | HPC with heavy numerical or ML workloads |
-
-Both models represent essential building blocks of high-performance computing, and many large-scale codes support both configurations for flexibility across systems.
-
----
-
-:::{keypoints}
-- Hybrid programming combines multiple parallel models to fully utilize modern hardware.  
-- **MPI + OpenMP** is the standard approach for CPU-only systems.  
-- **MPI + GPU** extends hybrid parallelism to heterogeneous CPU–GPU architectures.  
-- Choosing the right model depends on hardware, scalability, and the computational nature of the application.
-:::
-
-### Python in High-Performance Computing
+## Python in High-Performance Computing
 
 Python is one of the most widely used languages in scientific research due to its simplicity, readability, and rich ecosystem of numerical libraries.  
 While Python itself is interpreted and not as fast as compiled languages like C or Fortran, it has developed a strong foundation for **high-performance computing (HPC)** through specialized libraries and interfaces.
@@ -361,19 +200,26 @@ JAX is widely used in scientific machine learning, physics-informed models, and 
 
 ---
 
-#### PyTrAn: Python–Fortran Integration for Legacy HPC Codes
+#### Pythran: Static Compilation of Numerical Python Code
 
-**PyTrAn** (Python–Fortran Translator or Interface) is designed to connect Python with legacy Fortran routines, allowing developers to reuse existing HPC codebases efficiently.  
-Many scientific applications — such as weather modeling, quantum chemistry, and fluid dynamics — rely on decades of optimized Fortran code.
+**Pythran** is a Python-to-C++ compiler designed to speed up numerical Python code, especially code that uses **NumPy**.  
+It allows scientists to write high-level Python functions and then compile them into efficient native extensions that run close to C or Fortran performance.
 
-Through interfaces like **f2py** or PyTrAn, Python can:
-- Call high-performance Fortran routines directly  
-- Combine new Python modules with legacy HPC libraries  
-- Simplify workflows while maintaining computational efficiency  
+Unlike tools that interface with existing Fortran code, Pythran works by **analyzing and translating Python source code itself** into optimized C++ code under the hood.  
+This makes it especially useful for accelerating array-oriented computations without leaving Python syntax.
 
-This integration makes Python a flexible *glue language* in hybrid HPC applications.
+Key features:
+- Compiles numerical Python code (especially with NumPy) to efficient machine code  
+- Supports automatic parallelization via OpenMP  
+- Produces portable C++ extensions that can be imported directly into Python  
+- Requires only minimal code annotations to guide type inference  
 
----
+Typical use cases include:
+- Scientific simulations and numerical kernels  
+- Loops or array operations that are too slow in pure Python  
+- HPC applications that need native performance but prefer to stay within the Python ecosystem  
+
+Pythran complements other tools such as **Numba** and **Cython**, giving scientists a flexible pathway to accelerate Python code without rewriting it in C or Fortran.
 
 #### Numba: Just-In-Time Compilation for CPUs and GPUs
 
@@ -391,7 +237,7 @@ Numba is ideal for users who want to optimize existing Python scripts for parall
 
 #### CuPy: GPU-Accelerated Array Library
 
-**CuPy** provides a drop-in replacement for NumPy that runs on **NVIDIA GPUs**.  
+**CuPy** provides a drop-in replacement for NumPy that runs on **NVIDIA GPUs** and also **AMD GPUs**.  
 It mimics the NumPy API, allowing users to accelerate numerical code simply by changing the import statement, while taking full advantage of GPU parallelism.
 
 Highlights:
@@ -415,29 +261,3 @@ Capabilities:
 
 mpi4py bridges Python’s high-level usability with the scalability of traditional HPC systems, making it possible to prototype and deploy distributed applications quickly.
 
----
-
-#### Summary: Python’s Role in Modern HPC
-
-Python now plays an essential role in high-performance and scientific computing.  
-Thanks to tools such as JAX, PyTrAn, Numba, CuPy, and mpi4py, Python can serve as both a **high-level interface** for productivity and a **high-performance backend** through compilation and parallelization.
-
-| Library | Focus Area | Target Hardware | Key Strength |
-|----------|-------------|-----------------|---------------|
-| **JAX** | Automatic differentiation, numerical computing | CPU, GPU, TPU | JIT compilation and accelerator support |
-| **PyTrAn** | Interfacing Python with Fortran codes | CPU | Integration with legacy HPC software |
-| **Numba** | Just-in-time compilation | CPU, GPU | Native performance with minimal code changes |
-| **CuPy** | GPU-accelerated array computing | GPU | Drop-in NumPy replacement for GPUs |
-| **mpi4py** | Distributed parallel computing | CPU clusters | MPI-based scaling across nodes |
-
-These libraries make Python a truly viable language for HPC workflows — from prototyping to full-scale production on modern supercomputers.
-
----
-
-:::{keypoints}
-- Python’s modern ecosystem enables real HPC performance through JIT compilation and hardware acceleration.  
-- JAX, Numba, and CuPy provide acceleration on CPUs, GPUs, and TPUs.  
-- PyTrAn bridges Python with legacy Fortran codes used in scientific computing.  
-- mpi4py enables distributed-memory parallelism across clusters using MPI.  
-- Together, these tools make Python a powerful and accessible option for modern HPC.
-:::
