@@ -20,6 +20,8 @@ Intro
 :caption: The lesson
 :maxdepth: 1
 
+intohpc.md
+mpi4py.md
 episode.md
 ```
 
