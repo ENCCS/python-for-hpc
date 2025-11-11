@@ -21,4 +21,8 @@ dev = [
   "jupyterlab-myst>=2.4.2",
 ]
 # All dependencies used within Jupyter Notebooks
-notebook = []
+notebook = [
+    "cython>=3.2.0",
+    "numpy>=2.3.4",
+    "pandas>=2.3.3",
+]

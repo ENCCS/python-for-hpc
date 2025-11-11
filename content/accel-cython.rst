@@ -16,6 +16,33 @@ A full overview of Cython capabilities refers to the `documentation <https://cyt
        \int^{b}_{a}(x^2-x)dx
 
 
+Python: Baseline (step 0)
+^^^^^^^^^^^^^^^^^
+
+Python code is provided below:
+
+.. literalinclude:: example/integrate_python.py 
+
+We generate a dataframe and apply the :meth:`apply_integrate_f` function on its columns, timing the execution:
+
+.. code-block:: ipython
+
+   import pandas as pd
+
+   import pandas as pd
+
+   df = pd.DataFrame(
+       {
+           "a": np.random.randn(1000),
+           "b": np.random.randn(1000),
+           "N": np.random.randint(low=100, high=1000, size=1000)
+       }
+   )          
+
+   %timeit apply_integrate_f(df['a'], df['b'], df['N'])
+   # 100 ms ± 566 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+
+
 Cython: Benchmarking (step 1)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -28,7 +55,7 @@ In order to use Cython, we need to import the Cython extension:
 As a first cythonization step, we add the cython magic command (``%%cython -a``) on top of Jupyter code cell.
 We start by a simply compiling the Python code using Cython without any changes. The code is shown below:
 
-.. literalinclude:: example/cython/integrate_cython.py 
+.. literalinclude:: example/cython/integrate_cython_step1.py 
 
 The yellow coloring in the output shows us the amount of pure Python code:
 
@@ -36,12 +63,12 @@ The yellow coloring in the output shows us the amount of pure Python code:
 
 Our task is to remove as much yellow as possible by *static typing*, *i.e.* explicitly declaring arguments, parameters, variables and functions.
 
-We benchmark the Python code just using Cython, and it gives us about 10%-20% increase in performance. 
+We benchmark the Python code just using Cython, and it may give either similar or a slight increase in performance.
 
 .. code-block:: ipython
 
-   %timeit apply_integrate_f_cython(df['a'], df['b'], df['N'])
-   # 141 ms ± 3.07 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+   %timeit apply_integrate_f_cython_step1(df['a'], df['b'], df['N'])
+   # 98.7 ms ± 578 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
 Cython: Adding data type annotation to input variables (step 2)
@@ -49,16 +76,22 @@ Cython: Adding data type annotation to input variables (step 2)
 
 Now we can start adding data type annotation to the input variables as highlightbed in the code example/cython below:
 
-.. literalinclude:: example/cython/integrate_cython_dtype0.py 
-   :emphasize-lines: 6,9,16
+.. tabs::
+    .. group-tab:: Pure Python
+        .. literalinclude:: example/cython/integrate_cython_step2_purepy.py 
+           :emphasize-lines: 7,10,18-20
+
+    .. group-tab:: Cython
+        .. literalinclude:: example/cython/integrate_cython_step2.py 
+           :emphasize-lines: 6,9,17-19
 
 .. code-block:: ipython
 
    # this will not work
-   #%timeit apply_integrate_f_cython_dtype0(df['a'], df['b'], df['N'])
+   #%timeit apply_integrate_f_cython_step2(df['a'], df['b'], df['N'])
    
    # this command works (see the description below)
-   %timeit apply_integrate_f_cython_dtype0(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
+   %timeit apply_integrate_f_cython_step2(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
    # 64.1 ms ± 0.50 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 .. warning::
@@ -77,8 +110,8 @@ Now we can start adding data type annotation to the input variables as highlight
 
       NumPy dtype;  Cython type identifier; C type identifier
       import numpy as np; cimport numpy as cnp ;
-      np.bool\_;      N/A ;             N/A
-      np.int\_;       cnp.int_t;        long
+      np.bool\_;     N/A ;             N/A
+      np.int\_;      cnp.int_t;        long
       np.intc;       N/A ;             int       
       np.intp;       cnp.intp_t;       ssize_t
       np.int8;       cnp.int8_t;       signed char
@@ -89,10 +122,10 @@ Now we can start adding data type annotation to the input variables as highlight
       np.uint16;     cnp.uint16_t;     unsigned short
       np.uint32;     cnp.uint32_t;     unsigned int
       np.uint64;     cnp.uint64_t;     unsigned long
-      np.float\_;     cnp.float64_t;    double
+      np.float\_;    cnp.float64_t;    double
       np.float32;    cnp.float32_t;    float
       np.float64;    cnp.float64_t;    double
-      np.complex\_;   cnp.complex128_t; double complex
+      np.complex\_;  cnp.complex128_t; double complex
       np.complex64;  cnp.complex64_t;  float complex
       np.complex128; cnp.complex128_t; double complex
 
@@ -134,12 +167,18 @@ Next step, we further add type annotation to functions. There are three ways of 
    - Cython will generate a ``cdef`` function for C types and a ``def`` function for Python types.
    - In terms of performance, ``cpdef`` functions may be as fast as those using ``cdef`` and might be as slow as ``def`` declared functions.  
 
-.. literalinclude:: example/cython/integrate_cython_dtype1.py 
-   :emphasize-lines: 6,9,16
+.. tabs::
+    .. group-tab:: Pure Python
+        .. literalinclude:: example/cython/integrate_cython_step3_purepy.py 
+           :emphasize-lines: 7,11,20
+
+    .. group-tab:: Cython
+        .. literalinclude:: example/cython/integrate_cython_step3.py 
+           :emphasize-lines: 6,9,16
 
 .. code-block:: ipython
 
-   %timeit apply_integrate_f_cython_dtype1(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
+   %timeit apply_integrate_f_cython_step3(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
    # 54.9 ms ± 699 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
@@ -148,12 +187,19 @@ Cython: Adding data type annotation to local variables (step 4)
 
 Last step, we can add type annotation to local variables within functions and the output.
 
-.. literalinclude:: example/cython/integrate_cython_dtype2.py 
-   :emphasize-lines: 6,9,10,11,16,20,21
+.. tabs::
+    .. group-tab:: Pure Python
+        .. literalinclude:: example/cython/integrate_cython_step4_purepy.py 
+           :emphasize-lines: 12-14,29-31
+
+    .. group-tab:: Cython
+        .. literalinclude:: example/cython/integrate_cython_step4.py 
+           :emphasize-lines: 10,11,24,25
+
 
 .. code-block:: ipython
 
-   %timeit apply_integrate_f_cython_dtype2(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
+   %timeit apply_integrate_f_cython_step4(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
    # 13.8 ms ± 97.8 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 
 
