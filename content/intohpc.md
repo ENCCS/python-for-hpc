@@ -27,8 +27,8 @@ use clusters to perform large-scale computations.
 
 HPC systems, often called *supercomputers* or *clusters*, are made up of
 many computers (called **nodes**) connected by a fast network. Each node
-can have multiple **CPUs** (and sometimes **GPUs**) that run tasks in
-parallel.
+can have multiple cores which are **CPUs** (and sometimes **GPUs**) that 
+run tasks in parallel.
 
 ### Typical HPC Components
 
@@ -40,6 +40,98 @@ parallel.
 | **Storage** | Shared file system accessible to all nodes |
 
 ---
+## Single core performance optimization
+
+Pure-Python loops are slow because each iteration runs in the Python interpreter. NumPy pushes work into optimized native code (C/C++/BLAS), drastically reducing overhead. Below we compare a Python for loop with NumPy vectorized operations and discuss tips for fair, single-core measurements.
+
+:::{exercise} Practice making Python faster on a single CPU.
+Copy and paste this code 
+```python
+import os
+# (Optional safety if you run this inside Python, must be set BEFORE importing numpy)
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+os.environ.setdefault("MKL_NUM_THREADS", "1")
+os.environ.setdefault("NUMEXPR_NUM_THREADS", "1")
+
+import numpy as np
+from time import perf_counter
+
+def timeit(fn, *args, repeats=5, warmup=1, **kwargs):
+    # warmup
+    for _ in range(warmup):
+        fn(*args, **kwargs)
+    # timed runs
+    tmin = float("inf")
+    for _ in range(repeats):
+        t0 = perf_counter()
+        fn(*args, **kwargs)
+        dt = perf_counter() - t0
+        tmin = min(tmin, dt)
+    return tmin
+
+# Problem size
+N = 10_000_000  # 10 million elements
+
+# Test data (contiguous, fixed dtype)
+a = np.random.rand(N).astype(np.float64)
+b = np.random.rand(N).astype(np.float64)
+
+# --- 1) Pure-Python loop sum ---
+def py_sum(x):
+    s = 0.0
+    for v in x:         # per-element Python overhead
+        s += v
+    return s
+
+# --- 2) NumPy vectorized sum ---
+def np_sum(x):
+    return x.sum()      # dispatches to optimized C/BLAS
+
+# --- 3) Elementwise add then sum (Python loop) ---
+def py_add_sum(x, y):
+    s = 0.0
+    for i in range(len(x)):
+        s += x[i] + y[i]
+    return s
+
+# --- 4) Elementwise add then sum (NumPy, no temporaries) ---
+def np_add_sum_no_temp(x, y):
+    # np.add.reduce avoids allocating x+y temporary
+    return np.add.reduce([x, y])  # equivalent to sum stacks; see alt below
+
+# Alternative that’s typically fastest and clearer:
+def np_add_sum_fast(x, y):
+    return (x + y).sum()  # may allocate a temporary; fast on many BLAS builds
+
+# Time them
+print("Timing on single core (best of 5 runs):")
+t_py_sum   = timeit(py_sum, a)
+t_np_sum   = timeit(np_sum, a)
+t_py_add   = timeit(py_add_sum, a, b)
+t_np_add   = timeit(np_add_sum_fast, a, b)
+
+print(f"Python for-loop sum:          {t_py_sum:8.4f} s")
+print(f"NumPy vectorized sum:         {t_np_sum:8.4f} s")
+print(f"Python loop add+sum:          {t_py_add:8.4f} s")
+print(f"NumPy vectorized add+sum:     {t_np_add:8.4f} s")
+```
+Execute it and following let us verify the effect on the following modifications:
+1. Run the timing script with N = 1_000_000, 5_000_000, 20_000_000.
+2. Try float32 vs float64.
+3. Switch (a + b).sum() to np.add(a, b, out=a); a.sum() and compare.
+:::
+
+
+#### Practical tips for single-core speed
+- Prefer vectorization: Use array ops (+, *, .sum(), .dot(), np.mean, np.linalg.*) rather than per-element Python loops.
+- Control temporaries: Expressions like (a + b + c).sum() may create temporaries. When memory is tight, consider in-place ops (a += b) or reductions (np.add(a, b, out=a); np.add.reduce([...])).
+- Use the right dtype: float64 is standard for numerics; float32 halves memory traffic and can be faster on some CPUs/GPUs (but mind precision).
+- Preallocate: Avoid growing Python lists or repeatedly allocating arrays inside loops.
+- Minimize Python in hot paths: Move heavy math into NumPy calls; keep Python for orchestration only.
+- Benchmark correctly: Use large N, pin threads to 1 for fair single-core tests, and report the best of multiple runs after a warmup.
+
+--
 
 ## Parallel Computing
 
@@ -65,14 +157,17 @@ This is the model used in:
 
 Programs use **threads** to execute in parallel (e.g., with OpenMP in C/C++/Fortran or **multiprocessing in Python**).
 
+:::{keypoints} 
 Advantages:
-	•	Easy communication between threads (shared variables)
-	•	Low latency data access
+- Easy communication between threads (shared variables)
+- Low latency data access
 
 Limitations:
-	•	Limited by the number of cores on one machine
-	•	Risk of race conditions if data access is not synchronized
+- Limited by the number of cores on one machine
+- Risk of race conditions if data access is not synchronized
+::: 
 
+:::{exercise} Practice with threaded parallelism in Python
 Example:
 ```python
 from multiprocessing import Pool
@@ -85,8 +180,6 @@ if __name__ == "__main__":
         result = p.map(square, range(8))
     print(result)
 ```
-
-How many CPU cores does your machine have? Try changing the number of workers.
 :::
 
 ### Distributed-Memory Parallelism
@@ -99,7 +192,7 @@ This is the model used when a computation spans multiple nodes in an HPC cluster
 Programs written with MPI (Message Passing Interface) use explicit communication.
 Below is an example using the Python library `mpi4py` that implements MPI functions
 in Python 
-
+:::{exercise} Practice with a simple MPI program
 ```python
 # hello_mpi.py
 from mpi4py import MPI
@@ -118,18 +211,21 @@ print(f"Hello from process {rank} of {size}")
 # MPI is automatically finalized when the program exits,
 # but you can call MPI.Finalize() explicitly if you prefer
 ```
+:::
+
 For now, do not worry about understanding this code, we will see 
 `mpi4py` in detail later.
 
+:::{keypoints}
 Advantages:
-	•	Scales to thousands of nodes
-	•	Each process works independently, avoiding memory contention
+- Scales to thousands of nodes
+- Each process works independently, avoiding memory contention
 
 Limitations:
-	•	Requires explicit communication (send/receive)
-	•	More complex programming model
-  •	More latency, requires minimizing movement of data.
-
+- Requires explicit communication (send/receive)
+- More complex programming model
+- More latency, requires minimizing movement of data.
+:::
 
 ### Hybrid Architectures: CPU, GPU, and TPU
 
@@ -178,86 +274,125 @@ They are less flexible than CPUs or GPUs but excel in neural network training an
 
 ## Python in High-Performance Computing
 
-Python is one of the most widely used languages in scientific research due to its simplicity, readability, and rich ecosystem of numerical libraries.  
-While Python itself is interpreted and not as fast as compiled languages like C or Fortran, it has developed a strong foundation for **high-performance computing (HPC)** through specialized libraries and interfaces.
+Python has become one of the most widely used languages in scientific computing due to its simplicity, readability, and extensive ecosystem of numerical libraries.  
+Although Python itself is interpreted and slower than compiled languages such as C or Fortran, it now provides a mature set of tools that allow code to **run efficiently on modern HPC architectures**.
 
-These tools allow scientists and engineers to write code in Python while still achieving near-native performance on CPUs, GPUs, and distributed systems.
+These tools map directly to the three fundamental forms of parallelism introduced earlier:
 
----
+| HPC Parallelism Type | Hardware Context | Python Solutions |
+|----------------------|------------------|------------------|
+| **Shared-memory parallelism** | Multicore CPUs within a node | NumPy, Numba, Pythran |
+| **Distributed-memory parallelism** | Multiple nodes across a cluster | mpi4py |
+| **Accelerator parallelism** | GPUs and TPUs | CuPy, JAX, Numba (CUDA) |
 
-#### JAX: High-Performance Array Computing with Accelerators
-
-**JAX** is a library developed by Google for high-performance numerical computing and automatic differentiation.  
-It combines the familiar NumPy-like interface with **just-in-time (JIT)** compilation using **XLA (Accelerated Linear Algebra)**.  
-This allows Python functions to be compiled and executed efficiently on both **CPUs and GPUs**.
-
-Key features:
-- Transparent acceleration on GPUs and TPUs  
-- Automatic differentiation for machine learning and optimization  
-- Vectorization and parallel execution across devices  
-
-JAX is widely used in scientific machine learning, physics-informed models, and numerical optimization on large-scale clusters.
+In practice, these technologies allow Python programs to scale from a single core to thousands of nodes on hybrid CPU–GPU systems.
 
 ---
+
+### Shared-Memory Parallelism (Multicore CPUs)
+
+Shared-memory parallelism occurs within a single compute node, where all CPU cores access the same physical memory.  
+Python supports this level of performance primarily through **compiled numerical libraries** and **JIT (Just-In-Time) compilation**, which transform slow Python loops into efficient native machine code.
+
+#### NumPy: Foundation of Scientific Computing
+
+**NumPy** provides fast array operations implemented in C and Fortran.  
+Its vectorized operations and BLAS/LAPACK backends **automatically** exploit shared-memory parallelism through optimized linear algebra kernels.  
+Although users write Python, most computations occur in compiled native code.
 
 #### Pythran: Static Compilation of Numerical Python Code
 
-**Pythran** is a Python-to-C++ compiler designed to speed up numerical Python code, especially code that uses **NumPy**.  
-It allows scientists to write high-level Python functions and then compile them into efficient native extensions that run close to C or Fortran performance.
+**Pythran** compiles numerical Python code — particularly code using NumPy — into optimized C++ extensions.  
+It can automatically parallelize loops using **OpenMP**, enabling true multicore utilization without manual thread management.
 
-Unlike tools that interface with existing Fortran code, Pythran works by **analyzing and translating Python source code itself** into optimized C++ code under the hood.  
-This makes it especially useful for accelerating array-oriented computations without leaving Python syntax.
+Key strengths:
+- Converts array-oriented Python functions into C++ for near-native speed  
+- Supports automatic OpenMP parallelization for CPU cores  
+- Integrates easily into existing Python workflows  
 
-Key features:
-- Compiles numerical Python code (especially with NumPy) to efficient machine code  
-- Supports automatic parallelization via OpenMP  
-- Produces portable C++ extensions that can be imported directly into Python  
-- Requires only minimal code annotations to guide type inference  
+Pythran is well-suited for simulations or kernels that need to exploit multiple cores on a node.
 
-Typical use cases include:
-- Scientific simulations and numerical kernels  
-- Loops or array operations that are too slow in pure Python  
-- HPC applications that need native performance but prefer to stay within the Python ecosystem  
+#### Numba: JIT Compilation for Shared and Accelerator Architectures
 
-Pythran complements other tools such as **Numba** and **Cython**, giving scientists a flexible pathway to accelerate Python code without rewriting it in C or Fortran.
-
-#### Numba: Just-In-Time Compilation for CPUs and GPUs
-
-**Numba** is a Just-In-Time (JIT) compiler that translates numerical Python code into fast machine code at runtime using LLVM.  
-It requires minimal code changes and provides performance close to C or Fortran.
+**Numba** uses LLVM to JIT-compile Python functions into efficient machine code at runtime.  
+On multicore CPUs, Numba can parallelize loops using OpenMP-like constructs; on GPUs, it can emit CUDA kernels (see below).
 
 Main advantages:
-- Speeds up array-oriented computations on CPUs  
-- Enables parallel loops and multi-threading  
-- Supports GPU acceleration through CUDA targets  
+- Minimal syntax changes required  
+- Explicit parallel decorators for CPU threading  
+- Compatible with NumPy arrays and ufuncs  
 
-Numba is ideal for users who want to optimize existing Python scripts for parallel CPU or GPU execution without rewriting them in another language.
+Together, NumPy, Pythran, and Numba enable Python to fully exploit shared-memory parallelism.
 
 ---
 
-#### CuPy: GPU-Accelerated Array Library
+### Distributed-Memory Parallelism (Clusters and Supercomputers)
 
-**CuPy** provides a drop-in replacement for NumPy that runs on **NVIDIA GPUs** and also **AMD GPUs**.  
-It mimics the NumPy API, allowing users to accelerate numerical code simply by changing the import statement, while taking full advantage of GPU parallelism.
+At large scale, HPC systems use **distributed memory**, where each node has its own local memory and must communicate explicitly.  
+Python provides access to this level of parallelism through **mpi4py**, a direct interface to the standard MPI library.
+
+#### mpi4py: Scalable Distributed Computing with MPI
+
+**mpi4py** enables Python programs to exchange data between processes running on different nodes using MPI.  
+It provides both point-to-point and collective communication primitives, identical in concept to those used in C or Fortran MPI applications.
+
+Key features:
+- Works seamlessly with NumPy arrays (zero-copy data transfer)  
+- Supports all MPI operations (send, receive, broadcast, scatter, gather, reduce)  
+- Compatible with job schedulers such as SLURM or PBS  
+
+With `mpi4py`, Python can participate in large-scale distributed-memory simulations or data-parallel tasks across thousands of cores.
+
+---
+
+### Accelerator-Specific Parallelism (GPUs and TPUs)
+
+Modern HPC nodes increasingly include **GPUs** or **TPUs** to accelerate numerical workloads.  
+Python offers several mature libraries that interface directly with these accelerators, providing high-level syntax while executing low-level parallel kernels.
+
+#### CuPy: GPU-Accelerated NumPy Replacement
+
+**CuPy** mirrors the NumPy API but executes array operations on GPUs using CUDA (NVIDIA) or ROCm (AMD).  
+Users can port existing NumPy code to GPUs with minimal changes, gaining massive speedups for large, data-parallel computations.
 
 Highlights:
-- NumPy-compatible syntax for easy transition  
-- GPU-backed arrays and linear algebra operations  
-- Integration with deep learning and simulation workflows  
+- NumPy-compatible array and linear algebra operations  
+- Native support for multi-GPU and CUDA streams  
+- Tight integration with deep learning and simulation frameworks  
 
-CuPy is particularly useful for applications with large data arrays or intensive numerical workloads, such as molecular modeling, image processing, and machine learning.
+#### JAX: Unified Array Computing for CPUs, GPUs, and TPUs
+
+**JAX** combines automatic differentiation and XLA-based compilation to execute Python functions efficiently on CPUs, GPUs, and TPUs.  
+It is particularly well-suited for scientific machine learning and differentiable simulations.
+
+Key strengths:
+- Just-In-Time (JIT) compilation via XLA  
+- Transparent execution on accelerators (GPU, TPU)  
+- Built-in vectorization and automatic differentiation  
+
+JAX provides a single high-level API for heterogeneous HPC nodes, seamlessly handling hybrid CPU–GPU–TPU workflows.
 
 ---
 
-#### mpi4py: Parallel and Distributed Computing with MPI
+### Summary: Python Across HPC Architectures
 
-**mpi4py** provides Python bindings to the standard **Message Passing Interface (MPI)**, allowing distributed-memory parallelism across multiple processes or nodes.  
-It enables Python programs to run efficiently on supercomputers, leveraging the same communication model used in large-scale C or Fortran HPC applications.
+Python can now leverage **all layers of hybrid HPC architectures** through specialized libraries:
 
-Capabilities:
-- Point-to-point and collective communication  
-- Parallel I/O and reduction operations  
-- Compatibility with SLURM and other HPC schedulers  
+| Architecture | Parallelism Type | Typical Python Tools | Example Use Cases |
+|---------------|------------------|----------------------|-------------------|
+| **Multicore CPUs** | Shared memory | NumPy, Pythran, Numba | Numerical kernels, vectorized math |
+| **Clusters** | Distributed memory | mpi4py | Large-scale simulations, domain decomposition |
+| **GPUs / TPUs** | Accelerator parallelism | CuPy, JAX, Numba (CUDA) | Machine learning, dense linear algebra |
 
-mpi4py bridges Python’s high-level usability with the scalability of traditional HPC systems, making it possible to prototype and deploy distributed applications quickly.
+Together, these tools allow Python to serve as a *high-level orchestration language* that transparently scales from a single laptop core to full supercomputing environments — integrating shared-memory, distributed-memory, and accelerator-based parallelism in one ecosystem.
+
+---
+
+:::{keypoints}
+- Python’s ecosystem maps naturally onto hybrid HPC architectures.  
+- **NumPy, Numba, and Pythran** exploit shared-memory parallelism on multicore CPUs.  
+- **mpi4py** extends Python to distributed-memory clusters.  
+- **CuPy and JAX** enable acceleration on GPUs and TPUs.  
+- These libraries allow researchers to combine high productivity with near-native performance across all layers of HPC systems.
+:::
 

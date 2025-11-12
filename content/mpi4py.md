@@ -18,19 +18,83 @@
 
 ## What Is MPI?
 
-**MPI (Message Passing Interface)** is a standard for communication among processes that run on distributed-memory systems, such as HPC clusters.  
+**MPI (Message Passing Interface)** is a standardized programming model for communication among processes that run on **distributed-memory systems**, such as HPC clusters.
 
-When you run an MPI program, the system **creates multiple independent processes**, each running its *own copy* of the same program.  
-Each process is assigned a unique identifier called a **rank**, and all ranks together form a **communicator** (most commonly `MPI.COMM_WORLD`).
+In a distributed-memory system, each compute node (or process) has its **own local memory**.  
+Unlike shared-memory systems, where threads can directly read and write to a common address space, distributed processes **cannot directly access each other’s memory**.  
+To collaborate, they must explicitly **send and receive messages** containing the data they need to share.
 
-Key ideas:
-- Every process runs the same code, but can behave differently depending on its rank.  
-- Processes do not share memory, they communicate by **sending and receiving messages**.  
-- MPI provides a consistent way to exchange data across nodes and processors.
+### Independent Processes and the SPMD Model
 
-Conceptually, this is sometimes called the **SPMD (Single Program, Multiple Data)** model.
+When you run an MPI program, the system launches **multiple independent processes**, each running its **own copy** of the same program.  
+This design is fundamental: because each process owns its own memory space, it must contain its own copy of the code to execute its portion of the computation.
 
-In order to see how this works let us try this simple code snippet:
+Each process:
+- Runs the same code but operates on a different subset of the data.  
+- Is identified by a unique number called its **rank**.  
+- Belongs to a **communicator**, a group of processes that can exchange messages (most commonly `MPI.COMM_WORLD`).
+
+This model is known as **SPMD: Single Program, Multiple Data**:  
+a single source program runs simultaneously on many processes, each working on different data.
+
+### Why Copies of the Program Are Needed?
+
+Because processes in distributed memory do not share variables or memory addresses, each process must have:
+- Its **own copy of the executable code**, and  
+- Its **own private workspace (variables, arrays, etc.)**.
+
+This independence is crucial for scalability:
+- Each process can execute independently without memory contention.  
+- The program can scale to thousands of nodes, since no shared memory bottleneck exists.  
+- Data movement becomes explicit and controllable, ensuring predictable performance on large clusters.
+
+### Sharing Data Between Processes
+
+Although memory is not shared, processes can **cooperate** by exchanging information through **message passing**.  
+MPI defines two main communication mechanisms:
+
+1. **Point-to-point communication**: Data moves **directly** between two processes.  
+2. **Collective communication**: Data is exchanged among **all processes** in a communicator in a coordinated way.  
+
+:::{keypoints}
+- **Process:** Each MPI program runs as multiple independent processes, not threads.  
+- **Rank:** Every process has a unique identifier (its *rank*) within a communicator, used to distinguish and coordinate them.  
+- **Communication:** Processes exchange data explicitly through message passing, either **point-to-point** (between pairs) or **collective** (among groups).  
+
+Together, these three ideas form the foundation of MPI’s model for parallel computing.
+:::
+
+---
+
+## mpi4py
+
+`mpi4py` is the standard Python interface to the **Message Passing Interface (MPI)**, the same API used by C, C++, and Fortran codes for distributed-memory parallelism.  
+It allows Python programs to run on many processes, each with its own memory space, communicating through explicit messages.
+
+### Communicators and Initialization
+
+In MPI, all communication occurs through a **communicator**, an object that defines which processes can talk to each other.  
+When a program starts, each process automatically becomes part of a predefined communicator called **`MPI.COMM_WORLD`**.
+
+This object represents *all processes* that were launched together by `mpirun` or `srun`.
+
+A typical initialization pattern looks like this:
+
+```python
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD      # Initialize communicator
+size = comm.Get_size()     # Total number of processes
+rank = comm.Get_rank()     # Rank (ID) of this process
+
+print(f"I am rank {rank} of {size}")
+```
+Every process executes the same code, but rank and size allow them to behave differently.
+
+:::{exercise} Hello world MPI
+Copy and paste this code and execute it using `mpirun -n N mpi_hello.py` where `N` is the number of tasks. \
+**Note:** Do not put more tasks than the number of cores that your computer has.
+
 ```python
 # mpi_hello.py
 from mpi4py import MPI
@@ -45,8 +109,72 @@ size = comm.Get_size()
 rank = comm.Get_rank()
 
 # Print a message from each process
-print(f"Hello from process {rank} out of {size}")
+print(f"Hello world")
 ```
+This code snippet illustrates how independent processes run copies of the program. \
+To practice further try the following:
+1. Use the `rank` variable to print the square of `rank` in each rank.
+2. Make the program print only in rank 0, hint: `if rank == 0:`
+:::
+:::{solution}
+
+*Solution 1:* Print the square of each rank
+```python
+# mpi_hello_square.py
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank()
+
+# Each process prints its rank and the square of its rank
+print(f"Process {rank} of {size} has value {rank**2}")
+```
+*Solution 2:* Print only one process (rank 0)
+```python
+# mpi_hello_rank0.py
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD
+size = comm.Get_size()
+rank = comm.Get_rank()
+
+if rank == 0:
+    print(f"Hello world from the root process (rank {rank}) out of {size} total processes")
+```
+:::
+
+### Method Naming Convention
+
+In `mpi4py`, most MPI operations exist in **two versions**, a *lowercase* and an *uppercase* form, that differ in how they handle data.
+
+| Convention | Example | Description |
+|-------------|----------|-------------|
+| **Lowercase methods** | `send()`, `recv()`, `bcast()`, `gather()` | High-level, Pythonic methods that can send and receive arbitrary Python objects. Data is automatically serialized (pickled). Simpler to use but slower for large data. |
+| **Uppercase methods** | `Send()`, `Recv()`, `Bcast()`, `Gather()` | Low-level, performance-oriented methods that operate on **buffer-like objects** such as NumPy arrays. Data is transferred directly from memory without serialization, achieving near-C speed. |
+
+**Rule of thumb:**  
+Use *lowercase* methods for small control messages or Python objects,  
+and *uppercase* methods for numerical data stored in arrays when performance matters.
+
+#### Syntax differences
+**Lowercase (Python objects):**
+```python
+comm.send(obj, dest=1)
+data = comm.recv(source=0)
+```
+- The message (obj) can be any Python object.
+- MPI automatically serializes and deserializes it internally.
+- Fewer arguments: simple but less efficient for large data.
+
+**Uppercase (buffer-like objects, e.g., NumPy arrays):**
+```python
+comm.Send([array, MPI.DOUBLE], dest=1)
+comm.Recv([array, MPI.DOUBLE], source=0)
+```
+- Requires explicit definition of the data buffer and its MPI datatype. (same syntax as C++)
+- Works directly with the memory address of the array (no serialization).
+- Achieves maximum throughput for numerical and scientific workloads.
 
 ---
 
@@ -59,8 +187,10 @@ Each message involves:
 - A **tag** identifying the message type
 - A **data buffer** that holds the information being transmitted
 
+These operations are methods of the class `MPI.COMM_WORLD`. This means that one needs to initialize it
+
 Typical operations:
-- **Send:** one process transmits data.
+- **Send:** one process transmits data. 
 - **Receive:** another process waits for that data.
 
 In `mpi4py`, each of these operations maps directly to MPI’s underlying mechanisms but with a simple Python interface.  
@@ -70,8 +200,8 @@ Examples of conceptual use cases:
 - Distributing different chunks of data to multiple workers.
 - Passing boundary conditions between neighboring domains in a simulation.
 
-To illustrate this let us construct a minimal example:
-
+:::{exercise} Point-to-Point Communication
+Copy and paste the code below into a file called `mpi_send_recv.py`.
 ```python
 # mpi_send_recv.py
 from mpi4py import MPI
@@ -94,7 +224,85 @@ else:
     # Other ranks do nothing
     print(f"Process {rank} is idle")
 ```
+Run the program using:
+`mpirun -n 3 python mpi_send_recv.py`
+You should see output indicating that process 0 sent data and process 1 received it, while all others remained idle.
+Now try:
+1.	Change the roles:
+Make process 1 send a reply back to process 0 after receiving the message.
+Use `comm.send()` and `comm.recv()` in both directions.
+2.	Blocking communication:
+Notice that `comm.send()` and `comm.recv()` are blocking operations.
+- Add a short delay using `time.sleep(rank)` before sending or receiving.
+- Observe how process 0 must wait until process 1 calls `recv()` before it can continue, and vice versa.
+- Try swapping the order of the calls (e.g., both processes call `send()` first), what happens?
+- You may notice the program hangs or deadlocks, because both processes are waiting for a `recv()` that never starts.
+:::
 
+:::{solution}
+*Solution 1:* Change the roles (reply back):
+```python
+# mpi_send_recv_reply.py
+from mpi4py import MPI
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+
+if rank == 0:
+    data_out = "Hello from process 0"
+    comm.send(data_out, dest=1)
+    print(f"Process {rank} sent: {data_out}")
+
+    data_in = comm.recv(source=1)
+    print(f"Process {rank} received: {data_in}")
+
+elif rank == 1:
+    data_in = comm.recv(source=0)
+    print(f"Process {rank} received: {data_in}")
+
+    data_out = "Reply from process 1"
+    comm.send(data_out, dest=0)
+    print(f"Process {rank} sent: {data_out}")
+
+else:
+    print(f"Process {rank} is idle")
+```
+*Solution 2:* Blocking communication behavior:
+1.	Add a delay (e.g., time.sleep(rank)) before send/recv and observe that each blocking call waits for its partner. Example:
+```python
+# mpi_blocking_delay.py
+from mpi4py import MPI
+import time
+
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+
+time.sleep(rank)  # stagger arrival
+
+if rank == 0:
+    comm.send("msg", dest=1)
+    print("0 -> sent")
+    print("0 -> got:", comm.recv(source=1))
+
+elif rank == 1:
+    print("1 -> got:", comm.recv(source=0))
+    comm.send("ack", dest=0)
+    print("1 -> sent")
+```
+2.	Deadlock demonstration:
+```python
+# mpi_deadlock.py
+from mpi4py import MPI
+comm = MPI.COMM_WORLD
+rank = comm.Get_rank()
+
+if rank in (0, 1):
+    # Both ranks call send() first -> potential deadlock
+    comm.send(f"from {rank}", dest=1-rank)
+    # This recv may never be reached if partner is also stuck in send()
+    print("received:", comm.recv(source=1-rank))
+```
+:::
 ---
 
 ## Collective Communication
@@ -111,7 +319,9 @@ Common collectives include:
 Collectives are conceptually similar to group conversations, where every participant either contributes, receives, or both.  
 They are essential for algorithms that require sharing intermediate results or aggregating outputs.
 
-Example broadcast + gather
+:::{exercise} Collectives
+Let us run this code to see the collectives `bcast` and `gather` in action:
+
 ```python
 # mpi_collectives.py
 from mpi4py import MPI
@@ -142,27 +352,71 @@ if rank == 0:
     for msg in all_msgs:
         print(msg)
 ```
+Now try the following: 
+1. Change the root process: In the broadcast section, change the root process from `rank 0` to `rank 1`.
+2. How would be the same done with point to point communication?
+:::
+:::{solution}
+*Solution 1:* Change the root process:
+The root process is the one that handles the behaviour of the collectives. So we just need to change the root
+of the collective **broadcast**.
+```python
+# --- Broadcast example ---
+if rank == 1:
+    data = "Hello from process 1 (new root)"
+else:
+    data = None
 
+# Broadcast data from process 1 to all others
+data = comm.bcast(data, root=1)
+print(f"Process {rank} received: {data}")
+```
+*Solution 2:* Manual broadcasting the previous code:
+To reproduce a broadcast manually using only send() and recv(), one could write:
+```python
+# Manual broadcast using point-to-point
+if rank == 1:
+    data = "Hello from process 1 (manual broadcast)"
+    # Send to all other processes
+    for dest in range(size):
+        if dest != rank:
+            comm.send(data, dest=dest)
+else:
+    data = comm.recv(source=1)
+
+print(f"Process {rank} received: {data}")
+```
+:::
 ---
 
 ## Integration with NumPy: Buffer-Like Objects
 
-One of the strengths of `mpi4py` is its **tight integration with NumPy**.  
-MPI operations in `mpi4py` can directly send and receive **buffer-like objects**, such as NumPy arrays, without copying data back and forth between Python and C memory.
+A major strength of `mpi4py` is its **direct integration with NumPy arrays**.  
+MPI operations can send and receive **buffer-like objects**, such as NumPy arrays, without copying data between Python and C memory.
+
+:::{keypoints} Important
+Remember that **buffer-like objects** can be used with the **uppercase methods** for avoiding serialization and its time overhead.
+:::
+Because NumPy arrays expose their internal memory buffer, MPI can access this data directly.  
+This eliminates the need for serialization (no `pickle` step) and allows **near-native C performance** for communication and collective operations.
 
 Conceptually:
-- Each NumPy array exposes its underlying memory buffer.
-- MPI can access this memory region directly.
-- This avoids serialization overhead (no need for `pickle`) and achieves near-native C performance.
+- Each NumPy array acts as a **contiguous memory buffer**.  
+- MPI transfers data directly from this buffer to another process’s memory.  
+- This mechanism is ideal for large numerical datasets, enabling efficient data movement in parallel programs.
 
-This makes it possible to:
-- Efficiently distribute large numerical datasets across processes.  
-- Perform collective operations directly on arrays.  
-- Integrate `mpi4py` seamlessly into scientific Python workflows.
+This integration makes it possible to:
+- Distribute large datasets across processes using **collectives** like `Scatter` and `Gather`.  
+- Combine results efficiently with operations like `Reduce` or `Allreduce`.  
+- Seamlessly integrate parallelism into scientific Python workflows.
 
-For example, collective reductions like sums or means across large NumPy arrays are routine building blocks in parallel simulations and machine learning workloads.
+---
 
-Example with collectives:
+:::{exercise} Collective Operations on NumPy Arrays
+In this example, you will see how collective MPI operations distribute and combine large arrays across multiple processes using **buffer-based communication**.
+
+Save the following code as `mpi_numpy_collectives.py` and run it with multiple processes:
+
 ```python
 # mpi_numpy_collectives.py
 from mpi4py import MPI
@@ -189,74 +443,42 @@ local_array = np.empty(local_N, dtype="float64")
 
 # Scatter the big array from root to all processes
 comm.Scatter(
-    [big_array, MPI.DOUBLE],  # send buffer (only meaningful on root)
-    [local_array, MPI.DOUBLE],  # receive buffer on every rank
+    [big_array, MPI.DOUBLE],       # send buffer (only valid on root)
+    [local_array, MPI.DOUBLE],     # receive buffer on all processes
     root=0,
 )
 
 # Each process computes a local sum
 local_sum = np.sum(local_array)
 
-# Reduce all local sums to a global sum on root
+# Reduce all local sums to a global sum on the root process
 global_sum = comm.reduce(local_sum, op=MPI.SUM, root=0)
 
 if rank == 0:
     print(f"Global sum = {global_sum}")
     print(f"Expected   = {float(N)}")
 ```
-
-To really understand the power of collectives, we can have a look at the same code using p2p communication:
-```python
-# mpi_numpy_point_to_point.py
-from mpi4py import MPI
-import numpy as np
-
-comm = MPI.COMM_WORLD
-rank = comm.Get_rank()
-size = comm.Get_size()
-
-# Total number of elements in the big array (must be divisible by size)
-N = 10_000_000
-local_N = N // size
-
-if rank == 0:
-    # Root creates the full big array
-    big_array = np.ones(N, dtype="float64")  # all ones for simplicity
-
-    # --- Send chunks to other ranks ---
-    for dest in range(1, size):
-        start = dest * local_N
-        end = (dest + 1) * local_N
-        chunk = big_array[start:end]
-        comm.Send([chunk, MPI.DOUBLE], dest=dest, tag=0)
-
-    # Root keeps its own chunk (rank 0)
-    local_array = big_array[0:local_N]
-
-else:
-    # Other ranks allocate a buffer and receive their chunk
-    local_array = np.empty(local_N, dtype="float64")
-    comm.Recv([local_array, MPI.DOUBLE], source=0, tag=0)
-
-# Each process computes its local sum
-local_sum = np.sum(local_array)
-
-if rank == 0:
-    # Root starts with its own local sum
-    global_sum = local_sum
-
-    # --- Receive partial sums from all other ranks ---
-    for source in range(1, size):
-        recv_sum = comm.recv(source=source, tag=1)
-        global_sum += recv_sum
-
-    print(f"Global sum (point-to-point) = {global_sum}")
-    print(f"Expected                    = {float(N)}")
-
-else:
-    # Other ranks send their local sum back to root
-    comm.send(local_sum, dest=0, tag=1)
+Run the program using
+```bash
+mpirun -n 4 python mpi_numpy_collectives.py
 ```
+Questions:
+1.	Which MPI calls distribute and collect data in this program?
+2.	Why is it necessary to preallocate local_array on every process?
+3.	What would happen if you used lowercase methods (scatter, reduce) instead of Scatter, Reduce?
+:::
+:::{solution}
+
+*Solution 1:* The MPI calls that distribute and collect data in this program are comm.Scatter() and comm.reduce().
+Scatter divides the large NumPy array on the root process and sends chunks to all ranks, while Reduce collects the locally computed results and combines them (using MPI.SUM) into a single global result on the root process.
+
+*Solution 2:* It is necessary to preallocate local_array on every process because the uppercase MPI methods (Scatter, Gather, Reduce, etc.) work directly with memory buffers.
+Each process must provide a fixed, correctly sized buffer so that MPI can write received data directly into it without additional memory allocation or copying.
+
+*Solution 3:* If lowercase methods (scatter, reduce) were used instead, MPI would serialize and deserialize the Python objects being communicated (using pickle).
+This would make the program simpler but significantly slower for large numerical arrays, since it adds extra copying and memory overhead.
+Using the uppercase buffer-based methods avoids this cost and achieves near-native C performance.
+:::
 ---
 
 ## Summary
