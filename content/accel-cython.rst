@@ -200,8 +200,8 @@ Next step, we further add type annotation to functions. There are three ways of 
 
 .. code-block:: ipython
 
-%timeit apply_integrate_f_cython_step3(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
-# 54.9 ms ± 699 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+   %timeit apply_integrate_f_cython_step3(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
+   # 54.9 ms ± 699 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
 Cython: Adding data type annotation to local variables (step 4)
@@ -218,13 +218,10 @@ Last step, we can add type annotation to local variables within functions and th
      .. literalinclude:: example/cython/integrate_cython_step4.py 
         :emphasize-lines: 6,9,16
 
-.. literalinclude:: example/cython/integrate_cython_step4.py 
-:emphasize-lines: 6,9,10,11,16,20,21
-
 .. code-block:: ipython
 
-%timeit apply_integrate_f_cython_step4(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
-# 13.8 ms ± 97.8 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+   %timeit apply_integrate_f_cython_step4(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
+   # 13.8 ms ± 97.8 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 
 
 Now it is ~ 10 times faster than the original Python implementation, and all we have done is to add type declarations on the Python code!
@@ -244,8 +241,8 @@ during installation of a Python package. To learn more about how to package such
 Other useful features
 ^^^^^^^^^^^^^^^^^^^^^
 
-There are some useful (and possibly advanced) :cython:ref:`magic attributes <magic_attributes>`
-which are not covered in this episode such as 
+There are some useful (and possibly advanced) features which are not covered in this episode. Some of
+these features are called :cython:ref:`magic attributes <magic_attributes>`. Here are a few:
 
 - ``cython.cimports`` package for importing and calling C libraries such as :cython:ref:`libc.math`.
 
@@ -281,3 +278,76 @@ which are not covered in this episode such as
   See :cython:ref:`numpy_tutorial`.
 
 - ``@cython.cclass`` to declare :cython:ref:`extension-types` which behave similar to Python classes.
+
+In addition to the above Cython can also,
+
+- :cython:ref:`augment with .pxd files <augmenting_pxd>` where the Python code is kept as it is and the ``.pxd`` file
+  describes the type annotation. In this form ``.pxd`` is very similar in function to a C/C++ header file
+  or ``.pyi`` Python type annnotation file,
+
+- create parallel code using :cython:ref:`parallel-block` and ``prange`` iterator for element-wise parallel operation or reductions
+  based on OpenMP threads (see :cython:ref:`parallel-tutorial`).
+
+
+.. demo::
+   
+   Here is a code which showcases most of the features above, except the ``@cython.cclass`` feature and the use of ``.pxd`` files.
+
+   .. tabs::
+       .. group-tab:: Pure Python
+          .. code-block:: python
+             :emphasize-lines: 2-3,5-6,12-13
+
+             import cython
+             from cython.parallel import parallel, prange
+             from cython.cimports.libc.math import sqrt
+
+             @cython.boundscheck(False)
+             @cython.wraparound(False)
+             def normalize(x: cython.double[:]):
+                """Normalize a 1D array by dividing all its elements using its root-mean-square (RMS) value."""
+                i: cython.Py_ssize_t
+                total: cython.double = 0
+                norm: cython.double
+                with cython.nogil, parallel():
+                   for i in prange(x.shape[0]):
+                         total += x[i]*x[i]
+                   norm = sqrt(total)
+                   for i in prange(x.shape[0]):
+                         x[i] /= norm
+
+       .. group-tab:: Cython
+          .. code-block:: cython
+             :emphasize-lines: 2-3,5-6,12-13
+
+             cimport cython
+             from cython.parallel cimport parallel, prange
+             from libc.math cimport sqrt
+
+             @cython.boundscheck(False)
+             @cython.wraparound(False)
+             def normalize(double[:] x):
+                 """Normalize a 1D array by dividing all its elements using its root-mean-square (RMS) value."""
+                 cdef Py_ssize_t i
+                 cdef double total = 0
+                 cdef double norm
+                 with nogil, parallel():
+                     for i in prange(x.shape[0]):
+                         total += x[i]*x[i]
+                     norm = sqrt(total)
+                     for i in prange(x.shape[0]):
+                         x[i] /= norm
+
+       .. group-tab:: Numpy
+          .. code-block:: python
+
+             def normalize_numpy(x):
+                 total = np.dot(x, x)
+                 norm = total ** 0.5
+
+                 x[:] /= norm
+
+   .. note::
+
+      If you compare performance of the the Cython code versus the Numpy code, you will observe that it is either on-par, or slightly worse than Numpy.
+      This is because Numpy vectorized operations also makes use of OpenMP parallelism and is heavily optimized.
