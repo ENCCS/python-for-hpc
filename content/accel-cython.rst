@@ -22,7 +22,7 @@ A full overview of Cython capabilities refers to the `documentation <https://cyt
 
 .. important::
 
-   Due to a `known issue`_ with ``%%cython`` in ``jupyter-lab`` we have to use the ``jupyter-nbclassic`` interface
+   Due to a `known issue`_ with ``%%cython -a`` in ``jupyter-lab`` we have to use the ``jupyter-nbclassic`` interface
    for this episode.
 
 .. _known issue: https://github.com/cython/cython/issues/7319
@@ -35,7 +35,17 @@ Python: Baseline (step 0)
    Consider a problem to integrate a function:
 
    .. math:: 
-       \int^{b}_{a}(x^2-x)dx
+       I = \int^{b}_{a}(x^2 - x)dx
+
+   which can be numerically approximated as the following sum:
+
+   .. math::
+      I \approx \delta x \sum_{i=0}^{N-1} (x_i^2 - x_i)
+   
+   where :math:`a \le x_i \lt b`, and all :math:`x_i` are uniformly spaced apart by :math:`\delta x = (b - a) / N`.
+
+   **Objective**: Repeatedly compute the approximate integral for 1000 different combinations of 
+   :math:`a`, :math:`b` and :math:`N`.
 
 
 Python code is provided below:
@@ -48,8 +58,6 @@ We generate a dataframe and apply the :meth:`apply_integrate_f` function on its 
 
    import pandas as pd
 
-   import pandas as pd
-
    df = pd.DataFrame(
        {
            "a": np.random.randn(1000),
@@ -59,7 +67,7 @@ We generate a dataframe and apply the :meth:`apply_integrate_f` function on its 
    )          
 
    %timeit apply_integrate_f(df['a'], df['b'], df['N'])
-   # 100 ms ± 566 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+   # 108 ms ± 5.93 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
 Cython: Benchmarking (step 1)
@@ -76,9 +84,14 @@ We start by a simply compiling the Python code using Cython without any changes.
 
 .. literalinclude:: example/cython/integrate_cython_step1.py 
 
-The yellow coloring in the output shows us the amount of pure Python code:
 
 .. figure:: img/cython_annotate.png
+   :width: 80%
+   :align: left
+   :alt: The Cython code above is displayed where various lines of the code are highlighted with yellow background colour of varying intensity.
+
+   Annotated Cython code obtained by running the code above.
+   The yellow coloring in the output shows us the amount of pure Python code.
 
 Our task is to remove as much yellow as possible by *static typing*, *i.e.* explicitly declaring arguments, parameters, variables and functions.
 
