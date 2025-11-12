@@ -67,7 +67,7 @@ We generate a dataframe and apply the :meth:`apply_integrate_f` function on its 
    )          
 
    %timeit apply_integrate_f(df['a'], df['b'], df['N'])
-   # 108 ms ± 5.93 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+   # 101 ms ± 736 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
 Cython: Benchmarking (step 1)
@@ -100,7 +100,7 @@ We benchmark the Python code just using Cython, and it may give either similar o
 .. code-block:: ipython
 
    %timeit apply_integrate_f_cython_step1(df['a'], df['b'], df['N'])
-   # 98.7 ms ± 578 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+   # 102 ms ± 2.06 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
 Cython: Adding data type annotation to input variables (step 2)
@@ -124,7 +124,7 @@ Now we can start adding data type annotation to the input variables as highlight
    
    # this command works (see the description below)
    %timeit apply_integrate_f_cython_step2(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
-   # 64.1 ms ± 0.50 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+   # 34.3 ms ± 537 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 .. warning::
 
@@ -201,7 +201,7 @@ Next step, we further add type annotation to functions. There are three ways of 
 .. code-block:: ipython
 
    %timeit apply_integrate_f_cython_step3(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
-   # 54.9 ms ± 699 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+   # 29.2 ms ± 152 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
 Cython: Adding data type annotation to local variables and return (step 4)
@@ -221,22 +221,16 @@ Last step, we can add type annotation to local variables within functions and th
 .. code-block:: ipython
 
    %timeit apply_integrate_f_cython_step4(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
-   # 13.8 ms ± 97.8 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+   # 471 μs ± 7.38 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
 
 
-Now it is ~ 10 times faster than the original Python implementation, and all we have done is to add type declarations on the Python code!
-We indeed see much less Python interaction in the code from step 1 to step 4.
+Now it is ~200 times faster than the baseline Python implementation, and all we have done is to add type declarations on the Python code!
 
 .. figure:: img/cython_annotate_2.png
-
-.. seealso::
-
-In order to make Cython code reusable often some packaging is necessary. The compilation to binary extension can either happen during the packaging itself, or
-during installation of a Python package. To learn more about how to package such extensions, read the following guides:
-
-- *pyOpenSci Python packaging guide*'s page on `build tools <https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html>`__
-- *Python packaging user guide*'s page on `packaging binary extensions <https://packaging.python.org/en/latest/guides/packaging-binary-extensions/>`__
-
+   :width: 80%
+   :align: left
+   
+   We indeed see much less Python interaction in the code from step 1 to step 4.
 
 Other useful features
 ^^^^^^^^^^^^^^^^^^^^^
@@ -366,3 +360,21 @@ In addition to the above Cython can also,
       If you compare performance of the the Cython code versus the Numpy code, you might observe that it is either on-par, or slightly worse than Numpy.
       This is because Numpy vectorized operations also makes use of OpenMP parallelism and is heavily optimized. Nevertheless, it is orders of magnitude
       better than a naive implementation.
+
+Conclusions
+^^^^^^^^^^^
+
+.. keypoints::
+
+   - Cython is a versatile, general purpose compiler for Python code
+   - Cython is a great way to write high-performance code in Python where algorithms are not available in scientific libraries like Numpy and Scipy and
+     require custom implementation
+
+.. seealso::
+
+   In order to make Cython code reusable often some packaging is necessary. The compilation to binary extension can either happen during the packaging itself, or
+   during installation of a Python package. To learn more about how to package such extensions, read the following guides:
+
+   - *pyOpenSci Python packaging guide*'s page on `build tools <https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html>`__
+   - *Python packaging user guide*'s page on `packaging binary extensions <https://packaging.python.org/en/latest/guides/packaging-binary-extensions/>`__
+
