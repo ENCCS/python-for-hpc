@@ -8,7 +8,11 @@ def f_cython_step4(x: cython.double) -> cython.double:
     return x ** 2 - x
 
 @cython.cfunc
-def integrate_f_cython_step4(a: cython.double, b: cython.double, N: cython.long):   
+def integrate_f_cython_step4(
+    a: cython.double,
+    b: cython.double,
+    N: cython.long
+) -> cython.double:   
     s: cython.double
     dx: cython.double
     i: cython.long
@@ -25,7 +29,7 @@ def apply_integrate_f_cython_step4(
     col_a: cython.double[:],
     col_b: cython.double[:],
     col_N: cython.long[:]
-):
+) -> cython.double[:]:
     n: cython.int
     i: cython.int
     res: cython.double[:]

@@ -204,19 +204,19 @@ Next step, we further add type annotation to functions. There are three ways of 
    # 54.9 ms ± 699 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
-Cython: Adding data type annotation to local variables (step 4)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Cython: Adding data type annotation to local variables and return (step 4)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Last step, we can add type annotation to local variables within functions and the output.
+Last step, we can add type annotation to local variables within functions and the return value.
 
 .. tabs::
  .. group-tab:: Pure Python
      .. literalinclude:: example/cython/integrate_cython_step4_purepy.py 
-        :emphasize-lines: 7,10,18-20
+        :emphasize-lines: 7,15-18,32-35
 
  .. group-tab:: Cython
      .. literalinclude:: example/cython/integrate_cython_step4.py 
-        :emphasize-lines: 6,9,16
+        :emphasize-lines: 6,9-11,19,24-25
 
 .. code-block:: ipython
 
@@ -347,7 +347,22 @@ In addition to the above Cython can also,
 
                  x[:] /= norm
 
+       .. group-tab:: Naive Python implementation
+          .. code-block:: python
+
+             from math import sqrt
+
+             def normalize_naive(x):
+                 total = 0
+                 for i in range(x.shape[0]):
+                     total += x[i] * x[i]
+
+                 norm = sqrt(total)
+                 for i in range(x.shape[0]):
+                     x[i] /= norm
+
    .. note::
 
-      If you compare performance of the the Cython code versus the Numpy code, you will observe that it is either on-par, or slightly worse than Numpy.
-      This is because Numpy vectorized operations also makes use of OpenMP parallelism and is heavily optimized.
+      If you compare performance of the the Cython code versus the Numpy code, you might observe that it is either on-par, or slightly worse than Numpy.
+      This is because Numpy vectorized operations also makes use of OpenMP parallelism and is heavily optimized. Nevertheless, it is orders of magnitude
+      better than a naive implementation.
