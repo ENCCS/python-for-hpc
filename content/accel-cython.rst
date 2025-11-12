@@ -2,11 +2,33 @@ Cython
 ------
 
 Cython is a superset of Python that additionally supports calling C functions and  declaring C types on variables and class attributes.
+It is also a versatile, general purpose compiler.
+Since it is supports a superset of Python syntax, nearly all Python code, including 3rd party Python packages are also valid Cython code.
 Under Cython, source code gets translated into optimized C/C++ code and compiled as Python extension modules. 
 
-Developers can run the ``cython`` command-line utility to produce a ``.c`` file from a ``.py`` file which needs to be compiled with a C compiler to an ``.so`` library which can then be directly imported in a Python program.
-There is, however, also an easy way to use Cython directly from Jupyter notebooks through the ``%%cython`` magic command. Herein, we restrict the discussion to the Jupyter-way.
+Developers can either:
+
+- prototype and develop Python code in IPython/Jupyter using the ``%%cython`` magic command (**easy**), or
+- run the ``cython`` command-line utility to produce a ``.c`` file from a ``.py`` or ``.pyx`` file,
+  which in turn needs to be compiled with a C compiler to an ``.so`` library, which can then be directly imported in a Python program (**intermediate**), or
+- use setuptools_ or meson_ with meson-python_ to automate the aforementioned build process (**advanced**).
+
+.. _setuptools: https://setuptools.pypa.io/en/latest/userguide/ext_modules.html
+.. _meson: https://mesonbuild.com/Cython.html
+.. _meson-python: https://mesonbuild.com/meson-python/index.html
+
+Herein, we restrict the discussion to the Jupyter-way of using the ``%%cython`` magic.
 A full overview of Cython capabilities refers to the `documentation <https://cython.readthedocs.io/en/latest/>`_.
+
+.. important::
+
+   Due to a `known issue`_ with ``%%cython`` in ``jupyter-lab`` we have to use the ``jupyter-nbclassic`` interface
+   for this episode.
+
+.. _known issue: https://github.com/cython/cython/issues/7319
+
+Python: Baseline (step 0)
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. demo:: Demo: Cython
 
@@ -15,9 +37,6 @@ A full overview of Cython capabilities refers to the `documentation <https://cyt
    .. math:: 
        \int^{b}_{a}(x^2-x)dx
 
-
-Python: Baseline (step 0)
-^^^^^^^^^^^^^^^^^
 
 Python code is provided below:
 
@@ -190,12 +209,14 @@ Last step, we can add type annotation to local variables within functions and th
 .. tabs::
     .. group-tab:: Pure Python
         .. literalinclude:: example/cython/integrate_cython_step4_purepy.py 
-           :emphasize-lines: 12-14,29-31
+           :emphasize-lines: 7,10,18-20
 
     .. group-tab:: Cython
         .. literalinclude:: example/cython/integrate_cython_step4.py 
-           :emphasize-lines: 10,11,24,25
+           :emphasize-lines: 6,9,16
 
+.. literalinclude:: example/cython/integrate_cython_step4.py 
+   :emphasize-lines: 6,9,10,11,16,20,21
 
 .. code-block:: ipython
 
@@ -207,3 +228,11 @@ Now it is ~ 10 times faster than the original Python implementation, and all we 
 We indeed see much less Python interaction in the code from step 1 to step 4.
 
 .. figure:: img/cython_annotate_2.png
+
+.. seealso::
+
+   In order to make Cython code reusable often some packaging is necessary. The compilation to binary extension can either happen during the packaging itself, or
+   during installation of a Python package. To learn more about how to package such extensions, read the following guides:
+
+   - *pyOpenSci Python packaging guide*'s page on `build tools <https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html>`__
+   - *Python packaging user guide*'s page on `packaging binary extensions <https://packaging.python.org/en/latest/guides/packaging-binary-extensions/>`__
