@@ -1,4 +1,4 @@
-%%cython
+%%cython -a
 
 import cython
 import numpy as np
@@ -7,7 +7,7 @@ import numpy as np
 def f_cython_step4(x: cython.double) -> cython.double:
     return x ** 2 - x
 
-@cython.ccall
+@cython.cfunc
 def integrate_f_cython_step4(a: cython.double, b: cython.double, N: cython.long):   
     s: cython.double
     dx: cython.double

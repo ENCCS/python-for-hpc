@@ -1,4 +1,4 @@
-%%cython
+%%cython -a
 
 cimport cython
 cimport numpy as np

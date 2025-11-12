@@ -134,45 +134,35 @@ Now we can start adding data type annotation to the input variables as highlight
 .. note:: 
 
    Cython uses the normal C syntax for types and provides all standard ones, including pointers.
-   Here is a list of a few example/cythons:
+   Here is a list of some primitive C data types (refer to Cython's documentation on :cython:ref:`types`):
 
    .. csv-table:: 
       :widths: auto
       :delim: ;
 
-      NumPy dtype;  Cython type identifier; C type identifier
-      import numpy as np; cimport numpy as cnp ;
-      np.bool\_;     N/A ;             N/A
-      np.int\_;      cnp.int_t;        long
-      np.intc;       N/A ;             int       
-      np.intp;       cnp.intp_t;       ssize_t
-      np.int8;       cnp.int8_t;       signed char
-      np.int16;      cnp.int16_t;      signed short
-      np.int32;      cnp.int32_t;      signed int
-      np.int64;      cnp.int64_t;      signed long long
-      np.uint8;      cnp.uint8_t;      unsigned char
-      np.uint16;     cnp.uint16_t;     unsigned short
-      np.uint32;     cnp.uint32_t;     unsigned int
-      np.uint64;     cnp.uint64_t;     unsigned long
-      np.float\_;    cnp.float64_t;    double
-      np.float32;    cnp.float32_t;    float
-      np.float64;    cnp.float64_t;    double
-      np.complex\_;  cnp.complex128_t; double complex
-      np.complex64;  cnp.complex64_t;  float complex
-      np.complex128; cnp.complex128_t; double complex
+      Cython type identifier; Pure Python dtype;  
+      ``char``;               ``cython.char``
+      ``int``;                ``cython.int``
+      ``unsigned int``;       ``cython.uint``
+      ``long``;               ``cython.long``
+      ``float``;              ``cython.float``
+      ``double``;             ``cython.double``     
+      ``double complex``;     ``cython.doublecomplex``
+      ``size_t``;             ``cython.size_t``
 
-.. note::
+   Using these data types, we can also annotate arrays (see :cython:ref:`memoryviews`):
 
-   Differences between ``import`` (for Python) and ``cimport`` (for Cython) statements
+   - 1D ``np.float64`` array would be equivalent to ``cython.double[:]``,
+   - 2D ``np.float64`` array would be equivalent to ``cython.double[:, :]`` and so on...
 
-   - ``import`` gives access to Python libraries, functions or attributes
-   - ``cimport`` gives access to C libraries, functions or attributes 
-   - it is common to use the following, and Cython will internally handle this ambiguity
+.. important::
 
-   .. code-block:: ipython
+   to quote the :cython:ref:`Cython documentation <language-basics>`,
 
-      import numpy as np  # access to NumPy Python functions
-      cimport numpy as np # access to NumPy C API
+      **Typing is not a necessity**
+
+      Providing static typing to parameters and variables is convenience to speed up your code, but it is not a necessity. Optimize where and when needed. In fact, 
+      typing can slow down your code in the case where the typing does not allow optimizations but where Cython still needs to check that the type of some object matches the declared type.
 
 
 Cython: Adding data type annotation to functions (step 3)
@@ -182,36 +172,36 @@ Next step, we further add type annotation to functions. There are three ways of 
 
 - ``def`` - Python style:
 
-   - Called by Python or Cython code, and both input/output are Python objects.
-   - Declaring argument types and local types (thus return values) can allow Cython to generate optimized code which speeds up the execution.
-   - Once types are declared, a ``TypeError`` will be raised if the function is passed with the wrong types.
+  - Called by Python or Cython code, and both input/output are Python objects.
+  - Declaring argument types and local types (thus return values) can allow Cython to generate optimized code which speeds up the execution.
+  - Once types are declared, a ``TypeError`` will be raised if the function is passed with the wrong types.
 
-- ``cdef`` - C style:
+- ``@cython.cfunc`` or ``cdef`` - C style:
 
-   - Called from Cython and C, but not from Python code.
-   - Cython treats functions as pure C functions, which can take any type of arguments, including non-Python types, `e.g.`, pointers.
-   - This usually gives the best performance. 
-   - However, one should really take care of the functions declared by ``cdef`` as these functions are actually writing in C.
+  - :cython:ref:`cdef <cdef>` functions are called from Cython and C, but not from Python code.
+  - Cython treats functions as pure C functions, which can take any type of arguments, including non-Python types, `e.g.`, pointers.
+  - This usually gives the *best performance*.
+  - However, one should really take care of the functions declared by ``cdef`` as these functions are actually writing in C.
 
-- ``cpdef`` - C/Python mixed style:
+- ``@cython.ccall`` or ``cpdef`` - C/Python mixed style:
 
-   - ``cpdef`` function combines both ``cdef`` and ``def``.
-   - Cython will generate a ``cdef`` function for C types and a ``def`` function for Python types.
-   - In terms of performance, ``cpdef`` functions may be as fast as those using ``cdef`` and might be as slow as ``def`` declared functions.  
+  - :cython:ref:`cpdef <cpdef>` function combines both ``cdef`` and ``def``.
+  - Cython will generate a ``cdef`` function for C types and a ``def`` function for Python types.
+  - In terms of performance, ``cpdef`` functions may be *as fast as* those using ``cdef`` and might be as slow as ``def`` declared functions.  
 
 .. tabs::
-    .. group-tab:: Pure Python
-        .. literalinclude:: example/cython/integrate_cython_step3_purepy.py 
-           :emphasize-lines: 7,11,20
+ .. group-tab:: Pure Python
+     .. literalinclude:: example/cython/integrate_cython_step3_purepy.py 
+        :emphasize-lines: 7,11,20
 
-    .. group-tab:: Cython
-        .. literalinclude:: example/cython/integrate_cython_step3.py 
-           :emphasize-lines: 6,9,16
+ .. group-tab:: Cython
+     .. literalinclude:: example/cython/integrate_cython_step3.py 
+        :emphasize-lines: 6,9,16
 
 .. code-block:: ipython
 
-   %timeit apply_integrate_f_cython_step3(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
-   # 54.9 ms ± 699 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+%timeit apply_integrate_f_cython_step3(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
+# 54.9 ms ± 699 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 
 
 Cython: Adding data type annotation to local variables (step 4)
@@ -220,21 +210,21 @@ Cython: Adding data type annotation to local variables (step 4)
 Last step, we can add type annotation to local variables within functions and the output.
 
 .. tabs::
-    .. group-tab:: Pure Python
-        .. literalinclude:: example/cython/integrate_cython_step4_purepy.py 
-           :emphasize-lines: 7,10,18-20
+ .. group-tab:: Pure Python
+     .. literalinclude:: example/cython/integrate_cython_step4_purepy.py 
+        :emphasize-lines: 7,10,18-20
 
-    .. group-tab:: Cython
-        .. literalinclude:: example/cython/integrate_cython_step4.py 
-           :emphasize-lines: 6,9,16
+ .. group-tab:: Cython
+     .. literalinclude:: example/cython/integrate_cython_step4.py 
+        :emphasize-lines: 6,9,16
 
 .. literalinclude:: example/cython/integrate_cython_step4.py 
-   :emphasize-lines: 6,9,10,11,16,20,21
+:emphasize-lines: 6,9,10,11,16,20,21
 
 .. code-block:: ipython
 
-   %timeit apply_integrate_f_cython_step4(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
-   # 13.8 ms ± 97.8 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+%timeit apply_integrate_f_cython_step4(df['a'].to_numpy(), df['b'].to_numpy(), df['N'].to_numpy())
+# 13.8 ms ± 97.8 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 
 
 Now it is ~ 10 times faster than the original Python implementation, and all we have done is to add type declarations on the Python code!
@@ -244,8 +234,50 @@ We indeed see much less Python interaction in the code from step 1 to step 4.
 
 .. seealso::
 
-   In order to make Cython code reusable often some packaging is necessary. The compilation to binary extension can either happen during the packaging itself, or
-   during installation of a Python package. To learn more about how to package such extensions, read the following guides:
+In order to make Cython code reusable often some packaging is necessary. The compilation to binary extension can either happen during the packaging itself, or
+during installation of a Python package. To learn more about how to package such extensions, read the following guides:
 
-   - *pyOpenSci Python packaging guide*'s page on `build tools <https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html>`__
-   - *Python packaging user guide*'s page on `packaging binary extensions <https://packaging.python.org/en/latest/guides/packaging-binary-extensions/>`__
+- *pyOpenSci Python packaging guide*'s page on `build tools <https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html>`__
+- *Python packaging user guide*'s page on `packaging binary extensions <https://packaging.python.org/en/latest/guides/packaging-binary-extensions/>`__
+
+
+Other useful features
+^^^^^^^^^^^^^^^^^^^^^
+
+There are some useful (and possibly advanced) :cython:ref:`magic attributes <magic_attributes>`
+which are not covered in this episode such as 
+
+- ``cython.cimports`` package for importing and calling C libraries such as :cython:ref:`libc.math`.
+
+.. note::
+
+   Differences between ``import`` (for Python) and ``cimport`` (for Cython) statements
+
+   - ``import`` gives access to Python libraries, functions or attributes
+   - ``cimport`` gives access to C libraries, functions or attributes 
+
+   In case of Numpy it is common to use the following, and Cython will internally handle this ambiguity.
+
+   .. tabs::
+       .. group-tab:: Pure Python
+          .. code-block:: python
+
+             from cython.cimports.libc.stdlib import malloc, free  # Allocate and free memory
+             from cython.cimports.libc import math  # For math functions like sin, cos etc.
+             from cython.cimports import numpy as np # access to NumPy C API
+
+       .. group-tab:: Cython
+          .. code-block:: cython
+
+             from libc.stdlib cimport malloc, free
+             from libc.libc cimport math
+             cimport numpy as np
+
+
+- ``cython.nogil``, which can act both as a decorator or context-manager, to manage the GIL (Global Interpreter Lock).
+  See :cython:ref:`cython_and_gil`.
+
+- ``@cython.boundscheck(False)`` and ``@cython.wraparound(False)`` decorators to tune indexing of Numpy array.
+  See :cython:ref:`numpy_tutorial`.
+
+- ``@cython.cclass`` to declare :cython:ref:`extension-types` which behave similar to Python classes.

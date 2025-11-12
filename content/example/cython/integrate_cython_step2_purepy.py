@@ -1,4 +1,4 @@
-%%cython
+%%cython -a
 
 import cython
 import numpy as np

@@ -1,4 +1,4 @@
-%%cython
+%%cython -a
 
 import numpy as np
 
@@ -6,7 +6,7 @@ import numpy as np
 cdef f_cython_step3(double x):
     return x ** 2 - x
 
-cpdef integrate_f_cython_step3(double a, double b, long N):   
+cdef integrate_f_cython_step3(double a, double b, long N):   
     s = 0
     dx = (b - a) / N
     for i in range(N):

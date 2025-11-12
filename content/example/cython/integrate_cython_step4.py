@@ -1,4 +1,4 @@
-%%cython
+%%cython -a
 
 import numpy as np
 
@@ -6,7 +6,7 @@ import numpy as np
 cdef double f_cython_step4(double x):
     return x ** 2 - x
 
-cpdef double integrate_f_cython_step4(double a, double b, long N):   
+cdef double integrate_f_cython_step4(double a, double b, long N):   
     cdef double s, dx
     cdef long i
     
