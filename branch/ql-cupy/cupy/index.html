@@ -1,0 +1,1134 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex/"><link rel="search" title="Search" href="../search/">
+        <link rel="prefetch" href="../_static/ENCCS_logo_light.png" as="image">
+        <link rel="prefetch" href="../_static/ENCCS_logo_dark.png" as="image">
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+        <title>CuPy - Your lesson name</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=0c089442" />
+    <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+    <link rel="stylesheet" type="text/css" href="../_static/furo_ext_lesson.css?v=685c8e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=1c72d2de" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../"><div class="brand">Your lesson name</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/ENCCS_logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/ENCCS_logo_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Your lesson name</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search/" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../episode/">Episode template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/ENCCS/python-for-hpc/blob/main//content/cupy.md?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/ENCCS/python-for-hpc/edit/main//content/cupy.md" rel="edit" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="cupy">
+<h1>CuPy<a class="headerlink" href="#cupy" title="Link to this heading">¶</a></h1>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>How could I make my Python code to run on a GPU</p></li>
+<li><p>How do I copy data to the GPU memory</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Learn the basics of CuPy</p></li>
+<li><p>Be able to find out if a variable is stored in the CPU or GPU memory</p></li>
+<li><p>Be able to copy data from host to device memory and vice versa</p></li>
+<li><p>Be able to re-write a simple NumPy/SciPy
+function using CuPy to run on the GPUs</p></li>
+</ul>
+<!-- - Be able to profile a simple function
+  and estimate the speed-up by using GPU -->
+</div>
+<section id="introduction-to-cupy">
+<h2>Introduction to CuPy<a class="headerlink" href="#introduction-to-cupy" title="Link to this heading">¶</a></h2>
+<p>Another excellent tool for writing Python code to run on GPUs is CuPy.
+CuPy is a NumPy/SciPy-compatible array library for
+GPU-accelerated computing with Python,
+which implements most of the NumPy/SciPy operations
+and acts as a drop-in replacement to run existing
+NumPy/SciPy code on both NVIDIA CUDA or AMD ROCm platforms.
+By design, the CuPy interface is as close as possible to NumPy/SciPy,
+making code porting much easier.</p>
+</section>
+<section id="basics-of-cupy">
+<h2>Basics of CuPy<a class="headerlink" href="#basics-of-cupy" title="Link to this heading">¶</a></h2>
+<p>CuPy’s syntax here is identical to that of NumPy. A list of
+NumPy/SciPy APIs and its corresponding CuPy implementations
+is summarised here:</p>
+<p><a class="reference external" href="https://docs.cupy.dev/en/stable/reference/comparison.html#comparison-table">Complete Comparison of NumPy and SciPy to CuPy functions</a>.</p>
+<p>In short, CuPy provides N-dimensional array (ndarray),
+sparse matrices, and the associated routines for GPU devices,
+most having the same API as NumPy/SciPy.</p>
+<p>Let us take a look at the following code snippet which calculates the L2-norm of an array.
+Note how simple it is to run on a GPU device using CuPy, i.e. essentially by changing np to cp.</p>
+<table>
+<tr>
+<th>NumPy</th>
+<th>CuPy</th>
+</tr>
+<tr>
+<td>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">x_cpu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">l2_cpu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_cpu</span><span class="p">)</span>
+</pre></div>
+</div>
+</td>
+<td>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="n">x_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span> <span class="p">,</span><span class="mi">2</span> <span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">l2_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_gpu</span><span class="p">)</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not change the import line
+in the code to something like</p>
+<p><code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">cupy</span> <span class="pre">as</span> <span class="pre">np</span></code></p>
+<p>which can cause problems if you need to use
+NumPy code and not CuPy code.</p>
+</div>
+<section id="conversion-to-from-numpy-arrays">
+<h3>Conversion to/from NumPy arrays<a class="headerlink" href="#conversion-to-from-numpy-arrays" title="Link to this heading">¶</a></h3>
+<p>Although cupy.ndarray is the CuPy counterpart of NumPy numpy.ndarray,
+the main difference is that cupy.ndarray resides on the <code class="docutils literal notranslate"><span class="pre">current</span> <span class="pre">device</span></code>,
+and they are not implicitly convertible to each other.
+When you need to manipulate CPU and GPU arrays, an explicit data transfer
+may be required to move them to the same location – either CPU or GPU.
+For this purpose, CuPy implements the following methods:</p>
+<ul class="simple">
+<li><p>To convert numpy.ndarray to cupy.ndarray, use cupy.array() or cupy.asarray()</p></li>
+<li><p>To convert cupy.ndarray to numpy.ndarray, use cupy.asnumpy() or cupy.ndarray.get()</p></li>
+</ul>
+<p>These methods can accept arbitrary input, meaning that they can be applied to any data
+that is located on either the host or device.</p>
+<p>Here is an example that demonstrates the use of both methods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_cpu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="c1"># allocating array x on cpu</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_cpu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span> <span class="c1"># allocating array y on cpu</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_cpu</span> <span class="o">+</span> <span class="n">y_cpu</span> <span class="c1"># add x and y</span>
+<span class="go">array([5, 7, 9])</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_cpu</span><span class="p">)</span> <span class="c1"># move x to gpu</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span> <span class="o">+</span> <span class="n">y_cpu</span> <span class="c1"># now it should fail</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+  File <span class="nb">&quot;cupy/_core/core.pyx&quot;</span>, line <span class="m">1375</span>, in <span class="n">cupy._core.core._ndarray_base.__add__</span>
+  File <span class="nb">&quot;cupy/_core/core.pyx&quot;</span>, line <span class="m">1799</span>, in <span class="n">cupy._core.core._ndarray_base.__array_ufunc__</span>
+  File <span class="nb">&quot;cupy/_core/_kernel.pyx&quot;</span>, line <span class="m">1285</span>, in <span class="n">cupy._core._kernel.ufunc.__call__</span>
+  File <span class="nb">&quot;cupy/_core/_kernel.pyx&quot;</span>, line <span class="m">159</span>, in <span class="n">cupy._core._kernel._preprocess_args</span>
+  File <span class="nb">&quot;cupy/_core/_kernel.pyx&quot;</span>, line <span class="m">145</span>, in <span class="n">cupy._core._kernel._preprocess_arg</span>
+<span class="gr">TypeError</span>: <span class="n">Unsupported type &lt;class &#39;numpy.ndarray&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">(</span><span class="n">x_gpu</span><span class="p">)</span> <span class="o">+</span> <span class="n">y_cpu</span>
+<span class="go">array([5, 7, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">(</span><span class="n">x_gpu</span><span class="p">)</span> <span class="o">+</span> <span class="n">cp</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">(</span><span class="n">y_cpu</span><span class="p">)</span>
+<span class="go">array([5, 7, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span> <span class="o">+</span> <span class="n">cp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_cpu</span><span class="p">)</span>
+<span class="go">array([5, 7, 9])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_gpu</span><span class="p">)</span> <span class="o">+</span> <span class="n">cp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_cpu</span><span class="p">)</span>
+<span class="go">array([5, 7, 9])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Converting between cupy.ndarray and numpy.ndarray incurs data transfer
+between the host (CPU) device and the GPU device,
+which is costly in terms of performance.</p>
+</div>
+</section>
+<section id="current-device">
+<h3>Current Device<a class="headerlink" href="#current-device" title="Link to this heading">¶</a></h3>
+<p>CuPy introduces the concept of a <code class="docutils literal notranslate"><span class="pre">current</span> <span class="pre">device</span></code>,
+which represents the default GPU device on which
+the allocation, manipulation, calculation, etc.,
+of arrays take place. cupy.ndarray.device attribute
+can be used to determine the device allocated to a CuPy array.
+By default, ID of the current device is 0.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_gpu</span><span class="o">.</span><span class="n">device</span>
+<span class="go">&lt;CUDA Device 0&gt;</span>
+</pre></div>
+</div>
+<p>To obtain the total number of accessible devices,
+one can utilize the <code class="docutils literal notranslate"><span class="pre">getDeviceCount</span></code> function:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">getDeviceCount</span><span class="p">()</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>To switch to another GPU device, use the <code class="docutils literal notranslate"><span class="pre">Device</span></code> context manager.
+For example, the following code snippet creates an array on GPU 1:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">cp</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">Device</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+<span class="go">       x_gpu1 = cp.array([1, 2, 3, 4, 5])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;x_gpu1 is on device:&quot;</span> <span class="n">x_gpu1</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>All CuPy operations (except for multi-GPU features
+and device-to-device copy) are performed
+on the currently active device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The device will be called &lt;CUDA Device 0&gt; even if you are on AMD GPUs.</p>
+<p>In general, CuPy functions expect that
+the data array is on the current device.
+Passing an array stored on a non-current
+device may work depending on the hardware configuration
+but is generally discouraged as it may not be performant.</p>
+</div>
+</section>
+<section id="exercises-matrix-multiplication">
+<h3>Exercises: Matrix Multiplication<a class="headerlink" href="#exercises-matrix-multiplication" title="Link to this heading">¶</a></h3>
+<div class="admonition-exercise-matrix-multiplication exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise : Matrix Multiplication</p>
+<p>The first example is a simple matrix multiplication in single precision (float32).
+The arrays are created with random values in the range of -1.0 to 1.0.
+Convert the NumPy code to run on GPU using CuPy.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+ 
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+ 
+<span class="n">A</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">64</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Notice in this snippet of code that the variable C remains on the GPU.
+You have to copy it back to the CPU explicitly if needed.
+Otherwise all the data on the GPU is wiped once the code ends.</p>
+</div>
+</section>
+<section id="exercises-moving-data-from-gpu-to-cpu">
+<h3>Exercises: moving data from GPU to CPU<a class="headerlink" href="#exercises-moving-data-from-gpu-to-cpu" title="Link to this heading">¶</a></h3>
+<div class="admonition-exercise-moving-data-from-gpu-to-cpu exercise important admonition" id="exercise-1">
+<p class="admonition-title">Exercise : moving data from GPU to CPU</p>
+<p>The code snippet simply computes a singular value decomposition (SVD)
+of a matrix. In this case, the matrix is a
+single-precision 64x64 matrix of random values. First re-write the code
+using CuPy for GPU enabling. Second, adding a few lines to
+copy variable u back to CPU and print objects’ type using <code class="docutils literal notranslate"><span class="pre">type()</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+ 
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+ 
+<span class="n">A</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">low</span><span class="o">=-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">u_gpu</span><span class="p">,</span> <span class="n">s_gpu</span><span class="p">,</span> <span class="n">v_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(u_gpu) = &quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">u_gpu</span><span class="p">))</span>
+<span class="n">u_cpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">asnumpy</span><span class="p">(</span><span class="n">u_gpu</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;type(u_cpu) = &quot;</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">u_cpu</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="exercises-cupy-vs-numpy-scipy">
+<h3>Exercises: CuPy vs Numpy/SciPy<a class="headerlink" href="#exercises-cupy-vs-numpy-scipy" title="Link to this heading">¶</a></h3>
+<div class="admonition-cupy-vs-numpy-scipy exercise important admonition" id="exercise-2">
+<p class="admonition-title">CuPy vs Numpy/SciPy</p>
+<p>Although the CuPy team focuses on providing a complete
+NumPy/SciPy API coverage to become a full drop-in replacement,
+some important differences between CuPy and NumPy should be noted,
+one should keep these differences in mind when porting NumPy code to CuPy.</p>
+<!--
+- Some casting behaviors from floating point to integer
+are not defined in the C++ specification. The casting
+from a negative floating point to an unsigned integer
+and from infinity to an integer are examples.
+- CuPy random methods support the dtype argument.
+- Out-of-bounds indices and duplicate values in indices are handled differently.
+- Reduction methods return zero-dimension arrays.
+-->
+<p>Here are various examples illustrating the differences</p>
+</div>
+<div class="admonition-when-cupy-is-different-from-numpy-scipy solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">When CuPy is different from NumPy/SciPy</p>
+<p class="rubric" id="cast-behavior-from-float-to-integer">Cast behavior from float to integer</p>
+<p>Some casting behaviors from float to integer
+are not defined in C++ specification.
+The casting from a negative float to
+unsigned integer and infinity to integer
+is one of such examples. The behavior of NumPy
+depends on your CPU architecture.
+This is the result on an Intel CPU:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+<span class="go">array([4294967295], dtype=uint32)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span>
+<span class="go">array([0], dtype=uint32)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="go">array([-2147483648], dtype=int32)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+<span class="go">array([2147483647], dtype=int32)</span>
+</pre></div>
+</div>
+<p class="rubric" id="random-methods-support-dtype-argument">Random methods support dtype argument</p>
+<p>NumPy’s random value generator does not support
+a dtype argument and instead always returns
+a float64 value. While in CuPy, both
+float32 and float64 are supported because of cuRAND.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">TypeError</span>: <span class="n">randn() got an unexpected keyword argument &#39;dtype&#39;</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>  
+<span class="go">array(1.3591791, dtype=float32)</span>
+</pre></div>
+</div>
+<p class="rubric" id="out-of-bounds-indices">Out-of-bounds indices</p>
+<p>CuPy handles out-of-bounds indices differently
+by default from NumPy when using integer array indexing.
+NumPy handles them by raising an error, but CuPy wraps around them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">IndexError</span>: <span class="n">index 3 is out of bounds for axis 0 with size 3</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+<span class="go">array([1, 0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">array([10, 10,  2])</span>
+</pre></div>
+</div>
+<p class="rubric" id="duplicate-values-in-indices">Duplicate values in indices</p>
+<p>CuPy’s <code class="docutils literal notranslate"><span class="pre">__setitem__</span></code> behaves differently from NumPy
+when integer arrays reference the same location multiple times.
+NumPy stores the value corresponding to the last element
+among elements referencing duplicate locations.
+In CuPy, the value that is actually stored is undefined.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([9998., 9999.])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">v</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>  
+<span class="go">array([4592., 4593.])</span>
+</pre></div>
+</div>
+<p class="rubric" id="zero-dimensional-array">Zero-dimensional array</p>
+<p class="rubric" id="reduction-methods">Reduction methods</p>
+<p>NumPy’s reduction functions (e.g. numpy.sum()) return
+scalar values (e.g. numpy.float32). However
+CuPy counterparts return zero-dimensional cupy.ndarray.
+That is because CuPy scalar values (e.g. cupy.float32)
+are aliases of NumPy scalar values and are allocated
+in CPU memory. If these types were returned, it would be
+required to synchronize between GPU and CPU. If you want to
+use scalar values, cast the returned arrays explicitly.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span> <span class="o">==</span> <span class="n">cp</span><span class="o">.</span><span class="n">ndarray</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p class="rubric" id="type-promotion">Type promotion</p>
+<p>CuPy automatically promotes dtypes of cupy.ndarray
+in a function with two or more operands, the result dtype
+is determined by the dtypes of the inputs. This is different
+from NumPy’s rule on type promotion, when operands contain
+zero-dimensional arrays. Zero-dimensional numpy.ndarray
+are treated as if they were scalar values if they appear
+in operands of NumPy’s function, This may affect the dtype
+of its output, depending on the values of the “scalar” inputs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;float32&#39;)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">300000</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;float64&#39;)</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span> <span class="o">*</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;float64&#39;)</span>
+
+<span class="go">################## FIXME: example not working</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">dtype</span>
+<span class="go">dtype(&#39;float64&#39;)</span>
+
+</pre></div>
+</div>
+<p class="rubric" id="matrix-type-numpy-matrix">Matrix type (numpy.matrix)</p>
+<p>SciPy returns numpy.matrix (a subclass of numpy.ndarray)
+when dense matrices are computed from sparse matrices
+(e.g., coo_matrix + ndarray). However, CuPy returns
+cupy.ndarray for such operations.</p>
+<p>There is no plan to provide numpy.matrix equivalent in CuPy.
+This is because the use of numpy.matrix is no longer
+recommended since NumPy 1.15.</p>
+<p class="rubric" id="data-types">Data types</p>
+<p>Data type of CuPy arrays cannot be non-numeric like strings or objects.</p>
+<p class="rubric" id="universal-functions-only-work-with-cupy-array-or-scalar">Universal Functions only work with CuPy array or scalar</p>
+<p>Unlike NumPy, Universal Functions in CuPy only work with
+CuPy array or scalar. They do not accept other objects
+(e.g., lists or numpy.ndarray).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">array([[ 0,  1,  4,  9, 16]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cp</span><span class="o">.</span><span class="n">power</span><span class="p">([</span><span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">)],</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+  File <span class="nb">&quot;cupy/_core/_kernel.pyx&quot;</span>, line <span class="m">1285</span>, in <span class="n">cupy._core._kernel.ufunc.__call__</span>
+  File <span class="nb">&quot;cupy/_core/_kernel.pyx&quot;</span>, line <span class="m">159</span>, in <span class="n">cupy._core._kernel._preprocess_args</span>
+  File <span class="nb">&quot;cupy/_core/_kernel.pyx&quot;</span>, line <span class="m">145</span>, in <span class="n">cupy._core._kernel._preprocess_arg</span>
+<span class="gr">TypeError</span>: <span class="n">Unsupported type &lt;class &#39;list&#39;&gt;</span>
+</pre></div>
+</div>
+<p class="rubric" id="random-seed-arrays-are-hashed-to-scalars">Random seed arrays are hashed to scalars</p>
+<p>Like Numpy, CuPy’s RandomState objects accept seeds
+either as numbers or as full numpy arrays.</p>
+<p>However, unlike Numpy, array seeds will be hashed down
+to a single number and so may not communicate as much entropy
+to the underlying random number generator.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">seed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rs</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="rubric" id="nan-not-a-number-handling">NaN (not-a-number) handling</p>
+<p>By default CuPy’s reduction functions (e.g., cupy.sum())
+handle NaNs in complex numbers differently from NumPy’s counterparts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">################## FIXME: example not working</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span> <span class="o">+</span> <span class="mf">3.7</span><span class="n">j</span><span class="p">,</span> <span class="nb">complex</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span> <span class="nb">complex</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.9</span><span class="p">),</span> <span class="nb">complex</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">[(</span><span class="mf">0.5</span><span class="o">+</span><span class="mf">3.7</span><span class="n">j</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.7</span><span class="o">+</span><span class="n">nanj</span><span class="p">),</span> <span class="p">(</span><span class="n">nan</span><span class="o">-</span><span class="mf">3.9</span><span class="n">j</span><span class="p">),</span> <span class="p">(</span><span class="n">nan</span><span class="o">+</span><span class="n">nanj</span><span class="p">)]</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a_np</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">a_np</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">a_np</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="p">(</span><span class="mf">0.7</span><span class="o">+</span><span class="n">nanj</span><span class="p">)</span> <span class="p">(</span><span class="mf">0.7</span><span class="o">+</span><span class="n">nanj</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a_cp</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a_np</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">a_cp</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">a_cp</span><span class="o">.</span><span class="n">min</span><span class="p">())</span>
+<span class="p">(</span><span class="mf">0.7</span><span class="o">+</span><span class="n">nanj</span><span class="p">)</span> <span class="p">(</span><span class="mf">0.7</span><span class="o">+</span><span class="n">nanj</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The reason is that internally the reduction is performed
+in a strided fashion, thus it does not ensure a
+proper comparison order and cannot follow NumPy’s rule
+to always propagate the first-encountered NaN.
+Note that this difference does not apply when CUB
+is enabled (which is the default for CuPy v11 or later.)</p>
+<p class="rubric" id="contiguity-strides">Contiguity / Strides</p>
+<p>To provide the best performance, the contiguity of
+a resulting ndarray is not guaranteed to match with
+that of NumPy’s output.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[1, 2],</span>
+<span class="go">       [3, 4]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">f_contiguous</span><span class="p">)</span>
+<span class="go">True</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="n">order</span><span class="o">=</span><span class="s1">&#39;F&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[1, 2],</span>
+<span class="go">       [3, 4]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">f_contiguous</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="interoperability">
+<h2>Interoperability<a class="headerlink" href="#interoperability" title="Link to this heading">¶</a></h2>
+<p>CuPy implements standard APIs for data exchange and interoperability,
+which means it can be used in conjunction with
+any other libraries supporting the standard. For example,
+NumPy, Numba, PyTorch, TensorFlow, MPI4Py among others
+can be directly operated on CuPy arrays.</p>
+<section id="numpy">
+<h3>NumPy<a class="headerlink" href="#numpy" title="Link to this heading">¶</a></h3>
+<p>CuPy implements <code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> interface
+<a class="reference external" href="https://numpy.org/neps/nep-0013-ufunc-overrides.html">(see NEP 13)</a>,
+<code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> interface
+<a class="reference external" href="https://numpy.org/neps/nep-0018-array-function-protocol.html">(see NEP 18)</a>,
+and other <a class="reference external" href="https://data-apis.org/array-api/latest">Python Array API Standard</a>.</p>
+<p>Note that the return type of these operations is still consistent with the initial type.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dev_arr</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dev_arr</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+<span class="go">&lt;class &#39;cupy.ndarray&#39;&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">__array_ufunc__</span></code> feature requires NumPy 1.13 or later</p>
+<p><code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> feature requires NumPy 1.16 or later.
+As of NumPy 1.17, <code class="docutils literal notranslate"><span class="pre">__array_function__</span></code> is enabled by default</p>
+<p>NEP 13 — A mechanism for overriding Ufuncs</p>
+<p>NEP 18 — A dispatch mechanism for NumPy’s high level array functions</p>
+</div>
+</section>
+<section id="numba">
+<h3>Numba<a class="headerlink" href="#numba" title="Link to this heading">¶</a></h3>
+<p>CuPy implements <code class="docutils literal notranslate"><span class="pre">__cuda_array_interface__</span></code>
+which is compatible with Numba v0.39.0 or later
+(see <a class="reference external" href="https://numba.readthedocs.io/en/stable/cuda/cuda_array_interface.html">CUDA Array Interface</a>
+for details). It means one can pass CuPy arrays to kernels JITed with Numba.</p>
+<p>################### FIXME: crashes when launching</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">numba</span><span class="w"> </span><span class="kn">import</span> <span class="n">cuda</span>
+
+<span class="nd">@cuda</span><span class="o">.</span><span class="n">jit</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">stride</span> <span class="o">=</span> <span class="n">cuda</span><span class="o">.</span><span class="n">gridsize</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">stride</span><span class="p">):</span>
+                <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">2</span>
+
+<span class="n">out</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>  <span class="c1"># =&gt; [0 0 0 0 0 0 0 0 0 0]</span>
+
+<span class="n">add</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">](</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">out</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>  <span class="c1"># =&gt; [ 0  3  6  9 12 15 18 21 24 27]</span>
+</pre></div>
+</div>
+<p>In addition, cupy.asarray() supports zero-copy conversion from Numba CUDA array to CuPy array.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numba</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">&lt;class &#39;numpy.ndarray&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_numba</span> <span class="o">=</span> <span class="n">numba</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">to_device</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">x_numba</span><span class="p">)</span>
+<span class="go">&lt;class &#39;numba.cuda.cudadrv.devicearray.DeviceNDArray&#39;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_cupy</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x_numba</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">x_cupy</span><span class="p">)</span>
+<span class="go">&lt;class &#39;cupy.ndarray&#39;&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="cpu-gpu-agnostic-code">
+<h3>CPU/GPU agnostic code<a class="headerlink" href="#cpu-gpu-agnostic-code" title="Link to this heading">¶</a></h3>
+<p>Once beginning porting code to the GPU, one has to
+consider how to handle creating data on either the CPU or GPU.
+CuPy’s compatibility with NumPy/SciPy makes it possible to write CPU/GPU agnostic code.
+For this purpose, CuPy implements the cupy.get_array_module() function that
+returns a reference to cupy if any of its arguments resides on a GPU and numpy otherwise.</p>
+<p>Here is an example of a CPU/GPU agnostic function</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># define a simple function: f(x)=x+1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">addone</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">xp</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">get_array_module</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Returns cupy if any array is on the GPU, otherwise numpy.  &#39;xp&#39; is a standard usage in the community</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using:&quot;</span><span class="p">,</span> <span class="n">xp</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an array and copy it to GPU</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a_cpu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a_gpu</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">a_cpu</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># GPU/CPU agnostic code also works with CuPy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">addone</span><span class="p">(</span><span class="n">a_cpu</span><span class="p">))</span>
+<span class="go">Using: numpy</span>
+<span class="go">[ 1  3  5  7  9 11 13 15 17 19]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">addone</span><span class="p">(</span><span class="n">a_gpu</span><span class="p">))</span>
+<span class="go">Using: cupy</span>
+<span class="go">[ 1  3  5  7  9 11 13 15 17 19]</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="user-defined-kernels">
+<h2>User-Defined Kernels<a class="headerlink" href="#user-defined-kernels" title="Link to this heading">¶</a></h2>
+<p>Sometimes you need a specific GPU function or routine
+that is not provided by an existing library or tool.
+In these situation, you need to write a “custom kernel”,
+i.e. a user-defined GPU kernel. Custom kernels written
+with CuPy only require a small snippet of code
+and CuPy automatically wraps and compiles it.
+Compiled binaries are then cached and reused in subsequent runs.</p>
+<p>CuPy provides three templates of user-defined kernels:</p>
+<ul class="simple">
+<li><p>cupy.ElementwiseKernel: User-defined elementwise kernel</p></li>
+<li><p>cupy.ReductionKernel: User-defined reduction kernel</p></li>
+<li><p>cupy.RawKernel: User-defined CUDA/HIP kernel</p></li>
+</ul>
+<section id="elementwisekernel">
+<h3>ElementwiseKernel<a class="headerlink" href="#elementwisekernel" title="Link to this heading">¶</a></h3>
+<p>The element-wise kernel focuses on kernels that operate on an element-wise basis.
+An element-wise kernel has four components:</p>
+<ul class="simple">
+<li><p>input argument list</p></li>
+<li><p>output argument list</p></li>
+<li><p>function code</p></li>
+<li><p>kernel name</p></li>
+</ul>
+<p>The argument lists consist of comma-separated argument definitions.
+Each argument definition consists of a type specifier and an argument name.
+Names of NumPy data types can be used as type specifiers.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">my_kernel</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">ElementwiseKernel</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="s1">&#39;float32 x, float32 y&#39;</span><span class="p">,</span>  <span class="c1"># input arg list</span>
+<span class="gp">... </span>   <span class="s1">&#39;float32 z&#39;</span><span class="p">,</span>             <span class="c1"># output arg list</span>
+<span class="gp">... </span>   <span class="s1">&#39;z = (x - y) * (x - y)&#39;</span><span class="p">,</span> <span class="c1"># function</span>
+<span class="gp">... </span>   <span class="s1">&#39;my_kernel&#39;</span><span class="p">)</span>             <span class="c1"># kernel name</span>
+</pre></div>
+</div>
+<p>In the first line, the object instantiation is named <code class="docutils literal notranslate"><span class="pre">kernel</span></code>.
+The next line has the variables to be used as input (x and y) and output (z).
+These variables can be typed with NumPy data types, as shown.
+The function code then follows. The last line states the kernel name,
+which is <code class="docutils literal notranslate"><span class="pre">my_kernel</span></code>, in this case.</p>
+<p>The above kernel can be called on either scalars or arrays
+since the ElementwiseKernel class does the indexing with broadcasting automatically:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># user-defined kernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_kernel</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">ElementwiseKernel</span><span class="p">(</span>
+<span class="gp">... </span>   <span class="s1">&#39;float32 x, float32 y&#39;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="s1">&#39;float32 z&#39;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="s1">&#39;z = (x - y) * (x - y)&#39;</span><span class="p">,</span>
+<span class="gp">... </span>   <span class="s1">&#39;my_kernel&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># allocating arrays x and y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># launch the kernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="go">array([[ 0.,  0.,  0.,  0.,  0.],</span>
+<span class="go">       [25., 25., 25., 25., 25.]], dtype=float32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">array([[25., 16.,  9.,  4.,  1.],</span>
+<span class="go">       [ 0.,  1.,  4.,  9., 16.]], dtype=float32)</span>
+</pre></div>
+</div>
+<p>Sometimes it would be nice to create a generic kernel that can handle multiple data types.
+CuPy allows this with the use of a type placeholder.
+The above <code class="docutils literal notranslate"><span class="pre">my_kernel</span></code> can be made type-generic as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_kernel_generic</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">ElementwiseKernel</span><span class="p">(</span>
+   <span class="s1">&#39;T x, T y&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;T z&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;z = (x - y) * (x - y)&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;my_kernel_generic&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If a type specifier is one character, T in this case,
+it is treated as a <strong>type placeholder</strong>. Same character
+in the kernel definition indicates the same type.
+More than one type placeholder can be used in a kernel definition.
+The actual type of these placeholders is determined
+by the actual argument type. The ElementwiseKernel class
+first checks the output arguments and then the input arguments
+to determine the actual type. If no output arguments are given
+on the kernel invocation, only the input arguments
+are used to determine the type.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">my_kernel_generic</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">ElementwiseKernel</span><span class="p">(</span>
+    <span class="s1">&#39;X x, Y y&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Z z&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;z = (x - y) * (x - y)&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;my_kernel_generic&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>################## FIXME: check this</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This kernel requires the output argument to be explicitly specified,
+because the type Z cannot be automatically determined from
+the input arguments X and Y.</p>
+</div>
+</section>
+<section id="reductionkernel">
+<h3>ReductionKernel<a class="headerlink" href="#reductionkernel" title="Link to this heading">¶</a></h3>
+<p>The second type of CuPy custom kernel is the reduction kernel,
+which is focused on kernels of the Map-Reduce type.
+The ReductionKernel class has four extra parts:</p>
+<ul class="simple">
+<li><p>Identity value: Initial value of the reduction</p></li>
+<li><p>Mapping expression: Pre-processes each element to be reduced</p></li>
+<li><p>Reduction expression: An operator to reduce the multiple mapped values.
+Two special variables, a and b, are used for this operand</p></li>
+<li><p>Post-mapping expression: Transforms the resulting reduced values.
+The special variable a is used as input. The output should be written to the output variable</p></li>
+</ul>
+<p>Here is an example to compute L2 norm along specified axies:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># user-defined kernel</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l2norm_kernel</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">ReductionKernel</span><span class="p">(</span>
+<span class="go">    &#39;T x&#39;,  # input arg list</span>
+<span class="go">    &#39;T y&#39;,  # output arg list</span>
+<span class="go">    &#39;x * x&#39;,  # mapping</span>
+<span class="go">    &#39;a + b&#39;,  # reduction</span>
+<span class="go">    &#39;y = sqrt(a)&#39;,  # post-reduction mapping function</span>
+<span class="go">    &#39;0&#39;,  # identity value</span>
+<span class="go">    &#39;l2norm&#39;  # kernel name</span>
+<span class="go">    )</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># allocating array</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">array([[0., 1., 2., 3., 4.],</span>
+<span class="go">       [5., 6., 7., 8., 9.]], dtype=float32)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># kernel launch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l2norm_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">array([ 5.477226 , 15.9687195], dtype=float32)</span>
+</pre></div>
+</div>
+</section>
+<section id="rawkernel">
+<h3>RawKernel<a class="headerlink" href="#rawkernel" title="Link to this heading">¶</a></h3>
+<p>The last is the RawKernel class, which is used to define kernels from raw CUDA/HIP source code.</p>
+<p>RawKernel object allows you to call the kernel with CUDA’s cuLaunchKernel interface,
+and this gives you control of e.g. the grid size, block size, shared memory size, and stream.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_kernel</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">RawKernel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="gp">... </span><span class="s1">extern &quot;C&quot; __global__</span>
+<span class="gp">... </span><span class="s1">void my_add(const float* x1, const float* x2, float* y) {</span>
+<span class="gp">... </span><span class="s1">    int tid = blockDim.x * blockIdx.x + threadIdx.x;</span>
+<span class="gp">... </span><span class="s1">    y[tid] = x1[tid] + x2[tid];</span>
+<span class="gp">... </span><span class="s1">}</span>
+<span class="gp">... </span><span class="s1">&#39;&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;my_add&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x1</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x2</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">add_kernel</span><span class="p">((</span><span class="mi">5</span><span class="p">,),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,),</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span>
+<span class="go">array([[ 0.,  2.,  4.,  6.,  8.],</span>
+<span class="go">       [10., 12., 14., 16., 18.],</span>
+<span class="go">       [20., 22., 24., 26., 28.],</span>
+<span class="go">       [30., 32., 34., 36., 38.],</span>
+<span class="go">       [40., 42., 44., 46., 48.]], dtype=float32)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The kernel does not have return values. You need to pass
+both input arrays and output arrays as arguments.</p>
+<p>When using printf() in your GPU kernel, you may need to
+synchronize the stream to see the output.</p>
+<p>The kernel is declared in an extern “C” block,
+indicating that the C linkage is used. This is to ensure
+the kernel names are not mangled so that they can be retrieved by name.</p>
+</div>
+</section>
+<section id="cupy-fuse-decorator">
+<h3>cupy.fuse decorator<a class="headerlink" href="#cupy-fuse-decorator" title="Link to this heading">¶</a></h3>
+<p>Apart from using the above templates for custom kernels,
+CuPy provides the cupy.fuse decorator which “fuse” the
+custom kernel functions to a single kernel function, therefore
+creating a dramatic lowering of the launching overhead.
+Moreover, the syntax looks like a Numba decorator, it is
+much easier to define an elementwise or reduction kernel
+than using the ElementwiseKernel or ReductionKernel template.</p>
+<p>However, it is still experimental, i.e. there are bugs and
+incomplete functionalities to be fixed.</p>
+<p>Here is the example using cupy.fuse() decorator</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">cupy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># adding decorator to the function squared_diff</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@cp</span><span class="o">.</span><span class="n">fuse</span><span class="p">(</span><span class="n">kernel_name</span><span class="o">=</span><span class="s1">&#39;squared_diff&#39;</span><span class="p">)</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">squared_diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># allocating x and y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">cp</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">cp</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># call the function</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">squared_diff</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">array([81, 49, 25,  9,  1,  1,  9, 25, 49, 81])</span>
+</pre></div>
+</div>
+</section>
+<section id="low-level-features">
+<h3>Low-level features<a class="headerlink" href="#low-level-features" title="Link to this heading">¶</a></h3>
+<p>In addition to custom kernels, accessing low-level CUDA/HIP features
+are available for those who need more fine-grain control for performance:</p>
+<ul class="simple">
+<li><p>Stream and Event: CUDA stream and per-thread default stream are supported by all APIs</p></li>
+<li><p>Memory Pool: Customizable memory allocator with a built-in memory pool</p></li>
+<li><p>Profiler: Supports profiling code using CUDA Profiler and NVTX</p></li>
+<li><p>Host API Binding: Directly call CUDA libraries, such as
+NCCL, cuDNN, cuTENSOR, and cuSPARSELt APIs from Python</p></li>
+</ul>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h2>
+<p>In this episode, we have learned about:</p>
+<ul class="simple">
+<li><p>CuPy basics</p></li>
+<li><p>Moving data between the CPU and GPU devices</p></li>
+<li><p>Different ways to launch GPU kernels</p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>GPUs have massive computing power compared to CPU</p></li>
+<li><p>CuPy is a good first step to start</p></li>
+<li><p>CuPy provides an extensive collection of GPU array functions</p></li>
+<li><p>Always have both the CPU and GPU versions of your code available
+so that you can compare performance, as well as validate the results</p></li>
+<li><p>Fine-tuning for optimal performance of real-world applications can be tedioius</p></li>
+</ul>
+</div>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.cupy.dev/en/stable/index.html">CuPy Homepage</a></p></li>
+<li><p><a class="reference external" href="https://enccs.github.io/gpu-programming">GPU programming: When, Why and How?</a></p></li>
+<li><p><a class="reference external" href="https://nvidia.github.io/cuda-python/latest">CUDA Python from Nvidia</a></p></li>
+</ul>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, ENCCS, The contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/ENCCS/python-for-hpc" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">CuPy</a><ul>
+<li><a class="reference internal" href="#introduction-to-cupy">Introduction to CuPy</a></li>
+<li><a class="reference internal" href="#basics-of-cupy">Basics of CuPy</a><ul>
+<li><a class="reference internal" href="#conversion-to-from-numpy-arrays">Conversion to/from NumPy arrays</a></li>
+<li><a class="reference internal" href="#current-device">Current Device</a></li>
+<li><a class="reference internal" href="#exercises-matrix-multiplication">Exercises: Matrix Multiplication</a></li>
+<li><a class="reference internal" href="#exercises-moving-data-from-gpu-to-cpu">Exercises: moving data from GPU to CPU</a></li>
+<li><a class="reference internal" href="#exercises-cupy-vs-numpy-scipy">Exercises: CuPy vs Numpy/SciPy</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#interoperability">Interoperability</a><ul>
+<li><a class="reference internal" href="#numpy">NumPy</a></li>
+<li><a class="reference internal" href="#numba">Numba</a></li>
+<li><a class="reference internal" href="#cpu-gpu-agnostic-code">CPU/GPU agnostic code</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#user-defined-kernels">User-Defined Kernels</a><ul>
+<li><a class="reference internal" href="#elementwisekernel">ElementwiseKernel</a></li>
+<li><a class="reference internal" href="#reductionkernel">ReductionKernel</a></li>
+<li><a class="reference internal" href="#rawkernel">RawKernel</a></li>
+<li><a class="reference internal" href="#cupy-fuse-decorator">cupy.fuse decorator</a></li>
+<li><a class="reference internal" href="#low-level-features">Low-level features</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=187304be"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=35a8b989"></script>
+    <script src="../_static/minipres.js?v=a0d29692"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    </body>
+</html>

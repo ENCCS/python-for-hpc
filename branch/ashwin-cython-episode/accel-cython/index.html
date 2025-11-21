@@ -1,0 +1,931 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex/"><link rel="search" title="Search" href="../search/"><link rel="next" title="Quick Reference" href="../quick-reference/"><link rel="prev" title="Episode template" href="../episode/">
+        <link rel="prefetch" href="../_static/ENCCS_logo_light.png" as="image">
+        <link rel="prefetch" href="../_static/ENCCS_logo_dark.png" as="image">
+
+    <link rel="shortcut icon" href="../_static/favicon.ico"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+        <title>Cython - Your lesson name</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_lesson.css?v=0c089442" />
+    <link rel="stylesheet" type="text/css" href="../_static/term_role_formatting.css?v=4194e21c" />
+    <link rel="stylesheet" type="text/css" href="../_static/furo_ext_lesson.css?v=685c8e98" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css?v=a5c4661c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../_static/overrides.css?v=1c72d2de" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../"><div class="brand">Your lesson name</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="../_static/ENCCS_logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="../_static/ENCCS_logo_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Your lesson name</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search/" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../episode/">Episode template</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Cython</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-reference/">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guide/">Instructor’s guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="https://github.com/ENCCS/python-for-hpc/blob/main//content/accel-cython.rst?plain=true" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div><div class="edit-this-page">
+  <a class="muted-link" href="https://github.com/ENCCS/python-for-hpc/edit/main//content/accel-cython.rst" rel="edit" title="Edit this page">
+    <svg><use href="#svg-pencil"></use></svg>
+    <span class="visually-hidden">Edit this page</span>
+  </a>
+</div><div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="cython">
+<h1>Cython<a class="headerlink" href="#cython" title="Link to this heading">¶</a></h1>
+<p>Cython is a superset of Python that additionally supports calling C functions and  declaring C types on variables and class attributes.
+It is also a versatile, general purpose compiler.
+Since it is supports a superset of Python syntax, nearly all Python code, including 3rd party Python packages are also valid Cython code.
+Under Cython, source code gets translated into optimized C/C++ code and compiled as Python extension modules.</p>
+<p>Developers can either:</p>
+<ul class="simple">
+<li><p>prototype and develop Python code in IPython/Jupyter using the <code class="docutils literal notranslate"><span class="pre">%%cython</span></code> magic command (<strong>easy</strong>), or</p></li>
+<li><p>run the <code class="docutils literal notranslate"><span class="pre">cython</span></code> command-line utility to produce a <code class="docutils literal notranslate"><span class="pre">.c</span></code> file from a <code class="docutils literal notranslate"><span class="pre">.py</span></code> or <code class="docutils literal notranslate"><span class="pre">.pyx</span></code> file,
+which in turn needs to be compiled with a C compiler to an <code class="docutils literal notranslate"><span class="pre">.so</span></code> library, which can then be directly imported in a Python program (<strong>intermediate</strong>), or</p></li>
+<li><p>use <a class="reference external" href="https://setuptools.pypa.io/en/latest/userguide/ext_modules.html">setuptools</a> or <a class="reference external" href="https://mesonbuild.com/Cython.html">meson</a> with <a class="reference external" href="https://mesonbuild.com/meson-python/index.html">meson-python</a> to automate the aforementioned build process (<strong>advanced</strong>).</p></li>
+</ul>
+<p>Herein, we restrict the discussion to the Jupyter-way of using the <code class="docutils literal notranslate"><span class="pre">%%cython</span></code> magic.
+A full overview of Cython capabilities refers to the <a class="reference external" href="https://cython.readthedocs.io/en/latest/">documentation</a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Due to a <a class="reference external" href="https://github.com/cython/cython/issues/7319">known issue</a> with <code class="docutils literal notranslate"><span class="pre">%%cython</span> <span class="pre">-a</span></code> in <code class="docutils literal notranslate"><span class="pre">jupyter-lab</span></code> we have to use the <code class="docutils literal notranslate"><span class="pre">jupyter-nbclassic</span></code> interface
+for this episode.</p>
+</div>
+<section id="python-baseline-step-0">
+<h2>Python: Baseline (step 0)<a class="headerlink" href="#python-baseline-step-0" title="Link to this heading">¶</a></h2>
+<div class="admonition-demo-cython demo admonition" id="demo-0">
+<p class="admonition-title">Demo: Cython</p>
+<p>Consider a problem to integrate a function:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[I = \int^{b}_{a}(x^2 - x)dx\]</div>
+</div>
+<p>which can be numerically approximated as the following sum:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[I \approx \delta x \sum_{i=0}^{N-1} (x_i^2 - x_i)\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(a \le x_i \lt b\)</span>, and all <span class="math notranslate nohighlight">\(x_i\)</span> are uniformly spaced apart by <span class="math notranslate nohighlight">\(\delta x = (b - a) / N\)</span>.</p>
+<p><strong>Objective</strong>: Repeatedly compute the approximate integral for 1000 different combinations of
+<span class="math notranslate nohighlight">\(a\)</span>, <span class="math notranslate nohighlight">\(b\)</span> and <span class="math notranslate nohighlight">\(N\)</span>.</p>
+</div>
+<p>Python code is provided below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">integrate_f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">f</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_integrate_f</span><span class="p">(</span><span class="n">col_a</span><span class="p">,</span> <span class="n">col_b</span><span class="p">,</span> <span class="n">col_N</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_N</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_f</span><span class="p">(</span><span class="n">col_a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_N</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+<p>We generate a dataframe and apply the <code class="xref py py-meth docutils literal notranslate"><span class="pre">apply_integrate_f()</span></code> function on its columns, timing the execution:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span>
+        <span class="s2">&quot;N&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="o">%</span><span class="k">timeit</span> apply_integrate_f(df[&#39;a&#39;], df[&#39;b&#39;], df[&#39;N&#39;])
+<span class="c1"># 101 ms ± 736 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)</span>
+</pre></div>
+</div>
+</section>
+<section id="cython-benchmarking-step-1">
+<h2>Cython: Benchmarking (step 1)<a class="headerlink" href="#cython-benchmarking-step-1" title="Link to this heading">¶</a></h2>
+<p>In order to use Cython, we need to import the Cython extension:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> cython
+</pre></div>
+</div>
+<p>As a first cythonization step, we add the cython magic command (<code class="docutils literal notranslate"><span class="pre">%%cython</span> <span class="pre">-a</span></code>) on top of Jupyter code cell.
+We start by a simply compiling the Python code using Cython without any changes. The code is shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">f_cython_step1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">integrate_f_cython_step1</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">f_cython_step1</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_integrate_f_cython_step1</span><span class="p">(</span><span class="n">col_a</span><span class="p">,</span> <span class="n">col_b</span><span class="p">,</span> <span class="n">col_N</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_N</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_f_cython_step1</span><span class="p">(</span><span class="n">col_a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_N</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+<figure class="align-left" id="id1">
+<a class="reference internal image-reference" href="../_images/cython_annotate.png"><img alt="The Cython code above is displayed where various lines of the code are highlighted with yellow background colour of varying intensity." src="../_images/cython_annotate.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Annotated Cython code obtained by running the code above.
+The yellow coloring in the output shows us the amount of pure Python code.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>Our task is to remove as much yellow as possible by <em>static typing</em>, <em>i.e.</em> explicitly declaring arguments, parameters, variables and functions.</p>
+<p>We benchmark the Python code just using Cython, and it may give either similar or a slight increase in performance.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> apply_integrate_f_cython_step1(df[&#39;a&#39;], df[&#39;b&#39;], df[&#39;N&#39;])
+<span class="c1"># 102 ms ± 2.06 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</span>
+</pre></div>
+</div>
+</section>
+<section id="cython-adding-data-type-annotation-to-input-variables-step-2">
+<h2>Cython: Adding data type annotation to input variables (step 2)<a class="headerlink" href="#cython-adding-data-type-annotation-to-input-variables-step-2" title="Link to this heading">¶</a></h2>
+<p>Now we can start adding data type annotation to the input variables as highlightbed in the code example/cython below:</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-UHVyZSBQeXRob24=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tab" tabindex="0">Pure Python</button><button aria-controls="panel-0-Q3l0aG9u" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-Q3l0aG9u" name="Q3l0aG9u" role="tab" tabindex="-1">Cython</button></div><div aria-labelledby="tab-0-UHVyZSBQeXRob24=" class="sphinx-tabs-panel group-tab" id="panel-0-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tabpanel" tabindex="0"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cython</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">f_cython_step2</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">):</span>
+</span>    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span>
+
+<span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">integrate_f_cython_step2</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">,</span> <span class="n">N</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">long</span><span class="p">):</span>   
+</span>    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">f_cython_step2</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_integrate_f_cython_step2</span><span class="p">(</span>
+<span class="hll">    <span class="n">col_a</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:],</span>
+</span><span class="hll">    <span class="n">col_b</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:],</span>
+</span><span class="hll">    <span class="n">col_N</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">long</span><span class="p">[:],</span>
+</span><span class="p">):</span>  
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_N</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_f_cython_step2</span><span class="p">(</span><span class="n">col_a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_N</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-Q3l0aG9u" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-Q3l0aG9u" name="Q3l0aG9u" role="tabpanel" tabindex="0"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">f_cython_step2</span><span class="p">(</span><span class="n">double</span> <span class="n">x</span><span class="p">):</span>
+</span>    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span>
+
+<span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">integrate_f_cython_step2</span><span class="p">(</span><span class="n">double</span> <span class="n">a</span><span class="p">,</span> <span class="n">double</span> <span class="n">b</span><span class="p">,</span> <span class="n">long</span> <span class="n">N</span><span class="p">):</span>   
+</span>    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">f_cython_step2</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_integrate_f_cython_step2</span><span class="p">(</span>
+<span class="hll">    <span class="n">double</span><span class="p">[:]</span> <span class="n">col_a</span><span class="p">,</span>
+</span><span class="hll">    <span class="n">double</span><span class="p">[:]</span> <span class="n">col_b</span><span class="p">,</span>
+</span><span class="hll">    <span class="n">long</span><span class="p">[:]</span> <span class="n">col_N</span>
+</span><span class="p">):</span>  
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_N</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_f_cython_step2</span><span class="p">(</span><span class="n">col_a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_N</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="c1"># this will not work</span>
+<span class="c1">#%timeit apply_integrate_f_cython_step2(df[&#39;a&#39;], df[&#39;b&#39;], df[&#39;N&#39;])</span>
+
+<span class="c1"># this command works (see the description below)</span>
+<span class="o">%</span><span class="k">timeit</span> apply_integrate_f_cython_step2(df[&#39;a&#39;].to_numpy(), df[&#39;b&#39;].to_numpy(), df[&#39;N&#39;].to_numpy())
+<span class="c1"># 34.3 ms ± 537 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You can not pass a Series directly since Cython definition is specific to an array.
+Instead we should use <code class="docutils literal notranslate"><span class="pre">Series.to_numpy()</span></code> to get the underlying NumPy array which works nicely with Cython.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Cython uses the normal C syntax for types and provides all standard ones, including pointers.
+Here is a list of some primitive C data types (refer to Cython’s documentation on <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/userguide/language_basics.html#types" title="(in Cython v3.2)"><span>Types</span></a>):</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>Cython type identifier</p></td>
+<td><p>Pure Python dtype</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">char</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cython.char</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cython.int</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cython.uint</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">long</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cython.long</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cython.float</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cython.double</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">double</span> <span class="pre">complex</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cython.doublecomplex</span></code></p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">size_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cython.size_t</span></code></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Using these data types, we can also annotate arrays (see <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/userguide/memoryviews.html#memoryviews" title="(in Cython v3.2)"><span>Typed Memoryviews</span></a>):</p>
+<ul class="simple">
+<li><p>1D <code class="docutils literal notranslate"><span class="pre">np.float64</span></code> array would be equivalent to <code class="docutils literal notranslate"><span class="pre">cython.double[:]</span></code>,</p></li>
+<li><p>2D <code class="docutils literal notranslate"><span class="pre">np.float64</span></code> array would be equivalent to <code class="docutils literal notranslate"><span class="pre">cython.double[:,</span> <span class="pre">:]</span></code> and so on…</p></li>
+</ul>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>to quote the <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/userguide/language_basics.html#language-basics" title="(in Cython v3.2)"><span class="xref std std-ref">Cython documentation</span></a>,</p>
+<blockquote>
+<div><p><strong>Typing is not a necessity</strong></p>
+<p>Providing static typing to parameters and variables is convenience to speed up your code, but it is not a necessity. Optimize where and when needed. In fact,
+typing can slow down your code in the case where the typing does not allow optimizations but where Cython still needs to check that the type of some object matches the declared type.</p>
+</div></blockquote>
+</div>
+</section>
+<section id="cython-adding-data-type-annotation-to-functions-step-3">
+<h2>Cython: Adding data type annotation to functions (step 3)<a class="headerlink" href="#cython-adding-data-type-annotation-to-functions-step-3" title="Link to this heading">¶</a></h2>
+<p>Next step, we further add type annotation to functions. There are three ways of declaring functions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">def</span></code> - Python style:</p>
+<ul>
+<li><p>Called by Python or Cython code, and both input/output are Python objects.</p></li>
+<li><p>Declaring argument types and local types (thus return values) can allow Cython to generate optimized code which speeds up the execution.</p></li>
+<li><p>Once types are declared, a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> will be raised if the function is passed with the wrong types.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;cython.cfunc</span></code> or <code class="docutils literal notranslate"><span class="pre">cdef</span></code> - C style:</p>
+<ul>
+<li><p><a class="reference external" href="https://cython.readthedocs.io/en/stable/src/userguide/language_basics.html#cdef" title="(in Cython v3.2)"><span class="xref std std-ref">cdef</span></a> functions are called from Cython and C, but not from Python code.</p></li>
+<li><p>Cython treats functions as pure C functions, which can take any type of arguments, including non-Python types, <cite>e.g.</cite>, pointers.</p></li>
+<li><p>This usually gives the <em>best performance</em>.</p></li>
+<li><p>However, one should really take care of the functions declared by <code class="docutils literal notranslate"><span class="pre">cdef</span></code> as these functions are actually writing in C.</p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;cython.ccall</span></code> or <code class="docutils literal notranslate"><span class="pre">cpdef</span></code> - C/Python mixed style:</p>
+<ul>
+<li><p><a class="reference external" href="https://cython.readthedocs.io/en/stable/src/userguide/language_basics.html#cpdef" title="(in Cython v3.2)"><span class="xref std std-ref">cpdef</span></a> function combines both <code class="docutils literal notranslate"><span class="pre">cdef</span></code> and <code class="docutils literal notranslate"><span class="pre">def</span></code>.</p></li>
+<li><p>Cython will generate a <code class="docutils literal notranslate"><span class="pre">cdef</span></code> function for C types and a <code class="docutils literal notranslate"><span class="pre">def</span></code> function for Python types.</p></li>
+<li><p>In terms of performance, <code class="docutils literal notranslate"><span class="pre">cpdef</span></code> functions may be <em>as fast as</em> those using <code class="docutils literal notranslate"><span class="pre">cdef</span></code> and might be as slow as <code class="docutils literal notranslate"><span class="pre">def</span></code> declared functions.</p></li>
+</ul>
+</li>
+</ul>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-UHVyZSBQeXRob24=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tab" tabindex="0">Pure Python</button><button aria-controls="panel-1-Q3l0aG9u" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-Q3l0aG9u" name="Q3l0aG9u" role="tab" tabindex="-1">Cython</button></div><div aria-labelledby="tab-1-UHVyZSBQeXRob24=" class="sphinx-tabs-panel group-tab" id="panel-1-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tabpanel" tabindex="0"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cython</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="hll"><span class="nd">@cython</span><span class="o">.</span><span class="n">cfunc</span>
+</span><span class="k">def</span><span class="w"> </span><span class="nf">f_cython_step3</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span>
+
+<span class="hll"><span class="nd">@cython</span><span class="o">.</span><span class="n">cfunc</span>
+</span><span class="k">def</span><span class="w"> </span><span class="nf">integrate_f_cython_step3</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">N</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>   
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">f_cython_step3</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
+
+<span class="hll"><span class="nd">@cython</span><span class="o">.</span><span class="n">ccall</span>
+</span><span class="k">def</span><span class="w"> </span><span class="nf">apply_integrate_f_cython_step3</span><span class="p">(</span>
+    <span class="n">col_a</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:],</span>
+    <span class="n">col_b</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:],</span>
+    <span class="n">col_N</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">long</span><span class="p">[:]</span>
+<span class="p">):</span>  
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_N</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_f_cython_step3</span><span class="p">(</span><span class="n">col_a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_N</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-1-Q3l0aG9u" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-1-Q3l0aG9u" name="Q3l0aG9u" role="tabpanel" tabindex="0"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="hll"><span class="n">cdef</span> <span class="n">f_cython_step3</span><span class="p">(</span><span class="n">double</span> <span class="n">x</span><span class="p">):</span>
+</span>    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span>
+
+<span class="hll"><span class="n">cdef</span> <span class="n">integrate_f_cython_step3</span><span class="p">(</span><span class="n">double</span> <span class="n">a</span><span class="p">,</span> <span class="n">double</span> <span class="n">b</span><span class="p">,</span> <span class="n">long</span> <span class="n">N</span><span class="p">):</span>   
+</span>    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">f_cython_step3</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
+
+<span class="hll"><span class="n">cpdef</span> <span class="n">apply_integrate_f_cython_step3</span><span class="p">(</span>
+</span>    <span class="n">double</span><span class="p">[:]</span> <span class="n">col_a</span><span class="p">,</span>
+    <span class="n">double</span><span class="p">[:]</span> <span class="n">col_b</span><span class="p">,</span>
+    <span class="n">long</span><span class="p">[:]</span> <span class="n">col_N</span>
+<span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_N</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_f_cython_step3</span><span class="p">(</span><span class="n">col_a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_N</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> apply_integrate_f_cython_step3(df[&#39;a&#39;].to_numpy(), df[&#39;b&#39;].to_numpy(), df[&#39;N&#39;].to_numpy())
+<span class="c1"># 29.2 ms ± 152 μs per loop (mean ± std. dev. of 7 runs, 10 loops each)</span>
+</pre></div>
+</div>
+</section>
+<section id="cython-adding-data-type-annotation-to-local-variables-and-return-step-4">
+<h2>Cython: Adding data type annotation to local variables and return (step 4)<a class="headerlink" href="#cython-adding-data-type-annotation-to-local-variables-and-return-step-4" title="Link to this heading">¶</a></h2>
+<p>Last step, we can add type annotation to local variables within functions and the return value.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-UHVyZSBQeXRob24=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tab" tabindex="0">Pure Python</button><button aria-controls="panel-2-Q3l0aG9u" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-Q3l0aG9u" name="Q3l0aG9u" role="tab" tabindex="-1">Cython</button></div><div aria-labelledby="tab-2-UHVyZSBQeXRob24=" class="sphinx-tabs-panel group-tab" id="panel-2-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tabpanel" tabindex="0"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">cython</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="nd">@cython</span><span class="o">.</span><span class="n">cfunc</span>
+<span class="hll"><span class="k">def</span><span class="w"> </span><span class="nf">f_cython_step4</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">:</span>
+</span>    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span>
+
+<span class="nd">@cython</span><span class="o">.</span><span class="n">cfunc</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">integrate_f_cython_step4</span><span class="p">(</span>
+    <span class="n">a</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">,</span>
+    <span class="n">b</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">,</span>
+    <span class="n">N</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">long</span>
+<span class="hll"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">:</span>   
+</span><span class="hll">    <span class="n">s</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span>
+</span><span class="hll">    <span class="n">dx</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span>
+</span><span class="hll">    <span class="n">i</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">long</span>
+</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">f_cython_step4</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
+
+<span class="nd">@cython</span><span class="o">.</span><span class="n">ccall</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">apply_integrate_f_cython_step4</span><span class="p">(</span>
+    <span class="n">col_a</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:],</span>
+    <span class="n">col_b</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:],</span>
+    <span class="n">col_N</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">long</span><span class="p">[:]</span>
+<span class="hll"><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:]:</span>
+</span><span class="hll">    <span class="n">n</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">int</span>
+</span><span class="hll">    <span class="n">i</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">int</span>
+</span><span class="hll">    <span class="n">res</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:]</span>
+</span>    
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_N</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_f_cython_step4</span><span class="p">(</span><span class="n">col_a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_N</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-2-Q3l0aG9u" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-2-Q3l0aG9u" name="Q3l0aG9u" role="tabpanel" tabindex="0"><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span> <span class="o">-</span><span class="n">a</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="hll"><span class="n">cdef</span> <span class="n">double</span> <span class="n">f_cython_step4</span><span class="p">(</span><span class="n">double</span> <span class="n">x</span><span class="p">):</span>
+</span>    <span class="k">return</span> <span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span>
+
+<span class="hll"><span class="n">cdef</span> <span class="n">double</span> <span class="n">integrate_f_cython_step4</span><span class="p">(</span><span class="n">double</span> <span class="n">a</span><span class="p">,</span> <span class="n">double</span> <span class="n">b</span><span class="p">,</span> <span class="n">long</span> <span class="n">N</span><span class="p">):</span>   
+</span><span class="hll">    <span class="n">cdef</span> <span class="n">double</span> <span class="n">s</span><span class="p">,</span> <span class="n">dx</span>
+</span><span class="hll">    <span class="n">cdef</span> <span class="n">long</span> <span class="n">i</span>
+</span>    
+    <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="n">N</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">f_cython_step4</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span> <span class="o">*</span> <span class="n">dx</span>
+
+<span class="hll"><span class="n">cpdef</span> <span class="n">double</span><span class="p">[:]</span> <span class="n">apply_integrate_f_cython_step4</span><span class="p">(</span>
+</span>    <span class="n">double</span><span class="p">[:]</span> <span class="n">col_a</span><span class="p">,</span>
+    <span class="n">double</span><span class="p">[:]</span> <span class="n">col_b</span><span class="p">,</span>
+    <span class="n">long</span><span class="p">[:]</span> <span class="n">col_N</span>
+<span class="p">):</span>
+<span class="hll">    <span class="n">cdef</span> <span class="n">long</span> <span class="n">n</span><span class="p">,</span><span class="n">i</span>
+</span><span class="hll">    <span class="n">cdef</span> <span class="n">double</span><span class="p">[:]</span> <span class="n">res</span>
+</span>    
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">col_N</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">res</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">integrate_f_cython_step4</span><span class="p">(</span><span class="n">col_a</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_b</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">col_N</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">res</span>
+</pre></div>
+</div>
+</div></div>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">timeit</span> apply_integrate_f_cython_step4(df[&#39;a&#39;].to_numpy(), df[&#39;b&#39;].to_numpy(), df[&#39;N&#39;].to_numpy())
+<span class="c1"># 471 μs ± 7.38 μs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)</span>
+</pre></div>
+</div>
+<p>Now it is ~200 times faster than the baseline Python implementation, and all we have done is to add type declarations on the Python code!</p>
+<figure class="align-left" id="id2">
+<a class="reference internal image-reference" href="../_images/cython_annotate_2.png"><img alt="../_images/cython_annotate_2.png" src="../_images/cython_annotate_2.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-text">We indeed see much less Python interaction in the code from step 1 to step 4.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="other-useful-features">
+<h2>Other useful features<a class="headerlink" href="#other-useful-features" title="Link to this heading">¶</a></h2>
+<p>There are some useful (and possibly advanced) features which are not covered in this episode. Some of
+these features are called <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/tutorial/pure.html#magic-attributes" title="(in Cython v3.2)"><span class="xref std std-ref">magic attributes</span></a>. Here are a few:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cython.cimports</span></code> package for importing and calling C libraries such as <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/tutorial/external.html#libc-math" title="(in Cython v3.2)"><span class="xref std std-ref">libc.math</span></a>.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Differences between <code class="docutils literal notranslate"><span class="pre">import</span></code> (for Python) and <code class="docutils literal notranslate"><span class="pre">cimport</span></code> (for Cython) statements</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">import</span></code> gives access to Python libraries, functions or attributes</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cimport</span></code> gives access to C libraries, functions or attributes</p></li>
+</ul>
+<p>In case of Numpy it is common to use the following, and Cython will internally handle this ambiguity.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-UHVyZSBQeXRob24=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-3-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tab" tabindex="0">Pure Python</button><button aria-controls="panel-3-Q3l0aG9u" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-3-Q3l0aG9u" name="Q3l0aG9u" role="tab" tabindex="-1">Cython</button></div><div aria-labelledby="tab-3-UHVyZSBQeXRob24=" class="sphinx-tabs-panel group-tab" id="panel-3-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">cython.cimports.libc.stdlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">malloc</span><span class="p">,</span> <span class="n">free</span>  <span class="c1"># Allocate and free memory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cython.cimports.libc</span><span class="w"> </span><span class="kn">import</span> <span class="n">math</span>  <span class="c1"># For math functions like sin, cos etc.</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cython.cimports</span><span class="w"> </span><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span> <span class="c1"># access to NumPy C API</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-3-Q3l0aG9u" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-3-Q3l0aG9u" name="Q3l0aG9u" role="tabpanel" tabindex="0"><div class="highlight-cython notranslate"><div class="highlight"><pre><span></span><span class="k">from</span><span class="w"> </span><span class="nn">libc.stdlib</span><span class="w"> </span><span class="k">cimport</span> <span class="n">malloc</span><span class="p">,</span> <span class="n">free</span>
+<span class="k">from</span><span class="w"> </span><span class="nn">libc.libc</span><span class="w"> </span><span class="k">cimport</span> <span class="n">math</span>
+<span class="k">cimport</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cython.nogil</span></code>, which can act both as a decorator or context-manager, to manage the GIL (Global Interpreter Lock).
+See <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/userguide/nogil.html#cython-and-gil" title="(in Cython v3.2)"><span>Cython and the GIL</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;cython.boundscheck(False)</span></code> and <code class="docutils literal notranslate"><span class="pre">&#64;cython.wraparound(False)</span></code> decorators to tune indexing of Numpy array.
+See <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/userguide/numpy_tutorial.html#numpy-tutorial" title="(in Cython v3.2)"><span>Cython for NumPy users</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&#64;cython.cclass</span></code> to declare <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/userguide/extension_types.html#extension-types" title="(in Cython v3.2)"><span>Extension Types</span></a> which behave similar to Python classes.</p></li>
+</ul>
+<p>In addition to the above Cython can also,</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cython.readthedocs.io/en/stable/src/tutorial/pure.html#augmenting-pxd" title="(in Cython v3.2)"><span class="xref std std-ref">augment with .pxd files</span></a> where the Python code is kept as it is and the <code class="docutils literal notranslate"><span class="pre">.pxd</span></code> file
+describes the type annotation. In this form <code class="docutils literal notranslate"><span class="pre">.pxd</span></code> is very similar in function to a C/C++ header file
+or <code class="docutils literal notranslate"><span class="pre">.pyi</span></code> Python type annnotation file,</p></li>
+<li><p>create parallel code using <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/tutorial/parallelization.html#parallel-block" title="(in Cython v3.2)"><span>parallel blocks</span></a> and <code class="docutils literal notranslate"><span class="pre">prange</span></code> iterator for element-wise parallel operation or reductions
+based on OpenMP threads (see <a class="reference external" href="https://cython.readthedocs.io/en/stable/src/tutorial/parallelization.html#parallel-tutorial" title="(in Cython v3.2)"><span>Writing parallel code with Cython</span></a>).</p></li>
+</ul>
+<div class="admonition-demo demo admonition" id="demo-1">
+<p class="admonition-title">Demo</p>
+<p>Here is a code which showcases most of the features above, except the <code class="docutils literal notranslate"><span class="pre">&#64;cython.cclass</span></code> feature and the use of <code class="docutils literal notranslate"><span class="pre">.pxd</span></code> files.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-4-UHVyZSBQeXRob24=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-4-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tab" tabindex="0">Pure Python</button><button aria-controls="panel-4-Q3l0aG9u" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-4-Q3l0aG9u" name="Q3l0aG9u" role="tab" tabindex="-1">Cython</button><button aria-controls="panel-4-TnVtcHk=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-4-TnVtcHk=" name="TnVtcHk=" role="tab" tabindex="-1">Numpy</button><button aria-controls="panel-4-TmFpdmUgUHl0aG9uIGltcGxlbWVudGF0aW9u" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-4-TmFpdmUgUHl0aG9uIGltcGxlbWVudGF0aW9u" name="TmFpdmUgUHl0aG9uIGltcGxlbWVudGF0aW9u" role="tab" tabindex="-1">Naive Python implementation</button></div><div aria-labelledby="tab-4-UHVyZSBQeXRob24=" class="sphinx-tabs-panel group-tab" id="panel-4-UHVyZSBQeXRob24=" name="UHVyZSBQeXRob24=" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">cython</span>
+<span class="hll"><span class="kn">from</span><span class="w"> </span><span class="nn">cython.parallel</span><span class="w"> </span><span class="kn">import</span> <span class="n">parallel</span><span class="p">,</span> <span class="n">prange</span>
+</span><span class="hll"><span class="kn">from</span><span class="w"> </span><span class="nn">cython.cimports.libc.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+</span>
+<span class="hll"><span class="nd">@cython</span><span class="o">.</span><span class="n">boundscheck</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</span><span class="hll"><span class="nd">@cython</span><span class="o">.</span><span class="n">wraparound</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</span><span class="k">def</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span><span class="p">[:]):</span>
+<span class="w">   </span><span class="sd">&quot;&quot;&quot;Normalize a 1D array by dividing all its elements using its root-mean-square (RMS) value.&quot;&quot;&quot;</span>
+   <span class="n">i</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">Py_ssize_t</span>
+   <span class="n">total</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span> <span class="o">=</span> <span class="mi">0</span>
+   <span class="n">norm</span><span class="p">:</span> <span class="n">cython</span><span class="o">.</span><span class="n">double</span>
+<span class="hll">   <span class="k">with</span> <span class="n">cython</span><span class="o">.</span><span class="n">nogil</span><span class="p">,</span> <span class="n">parallel</span><span class="p">():</span>
+</span><span class="hll">      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+</span>            <span class="n">total</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">norm</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">norm</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-Q3l0aG9u" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-Q3l0aG9u" name="Q3l0aG9u" role="tabpanel" tabindex="0"><div class="highlight-cython notranslate"><div class="highlight"><pre><span></span><span class="k">cimport</span><span class="w"> </span><span class="nn">cython</span>
+<span class="hll"><span class="k">from</span><span class="w"> </span><span class="nn">cython.parallel</span><span class="w"> </span><span class="k">cimport</span> <span class="n">parallel</span><span class="p">,</span> <span class="n">prange</span>
+</span><span class="hll"><span class="k">from</span><span class="w"> </span><span class="nn">libc.math</span><span class="w"> </span><span class="k">cimport</span> <span class="n">sqrt</span>
+</span>
+<span class="hll"><span class="nd">@cython</span><span class="o">.</span><span class="n">boundscheck</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+</span><span class="hll"><span class="nd">@cython</span><span class="o">.</span><span class="n">wraparound</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+</span><span class="k">def</span><span class="w"> </span><span class="nf">normalize</span><span class="p">(</span><span class="n">double</span><span class="p">[:]</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Normalize a 1D array by dividing all its elements using its root-mean-square (RMS) value.&quot;&quot;&quot;</span>
+    <span class="k">cdef</span><span class="w"> </span><span class="kt">Py_ssize_t</span> <span class="nf">i</span>
+    <span class="k">cdef</span><span class="w"> </span><span class="kt">double</span> <span class="nf">total</span><span class="w"> </span><span class="o">=</span> <span class="mf">0</span>
+    <span class="k">cdef</span><span class="w"> </span><span class="kt">double</span> <span class="nf">norm</span>
+<span class="hll">    <span class="k">with</span> <span class="k">nogil</span><span class="p">,</span> <span class="n">parallel</span><span class="p">():</span>
+</span><span class="hll">        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mf">0</span><span class="p">]):</span>
+</span>            <span class="n">total</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">prange</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mf">0</span><span class="p">]):</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">norm</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-TnVtcHk=" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-TnVtcHk=" name="TnVtcHk=" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">normalize_numpy</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">total</span> <span class="o">**</span> <span class="mf">0.5</span>
+
+    <span class="n">x</span><span class="p">[:]</span> <span class="o">/=</span> <span class="n">norm</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-4-TmFpdmUgUHl0aG9uIGltcGxlbWVudGF0aW9u" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-4-TmFpdmUgUHl0aG9uIGltcGxlbWVudGF0aW9u" name="TmFpdmUgUHl0aG9uIGltcGxlbWVudGF0aW9u" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">sqrt</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">normalize_naive</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">total</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">total</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">total</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/=</span> <span class="n">norm</span>
+</pre></div>
+</div>
+</div></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you compare performance of the the Cython code versus the Numpy code, you might observe that it is either on-par, or slightly worse than Numpy.
+This is because Numpy vectorized operations also makes use of OpenMP parallelism and is heavily optimized. Nevertheless, it is orders of magnitude
+better than a naive implementation.</p>
+</div>
+</div>
+</section>
+<section id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">¶</a></h2>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Cython is a versatile, general purpose compiler for Python code</p></li>
+<li><p>Cython is a great way to write high-performance code in Python where algorithms are not available in scientific libraries like Numpy and Scipy and
+require custom implementation</p></li>
+</ul>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>In order to make Cython code reusable often some packaging is necessary. The compilation to binary extension can either happen during the packaging itself, or
+during installation of a Python package. To learn more about how to package such extensions, read the following guides:</p>
+<ul class="simple">
+<li><p><em>pyOpenSci Python packaging guide</em>’s page on <a class="reference external" href="https://www.pyopensci.org/python-package-guide/package-structure-code/python-package-build-tools.html">build tools</a></p></li>
+<li><p><em>Python packaging user guide</em>’s page on <a class="reference external" href="https://packaging.python.org/en/latest/guides/packaging-binary-extensions/">packaging binary extensions</a></p></li>
+</ul>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../quick-reference/">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Quick Reference</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../episode/">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Episode template</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, ENCCS, The contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/ENCCS/python-for-hpc" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Cython</a><ul>
+<li><a class="reference internal" href="#python-baseline-step-0">Python: Baseline (step 0)</a></li>
+<li><a class="reference internal" href="#cython-benchmarking-step-1">Cython: Benchmarking (step 1)</a></li>
+<li><a class="reference internal" href="#cython-adding-data-type-annotation-to-input-variables-step-2">Cython: Adding data type annotation to input variables (step 2)</a></li>
+<li><a class="reference internal" href="#cython-adding-data-type-annotation-to-functions-step-3">Cython: Adding data type annotation to functions (step 3)</a></li>
+<li><a class="reference internal" href="#cython-adding-data-type-annotation-to-local-variables-and-return-step-4">Cython: Adding data type annotation to local variables and return (step 4)</a></li>
+<li><a class="reference internal" href="#other-useful-features">Other useful features</a></li>
+<li><a class="reference internal" href="#conclusions">Conclusions</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=187304be"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=35a8b989"></script>
+    <script src="../_static/minipres.js?v=a0d29692"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/tabs.js?v=3030b3cb"></script>
+    </body>
+</html>
