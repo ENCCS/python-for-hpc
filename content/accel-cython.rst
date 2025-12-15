@@ -190,13 +190,13 @@ Next step, we further add type annotation to functions. There are three ways of 
   - In terms of performance, ``cpdef`` functions may be *as fast as* those using ``cdef`` and might be as slow as ``def`` declared functions.  
 
 .. tabs::
- .. group-tab:: Pure Python
-     .. literalinclude:: example/cython/integrate_cython_step3_purepy.py 
-        :emphasize-lines: 7,11,20
+    .. group-tab:: Pure Python
+        .. literalinclude:: example/cython/integrate_cython_step3_purepy.py 
+           :emphasize-lines: 7,11,20
 
- .. group-tab:: Cython
-     .. literalinclude:: example/cython/integrate_cython_step3.py 
-        :emphasize-lines: 6,9,16
+    .. group-tab:: Cython
+        .. literalinclude:: example/cython/integrate_cython_step3.py 
+           :emphasize-lines: 6,9,16
 
 .. code-block:: ipython
 
