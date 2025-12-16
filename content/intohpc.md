@@ -28,7 +28,7 @@ use clusters to perform large-scale computations.
 HPC systems, often called *supercomputers* or *clusters*, are made up of
 many computers (called **nodes**) connected by a fast network. Each node
 can have multiple cores which are **CPUs** (and sometimes **GPUs**) that 
-run tasks in parallel.
+run tasks (called **jobs**) in parallel.
 
 ### Typical HPC Components
 
@@ -131,7 +131,7 @@ Execute it and following let us verify the effect on the following modifications
 - Minimize Python in hot paths: Move heavy math into NumPy calls; keep Python for orchestration only.
 - Benchmark correctly: Use large N, pin threads to 1 for fair single-core tests, and report the best of multiple runs after a warmup.
 
---
+---
 
 ## Parallel Computing
 
@@ -155,7 +155,7 @@ This is the model used in:
 - Multicore laptops and workstations  
 - *Single compute nodes* on a cluster  
 
-Programs use **threads** to execute in parallel (e.g., with OpenMP in C/C++/Fortran or **multiprocessing in Python**).
+Programs use **threads** to execute in parallel (e.g., with OpenMP in C/C++/Fortran or **threading in Python**).
 
 :::{keypoints} 
 Advantages:
@@ -168,17 +168,44 @@ Limitations:
 ::: 
 
 :::{exercise} Practice with threaded parallelism in Python
-Example:
+This is a textbook example of I/O-bound concurrency with shared memory. It efficiently handles tasks that spend most of their time waiting (simulated by time.sleep) by allowing other threads to run during those pauses, maximizing efficiency despite the GIL. It also perfectly demonstrates the convenience of Python threading: because all threads live in the same process, they can instantly write to a single global data structure (database), avoiding the complexity of inter-process communication, while using a Lock to safely manage the one major risk of this approach (race conditions).
 ```python
-from multiprocessing import Pool
+import threading
+import time
 
-def square(x):
-    return x * x
+# 1. SHARED MEMORY
+# This list lives in the global process memory. 
+# All threads can see and modify it.
+database = []
 
-if __name__ == "__main__":
-    with Pool(4) as p:
-        result = p.map(square, range(8))
-    print(result)
+# We create a lock to synchronize the THREADS.  
+lock = threading.Lock()
+
+def save_data(data_id):
+    print(f"Thread-{data_id}: Processing...")
+    time.sleep(0.1)  # Simulate I/O delay (network/disk)
+    
+    # 2. MODIFYING SHARED MEMORY
+    # We use the Lock to ensure two threads don't append at the exact same time
+    with lock:
+        database.append(f"Record {data_id}")
+
+# 3. CREATING THREADS
+# Defining the list to hold thread objects  
+threads = []
+for i in range(5):
+    t = threading.Thread(target=save_data, args=(i,))
+    # Adding thread objects to the list
+    threads.append(t)
+    t.start()
+
+# 4. JOINING (Waiting for completion)
+for t in threads:
+    # This tells the main thread to not continue until 
+    # this specific THREAD is finished.     
+    t.join()
+
+print("\nFinal Shared Database:", database)
 ```
 :::
 

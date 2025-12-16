@@ -236,7 +236,7 @@ Notice that `comm.send()` and `comm.recv()` are blocking operations.
 - Add a short delay using `time.sleep(rank)` before sending or receiving.
 - Observe how process 0 must wait until process 1 calls `recv()` before it can continue, and vice versa.
 - Try swapping the order of the calls (e.g., both processes call `send()` first), what happens?
-- You may notice the program hangs or deadlocks, because both processes are waiting for a `recv()` that never starts.
+- You may notice the program hangs or deadlocks, because both processes are waiting for a `recv()` that never starts. There are versions of `send` and `recv` that are non-blocking called [`isend`](https://mpi4py.readthedocs.io/en/stable/reference/mpi4py.MPI.Comm.html#mpi4py.MPI.Comm.isend) and [`irecv`](https://mpi4py.readthedocs.io/en/stable/reference/mpi4py.MPI.Comm.html#mpi4py.MPI.Comm.irecv) that will not be discussed in this course but there are links to the documentation. And an example can be found [here](https://mpi4py.readthedocs.io/en/stable/tutorial.html) under the section *Python objects with non-blocking communication* 
 :::
 
 :::{solution}
