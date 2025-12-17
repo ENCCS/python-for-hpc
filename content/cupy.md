@@ -1,8 +1,8 @@
 # CuPy
 
 :::{questions}
-- How could I make my Python code to run on a GPU
-- How do I copy data to the GPU memory
+- How could I make my Python code to run on a GPU?
+- How do I copy data to the GPU memory?
 :::
 
 :::{objectives}
@@ -27,10 +27,6 @@ NumPy/SciPy code on both NVIDIA CUDA or AMD ROCm platforms.
 By design, the CuPy interface is as close as possible to NumPy/SciPy,
 making code porting much easier.
 
-
-
-:::{highlight} python
-:::
 
 ## Basics of CuPy
 
@@ -661,7 +657,7 @@ Names of NumPy data types can be used as type specifiers.
 ...    'my_kernel')             # kernel name
 ```
 
-In the first line, the object instantiation is named `kernel`.
+In the first line, the object instantiation is named `my_kernel`.
 The next line has the variables to be used as input (x and y) and output (z).
 These variables can be typed with NumPy data types, as shown.
 The function code then follows. The last line states the kernel name,
