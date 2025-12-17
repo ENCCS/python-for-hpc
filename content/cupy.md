@@ -6,11 +6,11 @@
 :::
 
 :::{objectives}
-- Learn the basics of CuPy
-- Be able to find out if a variable is stored in the CPU or GPU memory
-- Be able to copy data from host to device memory and vice versa
-- Be able to re-write a simple NumPy/SciPy 
-  function using CuPy to run on the GPUs
+- Understand the basics of the library CuPy and its functionalities
+- Analyze and detect whether a variable is stored in the CPU or GPU memory
+- Execute a data-copy operation from host to device memory and vice versa
+- Re-write a simple NumPy/SciPy 
+  function, to program the CuPy equivalent which runs on the GPUs
 <!-- - Be able to profile a simple function
   and estimate the speed-up by using GPU -->
 :::
@@ -19,14 +19,19 @@
 ## Introduction to CuPy
 
 Another excellent tool for writing Python code to run on GPUs is CuPy.
-CuPy is a NumPy/SciPy-compatible array library for
-GPU-accelerated computing with Python,
-which implements most of the NumPy/SciPy operations
+CuPy implements most of the NumPy/SciPy operations
 and acts as a drop-in replacement to run existing
-NumPy/SciPy code on both NVIDIA CUDA or AMD ROCm platforms.
+code on both NVIDIA CUDA or AMD ROCm platforms.
 By design, the CuPy interface is as close as possible to NumPy/SciPy,
 making code porting much easier.
 
+:::{note}
+A common misconception is that CuPy is an official NVIDIA project.
+It is rather a community driven project. Originally it was developed
+to support a deep-learning framework called Chainer (now deprecated),
+wherein it only supported CUDA as a target. Nowadays CuPy has
+great support for both NVIDIA CUDA or AMD ROCm platforms.
+:::
 
 ## Basics of CuPy
 
@@ -868,4 +873,5 @@ In this episode, we have learned about:
 - [CuPy Homepage](https://docs.cupy.dev/en/stable/index.html)
 - [GPU programming: When, Why and How?](https://enccs.github.io/gpu-programming)
 - [CUDA Python from Nvidia](https://nvidia.github.io/cuda-python/latest)
-
+- [CuPy Wiki page](https://en.wikipedia.org/wiki/CuPy)
+- [Chainer Blog](https://chainer.org/announcement/2019/12/05/released-v7.html)
