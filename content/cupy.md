@@ -392,23 +392,15 @@ is determined by the dtypes of the inputs. This is different
 from NumPy's rule on type promotion, when operands contain
 zero-dimensional arrays. Zero-dimensional numpy.ndarray
 are treated as if they were scalar values if they appear
-in operands of NumPy's function, This may affect the dtype
+in operands of NumPy's function. This may affect the dtype
 of its output, depending on the values of the "scalar" inputs.
 
 ```
 >>> (np.array(3, dtype=np.int32) * np.array([1., 2.], dtype=np.float32)).dtype
 dtype('float32')
 
->>> (np.array(300000, dtype=np.int32) * np.array([1., 2.], dtype=np.float32)).dtype
-dtype('float64')
-
 >>> (cp.array(3, dtype=np.int32) * cp.array([1., 2.], dtype=np.float32)).dtype
 dtype('float64')
-
-################## FIXME: example not working
->>> (np.array(3, dtype=np.int32) * np.array([1., 2.], dtype=np.float32)).dtype
-dtype('float64')
-
 ```
 
 ### Matrix type (numpy.matrix)
@@ -447,44 +439,47 @@ TypeError: Unsupported type <class 'list'>
 
 ### Random seed arrays are hashed to scalars
 
-Like Numpy, CuPy's RandomState objects accept seeds
-either as numbers or as full numpy arrays.
+Like NumPy, CuPy's RandomState objects accept seeds
+either as numbers or as full NumPy arrays.
 
-However, unlike Numpy, array seeds will be hashed down
-to a single number and so may not communicate as much entropy
-to the underlying random number generator.
+However, unlike NumPy, array seeds will be hashed down
+to a single number of 64 bits. In contrast, NumPy often
+converts the seeds into a larger state space of 128 bits.
+Therefore, CuPy's implementation may not communicate as 
+much entropy to the underlying random number generator.
 
+<!--
 ```
 >>> seed = np.array([1, 2, 3, 4, 5])
 >>> rs = cp.random.RandomState(seed=seed)
 ```
+-->
 
 ### NaN (not-a-number) handling
 
-By default CuPy's reduction functions (e.g., cupy.sum())
+Prior to CuPy v11, CuPy's reduction functions (e.g., cupy.sum())
 handle NaNs in complex numbers differently from NumPy's counterparts:
 
 ```
-################## FIXME: example not working
 >>> a = [0.5 + 3.7j, complex(0.7, np.nan), complex(np.nan, -3.9), complex(np.nan, np.nan)]
 >>> a
 [(0.5+3.7j), (0.7+nanj), (nan-3.9j), (nan+nanj)]
-
+>>>
 >>> a_np = np.asarray(a)
 >>> print(a_np.max(), a_np.min())
 (0.7+nanj) (0.7+nanj)
-
+>>>
 >>> a_cp = cp.asarray(a_np)
 >>> print(a_cp.max(), a_cp.min())
-(0.7+nanj) (0.7+nanj)
+(nan-3.9j) (nan-3.9j)
 ```
 
 The reason is that internally the reduction is performed
 in a strided fashion, thus it does not ensure a
 proper comparison order and cannot follow NumPy's rule
 to always propagate the first-encountered NaN.
-Note that this difference does not apply when CUB
-is enabled (which is the default for CuPy v11 or later.)
+This difference does not apply when CUB library is enabled 
+which is the default for CuPy v11 and later.
 
 ### Contiguity / Strides
 
