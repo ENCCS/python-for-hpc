@@ -710,15 +710,16 @@ on the kernel invocation, only the input arguments
 are used to determine the type.
 
 ```
-my_kernel_generic = cp.ElementwiseKernel(
+my_kernel_generic2 = cp.ElementwiseKernel(
     'X x, Y y',
     'Z z',
     'z = (x - y) * (x - y)',
-    'my_kernel_generic')
+    'my_kernel_generic2')
 ```
-################## FIXME: check this
+
 :::{note}
-This kernel requires the output argument to be explicitly specified,
+This above kernel, i.e. `my_kernel_generic2`, 
+requires the output argument to be explicitly specified,
 because the type Z cannot be automatically determined from
 the input arguments X and Y.
 :::
