@@ -175,6 +175,12 @@ For example, the following code snippet creates an array on GPU 1:
 >>> print("x_gpu1 is on device:" x_gpu1.device)
 ```
 
+Sometimes it is more convenient to set the device globally:
+```
+>>> import cupy as cp
+>>> cp.cuda.runtime.setDevice(1)
+```
+
 All CuPy operations (except for multi-GPU features
 and device-to-device copy) are performed
 on the currently active device.
