@@ -1,0 +1,1532 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="./">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html">
+        <link rel="prefetch" href="_static/ENCCS_logo_light.png" as="image">
+        <link rel="prefetch" href="_static/ENCCS_logo_dark.png" as="image">
+
+    <link rel="shortcut icon" href="_static/favicon.ico"><!-- Generated with Sphinx 8.2.3 and Furo 2025.09.25 -->
+        <title>Your lesson name</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=580074bf" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx_lesson.css?v=0c089442" />
+    <link rel="stylesheet" type="text/css" href="_static/term_role_formatting.css?v=4194e21c" />
+    <link rel="stylesheet" type="text/css" href="_static/furo_ext_lesson.css?v=685c8e98" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="_static/overrides.css?v=1c72d2de" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="#"><div class="brand">Your lesson name</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo only-light" src="_static/ENCCS_logo_light.png" alt="Light Logo"/>
+    <img class="sidebar-logo only-dark" src="_static/ENCCS_logo_dark.png" alt="Dark Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Your lesson name</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-intohpc">Introduction to HPC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-mpi4py">Introduction to MPI with Python (mpi4py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-episode">Episode template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-quick-reference">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-guide">Instructor’s guide</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="lesson-name">
+<h1>LESSON NAME<a class="headerlink" href="#lesson-name" title="Link to this heading">¶</a></h1>
+<p>Intro</p>
+<div class="admonition-prerequisites prerequisites admonition" id="prerequisites-0">
+<p class="admonition-title">Prerequisites</p>
+<ul class="simple">
+<li><p>FIXME</p></li>
+<li><p>…</p></li>
+<li><p>…</p></li>
+</ul>
+</div>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>20 min</p></td>
+<td><p><span class="xref std std-doc">filename</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-intohpc"></span><section id="introduction-to-hpc">
+<h2>Introduction to HPC<a class="headerlink" href="#introduction-to-hpc" title="Link to this heading">¶</a></h2>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What is High-Performance Computing (HPC)?</p></li>
+<li><p>Why do we use HPC systems?</p></li>
+<li><p>How does parallel computing make programs faster?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Define what High-Performance Computing (HPC) is.</p></li>
+<li><p>Identify the main components of an HPC system.</p></li>
+<li><p>Describe the difference between serial and parallel computing.</p></li>
+<li><p>Run a simple command on a cluster using the terminal.</p></li>
+</ul>
+</div>
+<p>High-Performance Computing (HPC) refers to using many computers working
+together to solve complex problems faster than a single machine could.
+HPC is widely used in fields such as climate science, molecular
+simulation, astrophysics, and artificial intelligence.</p>
+<p>This lesson introduces what HPC is, why it matters, and how researchers
+use clusters to perform large-scale computations.</p>
+<hr class="docutils" />
+<section id="what-is-hpc">
+<h3>What is HPC?<a class="headerlink" href="#what-is-hpc" title="Link to this heading">¶</a></h3>
+<p>HPC systems, often called <em>supercomputers</em> or <em>clusters</em>, are made up of
+many computers (called <strong>nodes</strong>) connected by a fast network. Each node
+can have multiple cores which are <strong>CPUs</strong> (and sometimes <strong>GPUs</strong>) that
+run tasks in parallel.</p>
+<section id="typical-hpc-components">
+<h4>Typical HPC Components<a class="headerlink" href="#typical-hpc-components" title="Link to this heading">¶</a></h4>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Login node</strong></p></td>
+<td><p>Where you connect and submit jobs</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Compute nodes</strong></p></td>
+<td><p>Machines where your program actually runs</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Scheduler</strong></p></td>
+<td><p>Manages job submissions and allocates resources (e.g. SLURM)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Storage</strong></p></td>
+<td><p>Shared file system accessible to all nodes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="single-core-performance-optimization">
+<h3>Single core performance optimization<a class="headerlink" href="#single-core-performance-optimization" title="Link to this heading">¶</a></h3>
+<p>Pure-Python loops are slow because each iteration runs in the Python interpreter. NumPy pushes work into optimized native code (C/C++/BLAS), drastically reducing overhead. Below we compare a Python for loop with NumPy vectorized operations and discuss tips for fair, single-core measurements.</p>
+<div class="admonition-practice-making-python-faster-on-a-single-cpu exercise important admonition" id="exercise-0">
+<p class="admonition-title">Practice making Python faster on a single CPU.</p>
+<p>Copy and paste this code</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="c1"># (Optional safety if you run this inside Python, must be set BEFORE importing numpy)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;OMP_NUM_THREADS&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;OPENBLAS_NUM_THREADS&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;MKL_NUM_THREADS&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;NUMEXPR_NUM_THREADS&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">perf_counter</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">timeit</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">warmup</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># warmup</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">warmup</span><span class="p">):</span>
+        <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># timed runs</span>
+    <span class="n">tmin</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;inf&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeats</span><span class="p">):</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span>
+        <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">perf_counter</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+        <span class="n">tmin</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">tmin</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tmin</span>
+
+<span class="c1"># Problem size</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">10_000_000</span>  <span class="c1"># 10 million elements</span>
+
+<span class="c1"># Test data (contiguous, fixed dtype)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+<span class="c1"># --- 1) Pure-Python loop sum ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">py_sum</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>         <span class="c1"># per-element Python overhead</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">s</span>
+
+<span class="c1"># --- 2) NumPy vectorized sum ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">np_sum</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>      <span class="c1"># dispatches to optimized C/BLAS</span>
+
+<span class="c1"># --- 3) Elementwise add then sum (Python loop) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">py_add_sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">s</span>
+
+<span class="c1"># --- 4) Elementwise add then sum (NumPy, no temporaries) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">np_add_sum_no_temp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="c1"># np.add.reduce avoids allocating x+y temporary</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">add</span><span class="o">.</span><span class="n">reduce</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>  <span class="c1"># equivalent to sum stacks; see alt below</span>
+
+<span class="c1"># Alternative that’s typically fastest and clearer:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">np_add_sum_fast</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>  <span class="c1"># may allocate a temporary; fast on many BLAS builds</span>
+
+<span class="c1"># Time them</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Timing on single core (best of 5 runs):&quot;</span><span class="p">)</span>
+<span class="n">t_py_sum</span>   <span class="o">=</span> <span class="n">timeit</span><span class="p">(</span><span class="n">py_sum</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">t_np_sum</span>   <span class="o">=</span> <span class="n">timeit</span><span class="p">(</span><span class="n">np_sum</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+<span class="n">t_py_add</span>   <span class="o">=</span> <span class="n">timeit</span><span class="p">(</span><span class="n">py_add_sum</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">t_np_add</span>   <span class="o">=</span> <span class="n">timeit</span><span class="p">(</span><span class="n">np_add_sum_fast</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Python for-loop sum:          </span><span class="si">{</span><span class="n">t_py_sum</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NumPy vectorized sum:         </span><span class="si">{</span><span class="n">t_np_sum</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Python loop add+sum:          </span><span class="si">{</span><span class="n">t_py_add</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> s&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NumPy vectorized add+sum:     </span><span class="si">{</span><span class="n">t_np_add</span><span class="si">:</span><span class="s2">8.4f</span><span class="si">}</span><span class="s2"> s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Execute it and following let us verify the effect on the following modifications:</p>
+<ol class="arabic simple">
+<li><p>Run the timing script with N = 1_000_000, 5_000_000, 20_000_000.</p></li>
+<li><p>Try float32 vs float64.</p></li>
+<li><p>Switch (a + b).sum() to np.add(a, b, out=a); a.sum() and compare.</p></li>
+</ol>
+</div>
+<section id="practical-tips-for-single-core-speed">
+<h4>Practical tips for single-core speed<a class="headerlink" href="#practical-tips-for-single-core-speed" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Prefer vectorization: Use array ops (+, <em>, .sum(), .dot(), np.mean, np.linalg.</em>) rather than per-element Python loops.</p></li>
+<li><p>Control temporaries: Expressions like (a + b + c).sum() may create temporaries. When memory is tight, consider in-place ops (a += b) or reductions (np.add(a, b, out=a); np.add.reduce([…])).</p></li>
+<li><p>Use the right dtype: float64 is standard for numerics; float32 halves memory traffic and can be faster on some CPUs/GPUs (but mind precision).</p></li>
+<li><p>Preallocate: Avoid growing Python lists or repeatedly allocating arrays inside loops.</p></li>
+<li><p>Minimize Python in hot paths: Move heavy math into NumPy calls; keep Python for orchestration only.</p></li>
+<li><p>Benchmark correctly: Use large N, pin threads to 1 for fair single-core tests, and report the best of multiple runs after a warmup.</p></li>
+</ul>
+<p>–</p>
+</section>
+</section>
+<section id="parallel-computing">
+<h3>Parallel Computing<a class="headerlink" href="#parallel-computing" title="Link to this heading">¶</a></h3>
+<p>High-Performance Computing relies on <strong>parallel computing</strong>, splitting a problem into smaller parts that can be executed <em>simultaneously</em> on multiple processors.</p>
+<p>Instead of running one instruction at a time on one CPU core, parallel computing allows you to run many instructions on many cores or even multiple machines at once.</p>
+<p>Parallelism can occur at different levels:</p>
+<ul class="simple">
+<li><p><strong>Within a single CPU</strong> (multiple cores)</p></li>
+<li><p><strong>Across multiple CPUs</strong> (distributed nodes)</p></li>
+<li><p><strong>On specialized accelerators</strong> (GPUs or TPUs)</p></li>
+</ul>
+<hr class="docutils" />
+<section id="shared-memory-parallelism">
+<h4>Shared-Memory Parallelism<a class="headerlink" href="#shared-memory-parallelism" title="Link to this heading">¶</a></h4>
+<p>In <strong>shared-memory</strong> systems, multiple processor cores share the same memory space.<br />
+Each core can directly read and write to the same variables in memory.</p>
+<p>This is the model used in:</p>
+<ul class="simple">
+<li><p>Multicore laptops and workstations</p></li>
+<li><p><em>Single compute nodes</em> on a cluster</p></li>
+</ul>
+<p>Programs use <strong>threads</strong> to execute in parallel (e.g., with OpenMP in C/C++/Fortran or <strong>multiprocessing in Python</strong>).</p>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<p>Advantages:</p>
+<ul class="simple">
+<li><p>Easy communication between threads (shared variables)</p></li>
+<li><p>Low latency data access</p></li>
+</ul>
+<p>Limitations:</p>
+<ul class="simple">
+<li><p>Limited by the number of cores on one machine</p></li>
+<li><p>Risk of race conditions if data access is not synchronized</p></li>
+</ul>
+</div>
+<div class="admonition-practice-with-threaded-parallelism-in-python exercise important admonition" id="exercise-1">
+<p class="admonition-title">Practice with threaded parallelism in Python</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pool</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">Pool</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="distributed-memory-parallelism">
+<h4>Distributed-Memory Parallelism<a class="headerlink" href="#distributed-memory-parallelism" title="Link to this heading">¶</a></h4>
+<p>In distributed-memory systems, each processor (or node) has its own local memory.
+Processors communicate by passing messages over a network.</p>
+<p>This is the model used when a computation spans multiple nodes in an HPC cluster.</p>
+<p>Programs written with MPI (Message Passing Interface) use explicit communication.
+Below is an example using the Python library <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> that implements MPI functions
+in Python</p>
+<div class="admonition-practice-with-a-simple-mpi-program exercise important admonition" id="exercise-2">
+<p class="admonition-title">Practice with a simple MPI program</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># hello_mpi.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="c1"># Initialize the MPI communicator</span>
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+
+<span class="c1"># Get the total number of processes</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+
+<span class="c1"># Get the rank (ID) of this process</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello from process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># MPI is automatically finalized when the program exits,</span>
+<span class="c1"># but you can call MPI.Finalize() explicitly if you prefer</span>
+</pre></div>
+</div>
+</div>
+<p>For now, do not worry about understanding this code, we will see
+<code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> in detail later.</p>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-1">
+<p class="admonition-title">Keypoints</p>
+<p>Advantages:</p>
+<ul class="simple">
+<li><p>Scales to thousands of nodes</p></li>
+<li><p>Each process works independently, avoiding memory contention</p></li>
+</ul>
+<p>Limitations:</p>
+<ul class="simple">
+<li><p>Requires explicit communication (send/receive)</p></li>
+<li><p>More complex programming model</p></li>
+<li><p>More latency, requires minimizing movement of data.</p></li>
+</ul>
+</div>
+</section>
+<section id="hybrid-architectures-cpu-gpu-and-tpu">
+<h4>Hybrid Architectures: CPU, GPU, and TPU<a class="headerlink" href="#hybrid-architectures-cpu-gpu-and-tpu" title="Link to this heading">¶</a></h4>
+<p>Modern High-Performance Computing (HPC) systems rarely rely on CPUs alone.<br />
+They are <strong>hybrid architectures</strong>, combining different types of processors, typically <strong>CPUs</strong>, <strong>GPUs</strong>, and increasingly <strong>TPUs</strong>, to achieve both flexibility and high performance.</p>
+<hr class="docutils" />
+<section id="cpu-the-general-purpose-processor">
+<h5>CPU: The General-Purpose Processor<a class="headerlink" href="#cpu-the-general-purpose-processor" title="Link to this heading">¶</a></h5>
+<p><strong>Central Processing Units (CPUs)</strong> are versatile processors capable of handling a wide range of tasks.<br />
+They consist of a small number of powerful cores optimized for complex, sequential operations and control flow.</p>
+<p>CPUs are responsible for:</p>
+<ul class="simple">
+<li><p>Managing input/output operations</p></li>
+<li><p>Coordinating data movement and workflow</p></li>
+<li><p>Executing serial portions of applications</p></li>
+</ul>
+<p>They excel in <strong>task parallelism</strong>, where different cores perform distinct tasks concurrently.</p>
+</section>
+<hr class="docutils" />
+<section id="gpu-the-parallel-workhorse">
+<h5>GPU: The Parallel Workhorse<a class="headerlink" href="#gpu-the-parallel-workhorse" title="Link to this heading">¶</a></h5>
+<p><strong>Graphics Processing Units (GPUs)</strong> contain thousands of lightweight cores that can execute the same instruction on many data elements simultaneously.<br />
+This makes them ideal for <strong>data-parallel</strong> workloads, such as numerical simulations, molecular dynamics, and deep learning.</p>
+<p>GPUs are optimized for:</p>
+<ul class="simple">
+<li><p>Large-scale mathematical computations</p></li>
+<li><p>Highly parallel tasks such as matrix and vector operations</p></li>
+</ul>
+<p>Common GPU computing frameworks include CUDA, HIP, OpenACC, and SYCL.</p>
+<p>GPUs provide massive computational throughput but require explicit management of data transfers between CPU and GPU memory.<br />
+They are now a standard component of most modern supercomputers.</p>
+</section>
+<hr class="docutils" />
+<section id="tpu-specialized-processor-for-tensor-operations">
+<h5>TPU: Specialized Processor for Tensor Operations<a class="headerlink" href="#tpu-specialized-processor-for-tensor-operations" title="Link to this heading">¶</a></h5>
+<p><strong>Tensor Processing Units (TPUs)</strong> are specialized hardware accelerators designed for tensor and matrix operations, the building blocks of deep learning and AI.<br />
+Originally developed by Google, TPUs are now used in both cloud and research HPC environments.</p>
+<p>TPUs focus on <strong>tensor computations</strong> and achieve very high performance and energy efficiency for machine learning workloads.<br />
+They are less flexible than CPUs or GPUs but excel in neural network training and inference.</p>
+</section>
+</section>
+</section>
+<section id="python-in-high-performance-computing">
+<h3>Python in High-Performance Computing<a class="headerlink" href="#python-in-high-performance-computing" title="Link to this heading">¶</a></h3>
+<p>Python has become one of the most widely used languages in scientific computing due to its simplicity, readability, and extensive ecosystem of numerical libraries.<br />
+Although Python itself is interpreted and slower than compiled languages such as C or Fortran, it now provides a mature set of tools that allow code to <strong>run efficiently on modern HPC architectures</strong>.</p>
+<p>These tools map directly to the three fundamental forms of parallelism introduced earlier:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>HPC Parallelism Type</p></th>
+<th class="head"><p>Hardware Context</p></th>
+<th class="head"><p>Python Solutions</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Shared-memory parallelism</strong></p></td>
+<td><p>Multicore CPUs within a node</p></td>
+<td><p>NumPy, Numba, Pythran</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Distributed-memory parallelism</strong></p></td>
+<td><p>Multiple nodes across a cluster</p></td>
+<td><p>mpi4py</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Accelerator parallelism</strong></p></td>
+<td><p>GPUs and TPUs</p></td>
+<td><p>CuPy, JAX, Numba (CUDA)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In practice, these technologies allow Python programs to scale from a single core to thousands of nodes on hybrid CPU–GPU systems.</p>
+<hr class="docutils" />
+<section id="shared-memory-parallelism-multicore-cpus">
+<h4>Shared-Memory Parallelism (Multicore CPUs)<a class="headerlink" href="#shared-memory-parallelism-multicore-cpus" title="Link to this heading">¶</a></h4>
+<p>Shared-memory parallelism occurs within a single compute node, where all CPU cores access the same physical memory.<br />
+Python supports this level of performance primarily through <strong>compiled numerical libraries</strong> and <strong>JIT (Just-In-Time) compilation</strong>, which transform slow Python loops into efficient native machine code.</p>
+<section id="numpy-foundation-of-scientific-computing">
+<h5>NumPy: Foundation of Scientific Computing<a class="headerlink" href="#numpy-foundation-of-scientific-computing" title="Link to this heading">¶</a></h5>
+<p><strong>NumPy</strong> provides fast array operations implemented in C and Fortran.<br />
+Its vectorized operations and BLAS/LAPACK backends <strong>automatically</strong> exploit shared-memory parallelism through optimized linear algebra kernels.<br />
+Although users write Python, most computations occur in compiled native code.</p>
+</section>
+<section id="pythran-static-compilation-of-numerical-python-code">
+<h5>Pythran: Static Compilation of Numerical Python Code<a class="headerlink" href="#pythran-static-compilation-of-numerical-python-code" title="Link to this heading">¶</a></h5>
+<p><strong>Pythran</strong> compiles numerical Python code — particularly code using NumPy — into optimized C++ extensions.<br />
+It can automatically parallelize loops using <strong>OpenMP</strong>, enabling true multicore utilization without manual thread management.</p>
+<p>Key strengths:</p>
+<ul class="simple">
+<li><p>Converts array-oriented Python functions into C++ for near-native speed</p></li>
+<li><p>Supports automatic OpenMP parallelization for CPU cores</p></li>
+<li><p>Integrates easily into existing Python workflows</p></li>
+</ul>
+<p>Pythran is well-suited for simulations or kernels that need to exploit multiple cores on a node.</p>
+</section>
+<section id="numba-jit-compilation-for-shared-and-accelerator-architectures">
+<h5>Numba: JIT Compilation for Shared and Accelerator Architectures<a class="headerlink" href="#numba-jit-compilation-for-shared-and-accelerator-architectures" title="Link to this heading">¶</a></h5>
+<p><strong>Numba</strong> uses LLVM to JIT-compile Python functions into efficient machine code at runtime.<br />
+On multicore CPUs, Numba can parallelize loops using OpenMP-like constructs; on GPUs, it can emit CUDA kernels (see below).</p>
+<p>Main advantages:</p>
+<ul class="simple">
+<li><p>Minimal syntax changes required</p></li>
+<li><p>Explicit parallel decorators for CPU threading</p></li>
+<li><p>Compatible with NumPy arrays and ufuncs</p></li>
+</ul>
+<p>Together, NumPy, Pythran, and Numba enable Python to fully exploit shared-memory parallelism.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="distributed-memory-parallelism-clusters-and-supercomputers">
+<h4>Distributed-Memory Parallelism (Clusters and Supercomputers)<a class="headerlink" href="#distributed-memory-parallelism-clusters-and-supercomputers" title="Link to this heading">¶</a></h4>
+<p>At large scale, HPC systems use <strong>distributed memory</strong>, where each node has its own local memory and must communicate explicitly.<br />
+Python provides access to this level of parallelism through <strong>mpi4py</strong>, a direct interface to the standard MPI library.</p>
+<section id="mpi4py-scalable-distributed-computing-with-mpi">
+<h5>mpi4py: Scalable Distributed Computing with MPI<a class="headerlink" href="#mpi4py-scalable-distributed-computing-with-mpi" title="Link to this heading">¶</a></h5>
+<p><strong>mpi4py</strong> enables Python programs to exchange data between processes running on different nodes using MPI.<br />
+It provides both point-to-point and collective communication primitives, identical in concept to those used in C or Fortran MPI applications.</p>
+<p>Key features:</p>
+<ul class="simple">
+<li><p>Works seamlessly with NumPy arrays (zero-copy data transfer)</p></li>
+<li><p>Supports all MPI operations (send, receive, broadcast, scatter, gather, reduce)</p></li>
+<li><p>Compatible with job schedulers such as SLURM or PBS</p></li>
+</ul>
+<p>With <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code>, Python can participate in large-scale distributed-memory simulations or data-parallel tasks across thousands of cores.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="accelerator-specific-parallelism-gpus-and-tpus">
+<h4>Accelerator-Specific Parallelism (GPUs and TPUs)<a class="headerlink" href="#accelerator-specific-parallelism-gpus-and-tpus" title="Link to this heading">¶</a></h4>
+<p>Modern HPC nodes increasingly include <strong>GPUs</strong> or <strong>TPUs</strong> to accelerate numerical workloads.<br />
+Python offers several mature libraries that interface directly with these accelerators, providing high-level syntax while executing low-level parallel kernels.</p>
+<section id="cupy-gpu-accelerated-numpy-replacement">
+<h5>CuPy: GPU-Accelerated NumPy Replacement<a class="headerlink" href="#cupy-gpu-accelerated-numpy-replacement" title="Link to this heading">¶</a></h5>
+<p><strong>CuPy</strong> mirrors the NumPy API but executes array operations on GPUs using CUDA (NVIDIA) or ROCm (AMD).<br />
+Users can port existing NumPy code to GPUs with minimal changes, gaining massive speedups for large, data-parallel computations.</p>
+<p>Highlights:</p>
+<ul class="simple">
+<li><p>NumPy-compatible array and linear algebra operations</p></li>
+<li><p>Native support for multi-GPU and CUDA streams</p></li>
+<li><p>Tight integration with deep learning and simulation frameworks</p></li>
+</ul>
+</section>
+<section id="jax-unified-array-computing-for-cpus-gpus-and-tpus">
+<h5>JAX: Unified Array Computing for CPUs, GPUs, and TPUs<a class="headerlink" href="#jax-unified-array-computing-for-cpus-gpus-and-tpus" title="Link to this heading">¶</a></h5>
+<p><strong>JAX</strong> combines automatic differentiation and XLA-based compilation to execute Python functions efficiently on CPUs, GPUs, and TPUs.<br />
+It is particularly well-suited for scientific machine learning and differentiable simulations.</p>
+<p>Key strengths:</p>
+<ul class="simple">
+<li><p>Just-In-Time (JIT) compilation via XLA</p></li>
+<li><p>Transparent execution on accelerators (GPU, TPU)</p></li>
+<li><p>Built-in vectorization and automatic differentiation</p></li>
+</ul>
+<p>JAX provides a single high-level API for heterogeneous HPC nodes, seamlessly handling hybrid CPU–GPU–TPU workflows.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="summary-python-across-hpc-architectures">
+<h4>Summary: Python Across HPC Architectures<a class="headerlink" href="#summary-python-across-hpc-architectures" title="Link to this heading">¶</a></h4>
+<p>Python can now leverage <strong>all layers of hybrid HPC architectures</strong> through specialized libraries:</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Architecture</p></th>
+<th class="head"><p>Parallelism Type</p></th>
+<th class="head"><p>Typical Python Tools</p></th>
+<th class="head"><p>Example Use Cases</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Multicore CPUs</strong></p></td>
+<td><p>Shared memory</p></td>
+<td><p>NumPy, Pythran, Numba</p></td>
+<td><p>Numerical kernels, vectorized math</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Clusters</strong></p></td>
+<td><p>Distributed memory</p></td>
+<td><p>mpi4py</p></td>
+<td><p>Large-scale simulations, domain decomposition</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>GPUs / TPUs</strong></p></td>
+<td><p>Accelerator parallelism</p></td>
+<td><p>CuPy, JAX, Numba (CUDA)</p></td>
+<td><p>Machine learning, dense linear algebra</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Together, these tools allow Python to serve as a <em>high-level orchestration language</em> that transparently scales from a single laptop core to full supercomputing environments — integrating shared-memory, distributed-memory, and accelerator-based parallelism in one ecosystem.</p>
+<hr class="docutils" />
+<div class="admonition-keypoints keypoints admonition" id="keypoints-2">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>Python’s ecosystem maps naturally onto hybrid HPC architectures.</p></li>
+<li><p><strong>NumPy, Numba, and Pythran</strong> exploit shared-memory parallelism on multicore CPUs.</p></li>
+<li><p><strong>mpi4py</strong> extends Python to distributed-memory clusters.</p></li>
+<li><p><strong>CuPy and JAX</strong> enable acceleration on GPUs and TPUs.</p></li>
+<li><p>These libraries allow researchers to combine high productivity with near-native performance across all layers of HPC systems.</p></li>
+</ul>
+</div>
+</section>
+</section>
+</section>
+<span id="document-mpi4py"></span><section id="introduction-to-mpi-with-python-mpi4py">
+<h2>Introduction to MPI with Python (mpi4py)<a class="headerlink" href="#introduction-to-mpi-with-python-mpi4py" title="Link to this heading">¶</a></h2>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What is MPI, and how does it enable parallel programs to communicate?</p></li>
+<li><p>How does Python implement MPI through the <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> library?</p></li>
+<li><p>What are point-to-point and collective communications?</p></li>
+<li><p>How does <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> integrate with NumPy for efficient data exchange?</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Understand the conceptual model of MPI: processes, ranks, and communication.</p></li>
+<li><p>Distinguish between point-to-point and collective operations.</p></li>
+<li><p>Recognize how NumPy arrays act as communication buffers in <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code>.</p></li>
+<li><p>See how <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> bridges Python and traditional HPC concepts.</p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<section id="what-is-mpi">
+<h3>What Is MPI?<a class="headerlink" href="#what-is-mpi" title="Link to this heading">¶</a></h3>
+<p><strong>MPI (Message Passing Interface)</strong> is a standardized programming model for communication among processes that run on <strong>distributed-memory systems</strong>, such as HPC clusters.</p>
+<p>In a distributed-memory system, each compute node (or process) has its <strong>own local memory</strong>.<br />
+Unlike shared-memory systems, where threads can directly read and write to a common address space, distributed processes <strong>cannot directly access each other’s memory</strong>.<br />
+To collaborate, they must explicitly <strong>send and receive messages</strong> containing the data they need to share.</p>
+<section id="independent-processes-and-the-spmd-model">
+<h4>Independent Processes and the SPMD Model<a class="headerlink" href="#independent-processes-and-the-spmd-model" title="Link to this heading">¶</a></h4>
+<p>When you run an MPI program, the system launches <strong>multiple independent processes</strong>, each running its <strong>own copy</strong> of the same program.<br />
+This design is fundamental: because each process owns its own memory space, it must contain its own copy of the code to execute its portion of the computation.</p>
+<p>Each process:</p>
+<ul class="simple">
+<li><p>Runs the same code but operates on a different subset of the data.</p></li>
+<li><p>Is identified by a unique number called its <strong>rank</strong>.</p></li>
+<li><p>Belongs to a <strong>communicator</strong>, a group of processes that can exchange messages (most commonly <code class="docutils literal notranslate"><span class="pre">MPI.COMM_WORLD</span></code>).</p></li>
+</ul>
+<p>This model is known as <strong>SPMD: Single Program, Multiple Data</strong>:<br />
+a single source program runs simultaneously on many processes, each working on different data.</p>
+</section>
+<section id="why-copies-of-the-program-are-needed">
+<h4>Why Copies of the Program Are Needed?<a class="headerlink" href="#why-copies-of-the-program-are-needed" title="Link to this heading">¶</a></h4>
+<p>Because processes in distributed memory do not share variables or memory addresses, each process must have:</p>
+<ul class="simple">
+<li><p>Its <strong>own copy of the executable code</strong>, and</p></li>
+<li><p>Its <strong>own private workspace (variables, arrays, etc.)</strong>.</p></li>
+</ul>
+<p>This independence is crucial for scalability:</p>
+<ul class="simple">
+<li><p>Each process can execute independently without memory contention.</p></li>
+<li><p>The program can scale to thousands of nodes, since no shared memory bottleneck exists.</p></li>
+<li><p>Data movement becomes explicit and controllable, ensuring predictable performance on large clusters.</p></li>
+</ul>
+</section>
+<section id="sharing-data-between-processes">
+<h4>Sharing Data Between Processes<a class="headerlink" href="#sharing-data-between-processes" title="Link to this heading">¶</a></h4>
+<p>Although memory is not shared, processes can <strong>cooperate</strong> by exchanging information through <strong>message passing</strong>.<br />
+MPI defines two main communication mechanisms:</p>
+<ol class="arabic simple">
+<li><p><strong>Point-to-point communication</strong>: Data moves <strong>directly</strong> between two processes.</p></li>
+<li><p><strong>Collective communication</strong>: Data is exchanged among <strong>all processes</strong> in a communicator in a coordinated way.</p></li>
+</ol>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p><strong>Process:</strong> Each MPI program runs as multiple independent processes, not threads.</p></li>
+<li><p><strong>Rank:</strong> Every process has a unique identifier (its <em>rank</em>) within a communicator, used to distinguish and coordinate them.</p></li>
+<li><p><strong>Communication:</strong> Processes exchange data explicitly through message passing, either <strong>point-to-point</strong> (between pairs) or <strong>collective</strong> (among groups).</p></li>
+</ul>
+<p>Together, these three ideas form the foundation of MPI’s model for parallel computing.</p>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="mpi4py">
+<h3>mpi4py<a class="headerlink" href="#mpi4py" title="Link to this heading">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> is the standard Python interface to the <strong>Message Passing Interface (MPI)</strong>, the same API used by C, C++, and Fortran codes for distributed-memory parallelism.<br />
+It allows Python programs to run on many processes, each with its own memory space, communicating through explicit messages.</p>
+<section id="communicators-and-initialization">
+<h4>Communicators and Initialization<a class="headerlink" href="#communicators-and-initialization" title="Link to this heading">¶</a></h4>
+<p>In MPI, all communication occurs through a <strong>communicator</strong>, an object that defines which processes can talk to each other.<br />
+When a program starts, each process automatically becomes part of a predefined communicator called <strong><code class="docutils literal notranslate"><span class="pre">MPI.COMM_WORLD</span></code></strong>.</p>
+<p>This object represents <em>all processes</em> that were launched together by <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> or <code class="docutils literal notranslate"><span class="pre">srun</span></code>.</p>
+<p>A typical initialization pattern looks like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>      <span class="c1"># Initialize communicator</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>     <span class="c1"># Total number of processes</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>     <span class="c1"># Rank (ID) of this process</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;I am rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Every process executes the same code, but rank and size allow them to behave differently.</p>
+<div class="admonition-hello-world-mpi exercise important admonition" id="exercise-0">
+<p class="admonition-title">Hello world MPI</p>
+<p>Copy and paste this code and execute it using <code class="docutils literal notranslate"><span class="pre">mpirun</span> <span class="pre">-n</span> <span class="pre">N</span> <span class="pre">mpi_hello.py</span></code> where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the number of tasks. <br />
+<strong>Note:</strong> Do not put more tasks than the number of cores that your computer has.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_hello.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="c1"># Initialize communicator</span>
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+
+<span class="c1"># Get the number of processes</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+
+<span class="c1"># Get the rank (ID) of this process</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+
+<span class="c1"># Print a message from each process</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This code snippet illustrates how independent processes run copies of the program. <br />
+To practice further try the following:</p>
+<ol class="arabic simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">rank</span></code> variable to print the square of <code class="docutils literal notranslate"><span class="pre">rank</span></code> in each rank.</p></li>
+<li><p>Make the program print only in rank 0, hint: <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">rank</span> <span class="pre">==</span> <span class="pre">0:</span></code></p></li>
+</ol>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<p><em>Solution 1:</em> Print the square of each rank</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_hello_square.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+
+<span class="c1"># Each process prints its rank and the square of its rank</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> of </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2"> has value </span><span class="si">{</span><span class="n">rank</span><span class="o">**</span><span class="mi">2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Solution 2:</em> Print only one process (rank 0)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_hello_rank0.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Hello world from the root process (rank </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">) out of </span><span class="si">{</span><span class="n">size</span><span class="si">}</span><span class="s2"> total processes&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="method-naming-convention">
+<h4>Method Naming Convention<a class="headerlink" href="#method-naming-convention" title="Link to this heading">¶</a></h4>
+<p>In <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code>, most MPI operations exist in <strong>two versions</strong>, a <em>lowercase</em> and an <em>uppercase</em> form, that differ in how they handle data.</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Convention</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Lowercase methods</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">send()</span></code>, <code class="docutils literal notranslate"><span class="pre">recv()</span></code>, <code class="docutils literal notranslate"><span class="pre">bcast()</span></code>, <code class="docutils literal notranslate"><span class="pre">gather()</span></code></p></td>
+<td><p>High-level, Pythonic methods that can send and receive arbitrary Python objects. Data is automatically serialized (pickled). Simpler to use but slower for large data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Uppercase methods</strong></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Send()</span></code>, <code class="docutils literal notranslate"><span class="pre">Recv()</span></code>, <code class="docutils literal notranslate"><span class="pre">Bcast()</span></code>, <code class="docutils literal notranslate"><span class="pre">Gather()</span></code></p></td>
+<td><p>Low-level, performance-oriented methods that operate on <strong>buffer-like objects</strong> such as NumPy arrays. Data is transferred directly from memory without serialization, achieving near-C speed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Rule of thumb:</strong><br />
+Use <em>lowercase</em> methods for small control messages or Python objects,<br />
+and <em>uppercase</em> methods for numerical data stored in arrays when performance matters.</p>
+<section id="syntax-differences">
+<h5>Syntax differences<a class="headerlink" href="#syntax-differences" title="Link to this heading">¶</a></h5>
+<p><strong>Lowercase (Python objects):</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The message (obj) can be any Python object.</p></li>
+<li><p>MPI automatically serializes and deserializes it internally.</p></li>
+<li><p>Fewer arguments: simple but less efficient for large data.</p></li>
+</ul>
+<p><strong>Uppercase (buffer-like objects, e.g., NumPy arrays):</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">comm</span><span class="o">.</span><span class="n">Send</span><span class="p">([</span><span class="n">array</span><span class="p">,</span> <span class="n">MPI</span><span class="o">.</span><span class="n">DOUBLE</span><span class="p">],</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">comm</span><span class="o">.</span><span class="n">Recv</span><span class="p">([</span><span class="n">array</span><span class="p">,</span> <span class="n">MPI</span><span class="o">.</span><span class="n">DOUBLE</span><span class="p">],</span> <span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Requires explicit definition of the data buffer and its MPI datatype. (same syntax as C++)</p></li>
+<li><p>Works directly with the memory address of the array (no serialization).</p></li>
+<li><p>Achieves maximum throughput for numerical and scientific workloads.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<hr class="docutils" />
+<section id="point-to-point-communication">
+<h3>Point-to-Point Communication<a class="headerlink" href="#point-to-point-communication" title="Link to this heading">¶</a></h3>
+<p>The most basic form of communication in MPI is <strong>point-to-point</strong>, meaning data is sent from one process directly to another.</p>
+<p>Each message involves:</p>
+<ul class="simple">
+<li><p>A <strong>sender</strong> and a <strong>receiver</strong></p></li>
+<li><p>A <strong>tag</strong> identifying the message type</p></li>
+<li><p>A <strong>data buffer</strong> that holds the information being transmitted</p></li>
+</ul>
+<p>These operations are methods of the class <code class="docutils literal notranslate"><span class="pre">MPI.COMM_WORLD</span></code>. This means that one needs to initialize it</p>
+<p>Typical operations:</p>
+<ul class="simple">
+<li><p><strong>Send:</strong> one process transmits data.</p></li>
+<li><p><strong>Receive:</strong> another process waits for that data.</p></li>
+</ul>
+<p>In <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code>, each of these operations maps directly to MPI’s underlying mechanisms but with a simple Python interface.<br />
+Conceptually, this allows one process to hand off a message to another in a fully parallel environment.</p>
+<p>Examples of conceptual use cases:</p>
+<ul class="simple">
+<li><p>Distributing different chunks of data to multiple workers.</p></li>
+<li><p>Passing boundary conditions between neighboring domains in a simulation.</p></li>
+</ul>
+<div class="admonition-point-to-point-communication exercise important admonition" id="exercise-1">
+<p class="admonition-title">Point-to-Point Communication</p>
+<p>Copy and paste the code below into a file called <code class="docutils literal notranslate"><span class="pre">mpi_send_recv.py</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_send_recv.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># Process 0 sends a message</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;Hello from process 0&quot;</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># send to process 1</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> sent data: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">elif</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="c1"># Process 1 receives a message</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># receive from process 0</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> received data: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="c1"># Other ranks do nothing</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> is idle&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run the program using:
+<code class="docutils literal notranslate"><span class="pre">mpirun</span> <span class="pre">-n</span> <span class="pre">3</span> <span class="pre">python</span> <span class="pre">mpi_send_recv.py</span></code>
+You should see output indicating that process 0 sent data and process 1 received it, while all others remained idle.
+Now try:</p>
+<ol class="arabic simple">
+<li><p>Change the roles:
+Make process 1 send a reply back to process 0 after receiving the message.
+Use <code class="docutils literal notranslate"><span class="pre">comm.send()</span></code> and <code class="docutils literal notranslate"><span class="pre">comm.recv()</span></code> in both directions.</p></li>
+<li><p>Blocking communication:
+Notice that <code class="docutils literal notranslate"><span class="pre">comm.send()</span></code> and <code class="docutils literal notranslate"><span class="pre">comm.recv()</span></code> are blocking operations.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Add a short delay using <code class="docutils literal notranslate"><span class="pre">time.sleep(rank)</span></code> before sending or receiving.</p></li>
+<li><p>Observe how process 0 must wait until process 1 calls <code class="docutils literal notranslate"><span class="pre">recv()</span></code> before it can continue, and vice versa.</p></li>
+<li><p>Try swapping the order of the calls (e.g., both processes call <code class="docutils literal notranslate"><span class="pre">send()</span></code> first), what happens?</p></li>
+<li><p>You may notice the program hangs or deadlocks, because both processes are waiting for a <code class="docutils literal notranslate"><span class="pre">recv()</span></code> that never starts.</p></li>
+</ul>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-1">
+<p class="admonition-title">Solution</p>
+<p><em>Solution 1:</em> Change the roles (reply back):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_send_recv_reply.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">data_out</span> <span class="o">=</span> <span class="s2">&quot;Hello from process 0&quot;</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data_out</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> sent: </span><span class="si">{</span><span class="n">data_out</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">data_in</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> received: </span><span class="si">{</span><span class="n">data_in</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">elif</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">data_in</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> received: </span><span class="si">{</span><span class="n">data_in</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">data_out</span> <span class="o">=</span> <span class="s2">&quot;Reply from process 1&quot;</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data_out</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> sent: </span><span class="si">{</span><span class="n">data_out</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> is idle&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Solution 2:</em> Blocking communication behavior:</p>
+<ol class="arabic simple">
+<li><p>Add a delay (e.g., time.sleep(rank)) before send/recv and observe that each blocking call waits for its partner. Example:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_blocking_delay.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span>  <span class="c1"># stagger arrival</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;msg&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;0 -&gt; sent&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;0 -&gt; got:&quot;</span><span class="p">,</span> <span class="n">comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="k">elif</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1 -&gt; got:&quot;</span><span class="p">,</span> <span class="n">comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&quot;ack&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;1 -&gt; sent&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Deadlock demonstration:</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_deadlock.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="c1"># Both ranks call send() first -&gt; potential deadlock</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;from </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">rank</span><span class="p">)</span>
+    <span class="c1"># This recv may never be reached if partner is also stuck in send()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;received:&quot;</span><span class="p">,</span> <span class="n">comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="o">-</span><span class="n">rank</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="collective-communication">
+<h3>Collective Communication<a class="headerlink" href="#collective-communication" title="Link to this heading">¶</a></h3>
+<p>While point-to-point operations handle pairs of processes, <strong>collective operations</strong> involve all processes in a communicator.<br />
+They provide coordinated data exchange and synchronization patterns that are efficient and scalable.</p>
+<p>Common collectives include:</p>
+<ul class="simple">
+<li><p><strong>Broadcast:</strong> One process sends data to all others.</p></li>
+<li><p><strong>Scatter:</strong> One process distributes distinct pieces of data to each process.</p></li>
+<li><p><strong>Gather:</strong> Each process sends data back to a root process.</p></li>
+<li><p><strong>Reduce:</strong> All processes combine results using an operation (e.g., sum, max).</p></li>
+</ul>
+<p>Collectives are conceptually similar to group conversations, where every participant either contributes, receives, or both.<br />
+They are essential for algorithms that require sharing intermediate results or aggregating outputs.</p>
+<div class="admonition-collectives exercise important admonition" id="exercise-2">
+<p class="admonition-title">Collectives</p>
+<p>Let us run this code to see the collectives <code class="docutils literal notranslate"><span class="pre">bcast</span></code> and <code class="docutils literal notranslate"><span class="pre">gather</span></code> in action:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_collectives.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+
+<span class="c1"># --- Broadcast example ---</span>
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;Hello from the root process&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Broadcast data from process 0 to all others</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> received: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Gather example ---</span>
+<span class="c1"># Each process creates its own message</span>
+<span class="n">local_msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Message from process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Gather all messages at the root process (rank 0)</span>
+<span class="n">all_msgs</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_msg</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Gathered messages at root:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">all_msgs</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now try the following:</p>
+<ol class="arabic simple">
+<li><p>Change the root process: In the broadcast section, change the root process from <code class="docutils literal notranslate"><span class="pre">rank</span> <span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">rank</span> <span class="pre">1</span></code>.</p></li>
+<li><p>How would be the same done with point to point communication?</p></li>
+</ol>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-2">
+<p class="admonition-title">Solution</p>
+<p><em>Solution 1:</em> Change the root process:
+The root process is the one that handles the behaviour of the collectives. So we just need to change the root
+of the collective <strong>broadcast</strong>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Broadcast example ---</span>
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;Hello from process 1 (new root)&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Broadcast data from process 1 to all others</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> received: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Solution 2:</em> Manual broadcasting the previous code:
+To reproduce a broadcast manually using only send() and recv(), one could write:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Manual broadcast using point-to-point</span>
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;Hello from process 1 (manual broadcast)&quot;</span>
+    <span class="c1"># Send to all other processes</span>
+    <span class="k">for</span> <span class="n">dest</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dest</span> <span class="o">!=</span> <span class="n">rank</span><span class="p">:</span>
+            <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="n">dest</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">rank</span><span class="si">}</span><span class="s2"> received: </span><span class="si">{</span><span class="n">data</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="integration-with-numpy-buffer-like-objects">
+<h3>Integration with NumPy: Buffer-Like Objects<a class="headerlink" href="#integration-with-numpy-buffer-like-objects" title="Link to this heading">¶</a></h3>
+<p>A major strength of <code class="docutils literal notranslate"><span class="pre">mpi4py</span></code> is its <strong>direct integration with NumPy arrays</strong>.<br />
+MPI operations can send and receive <strong>buffer-like objects</strong>, such as NumPy arrays, without copying data between Python and C memory.</p>
+<div class="admonition-important keypoints admonition" id="keypoints-1">
+<p class="admonition-title">Important</p>
+<p>Remember that <strong>buffer-like objects</strong> can be used with the <strong>uppercase methods</strong> for avoiding serialization and its time overhead.</p>
+</div>
+<p>Because NumPy arrays expose their internal memory buffer, MPI can access this data directly.<br />
+This eliminates the need for serialization (no <code class="docutils literal notranslate"><span class="pre">pickle</span></code> step) and allows <strong>near-native C performance</strong> for communication and collective operations.</p>
+<p>Conceptually:</p>
+<ul class="simple">
+<li><p>Each NumPy array acts as a <strong>contiguous memory buffer</strong>.</p></li>
+<li><p>MPI transfers data directly from this buffer to another process’s memory.</p></li>
+<li><p>This mechanism is ideal for large numerical datasets, enabling efficient data movement in parallel programs.</p></li>
+</ul>
+<p>This integration makes it possible to:</p>
+<ul class="simple">
+<li><p>Distribute large datasets across processes using <strong>collectives</strong> like <code class="docutils literal notranslate"><span class="pre">Scatter</span></code> and <code class="docutils literal notranslate"><span class="pre">Gather</span></code>.</p></li>
+<li><p>Combine results efficiently with operations like <code class="docutils literal notranslate"><span class="pre">Reduce</span></code> or <code class="docutils literal notranslate"><span class="pre">Allreduce</span></code>.</p></li>
+<li><p>Seamlessly integrate parallelism into scientific Python workflows.</p></li>
+</ul>
+<hr class="docutils" />
+<div class="admonition-collective-operations-on-numpy-arrays exercise important admonition" id="exercise-3">
+<p class="admonition-title">Collective Operations on NumPy Arrays</p>
+<p>In this example, you will see how collective MPI operations distribute and combine large arrays across multiple processes using <strong>buffer-based communication</strong>.</p>
+<p>Save the following code as <code class="docutils literal notranslate"><span class="pre">mpi_numpy_collectives.py</span></code> and run it with multiple processes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># mpi_numpy_collectives.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mpi4py</span><span class="w"> </span><span class="kn">import</span> <span class="n">MPI</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">COMM_WORLD</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_rank</span><span class="p">()</span>
+<span class="n">size</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">Get_size</span><span class="p">()</span>
+
+<span class="c1"># Total number of elements in the big array (must be divisible by size)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">10_000_000</span>
+
+<span class="c1"># Only rank 0 creates the full array</span>
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">big_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>  <span class="c1"># for simplicity, all ones</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">big_array</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Each process will receive a chunk of this size</span>
+<span class="n">local_N</span> <span class="o">=</span> <span class="n">N</span> <span class="o">//</span> <span class="n">size</span>
+
+<span class="c1"># Allocate local buffer on each process</span>
+<span class="n">local_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">local_N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
+
+<span class="c1"># Scatter the big array from root to all processes</span>
+<span class="n">comm</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">big_array</span><span class="p">,</span> <span class="n">MPI</span><span class="o">.</span><span class="n">DOUBLE</span><span class="p">],</span>       <span class="c1"># send buffer (only valid on root)</span>
+    <span class="p">[</span><span class="n">local_array</span><span class="p">,</span> <span class="n">MPI</span><span class="o">.</span><span class="n">DOUBLE</span><span class="p">],</span>     <span class="c1"># receive buffer on all processes</span>
+    <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Each process computes a local sum</span>
+<span class="n">local_sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">local_array</span><span class="p">)</span>
+
+<span class="c1"># Reduce all local sums to a global sum on the root process</span>
+<span class="n">global_sum</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">local_sum</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">MPI</span><span class="o">.</span><span class="n">SUM</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Global sum = </span><span class="si">{</span><span class="n">global_sum</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Expected   = </span><span class="si">{</span><span class="nb">float</span><span class="p">(</span><span class="n">N</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run the program using</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mpirun<span class="w"> </span>-n<span class="w"> </span><span class="m">4</span><span class="w"> </span>python<span class="w"> </span>mpi_numpy_collectives.py
+</pre></div>
+</div>
+<p>Questions:</p>
+<ol class="arabic simple">
+<li><p>Which MPI calls distribute and collect data in this program?</p></li>
+<li><p>Why is it necessary to preallocate local_array on every process?</p></li>
+<li><p>What would happen if you used lowercase methods (scatter, reduce) instead of Scatter, Reduce?</p></li>
+</ol>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-3">
+<p class="admonition-title">Solution</p>
+<p><em>Solution 1:</em> The MPI calls that distribute and collect data in this program are comm.Scatter() and comm.reduce().
+Scatter divides the large NumPy array on the root process and sends chunks to all ranks, while Reduce collects the locally computed results and combines them (using MPI.SUM) into a single global result on the root process.</p>
+<p><em>Solution 2:</em> It is necessary to preallocate local_array on every process because the uppercase MPI methods (Scatter, Gather, Reduce, etc.) work directly with memory buffers.
+Each process must provide a fixed, correctly sized buffer so that MPI can write received data directly into it without additional memory allocation or copying.</p>
+<p><em>Solution 3:</em> If lowercase methods (scatter, reduce) were used instead, MPI would serialize and deserialize the Python objects being communicated (using pickle).
+This would make the program simpler but significantly slower for large numerical arrays, since it adds extra copying and memory overhead.
+Using the uppercase buffer-based methods avoids this cost and achieves near-native C performance.</p>
+</div>
+</section>
+<hr class="docutils" />
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h3>
+<p><strong>mpi4py</strong> provides a simple yet powerful bridge between Python and the Message Passing Interface used in traditional HPC applications.<br />
+Conceptually, it introduces the same communication paradigms used in compiled MPI programs but with Python’s expressiveness and interoperability.</p>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Concept</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Process</strong></p></td>
+<td><p>Independent copy of the program with its own memory space</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Rank</strong></p></td>
+<td><p>Identifier for each process within a communicator</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Point-to-Point</strong></p></td>
+<td><p>Direct communication between pairs of processes</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Collective</strong></p></td>
+<td><p>Group communication involving all processes</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>NumPy Buffers</strong></p></td>
+<td><p>Efficient memory sharing for large numerical data</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>mpi4py allows Python users to write distributed parallel programs that scale from laptops to supercomputers, making it an invaluable tool for modern scientific computing.</p>
+<hr class="docutils" />
+<div class="admonition-keypoints keypoints admonition" id="keypoints-2">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>MPI creates multiple independent processes running the same program.</p></li>
+<li><p>Point-to-point communication exchanges data directly between two processes.</p></li>
+<li><p>Collective communication coordinates data exchange across many processes.</p></li>
+<li><p>mpi4py integrates tightly with NumPy for efficient, zero-copy data transfers.</p></li>
+<li><p>These concepts allow Python programs to scale effectively on HPC systems.</p></li>
+</ul>
+</div>
+</section>
+</section>
+<span id="document-episode"></span><section id="episode-template">
+<h2>Episode template<a class="headerlink" href="#episode-template" title="Link to this heading">¶</a></h2>
+<div class="admonition-questions questions admonition" id="questions-0">
+<p class="admonition-title">Questions</p>
+<ul class="simple">
+<li><p>What syntax is used to make a lesson?</p></li>
+<li><p>How do you structure a lesson effectively for teaching?</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">questions</span></code> are at the top of a lesson and provide a starting
+point for what you might learn.  It is usually a bulleted list.</p></li>
+</ul>
+</div>
+<div class="admonition-objectives objectives admonition" id="objectives-0">
+<p class="admonition-title">Objectives</p>
+<ul class="simple">
+<li><p>Show a complete lesson page with all of the most common
+structures.</p></li>
+<li><p>…</p></li>
+</ul>
+<p>This is also a holdover from the carpentries-style.  It could
+usually be left off.</p>
+</div>
+<p>The introduction should be a high level overview of what is on the
+page and why it is interesting.</p>
+<p>The lines below (only in the source) will set the default highlighting
+language for the entire page.</p>
+<section id="section">
+<h3>Section<a class="headerlink" href="#section" title="Link to this heading">¶</a></h3>
+<p>A section.</p>
+<div class="admonition-discussion discussion important admonition" id="discussion-0">
+<p class="admonition-title">Discussion</p>
+<p>Discuss the following.</p>
+<ul class="simple">
+<li><p>A discussion section</p></li>
+<li><p>Another discussion topic</p></li>
+</ul>
+</div>
+</section>
+<section id="id1">
+<h3>Section<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+<span class="c1"># This uses the default highlighting language</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello world)</span>
+</pre></div>
+</div>
+</section>
+<section id="exercises-description">
+<h3>Exercises: description<a class="headerlink" href="#exercises-description" title="Link to this heading">¶</a></h3>
+<div class="admonition-exercise-topic-1-imperative-description-of-exercise exercise important admonition" id="exercise-0">
+<p class="admonition-title">Exercise Topic-1: imperative description of exercise</p>
+<p>Exercise text here.</p>
+</div>
+<div class="admonition-solution solution important dropdown admonition" id="solution-0">
+<p class="admonition-title">Solution</p>
+<p>Solution text here</p>
+</div>
+</section>
+<section id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Link to this heading">¶</a></h3>
+<p>A Summary of what you learned and why it might be useful.  Maybe a
+hint of what comes next.</p>
+</section>
+<section id="see-also">
+<h3>See also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Other relevant links</p></li>
+<li><p>Other link</p></li>
+</ul>
+<div class="admonition-keypoints keypoints admonition" id="keypoints-0">
+<p class="admonition-title">Keypoints</p>
+<ul class="simple">
+<li><p>What the learner should take away</p></li>
+<li><p>point 2</p></li>
+<li><p>…</p></li>
+</ul>
+<p>This is another holdover from the carpentries style.  This perhaps
+is better done in a “summary” section.</p>
+</div>
+</section>
+</section>
+</div>
+<div class="toctree-wrapper compound">
+<span id="document-quick-reference"></span><section id="quick-reference">
+<h2>Quick Reference<a class="headerlink" href="#quick-reference" title="Link to this heading">¶</a></h2>
+</section>
+<span id="document-guide"></span><section id="instructor-s-guide">
+<h2>Instructor’s guide<a class="headerlink" href="#instructor-s-guide" title="Link to this heading">¶</a></h2>
+<section id="why-we-teach-this-lesson">
+<h3>Why we teach this lesson<a class="headerlink" href="#why-we-teach-this-lesson" title="Link to this heading">¶</a></h3>
+</section>
+<section id="intended-learning-outcomes">
+<h3>Intended learning outcomes<a class="headerlink" href="#intended-learning-outcomes" title="Link to this heading">¶</a></h3>
+</section>
+<section id="timing">
+<h3>Timing<a class="headerlink" href="#timing" title="Link to this heading">¶</a></h3>
+</section>
+<section id="preparing-exercises">
+<h3>Preparing exercises<a class="headerlink" href="#preparing-exercises" title="Link to this heading">¶</a></h3>
+<p>e.g. what to do the day before to set up common repositories.</p>
+</section>
+<section id="other-practical-aspects">
+<h3>Other practical aspects<a class="headerlink" href="#other-practical-aspects" title="Link to this heading">¶</a></h3>
+</section>
+<section id="interesting-questions-you-might-get">
+<h3>Interesting questions you might get<a class="headerlink" href="#interesting-questions-you-might-get" title="Link to this heading">¶</a></h3>
+</section>
+<section id="typical-pitfalls">
+<h3>Typical pitfalls<a class="headerlink" href="#typical-pitfalls" title="Link to this heading">¶</a></h3>
+</section>
+</section>
+</div>
+<section id="learning-outcomes">
+<h2>Learning outcomes<a class="headerlink" href="#learning-outcomes" title="Link to this heading">¶</a></h2>
+<p>FIXME</p>
+<p>This material is for …</p>
+<p>By the end of this module, learners should:</p>
+<ul class="simple">
+<li><p>…</p></li>
+<li><p>…</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">¶</a></h2>
+<div class="warning admonition">
+<p class="admonition-title">Credit</p>
+<p>FIXME</p>
+<p>Don’t forget to check out additional course materials from …</p>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">License</p>
+<div class="attention dropdown admonition">
+<p class="admonition-title">CC BY-SA for media and pedagogical material</p>
+<p>Copyright © 2025 XXX. This material is released by XXX under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).</p>
+<p><strong>Canonical URL</strong>: <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a></p>
+<p><a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/legalcode.en">See the legal code</a></p>
+<p class="rubric" id="you-are-free-to">You are free to</p>
+<ol class="arabic simple">
+<li><p><strong>Share</strong> — copy and redistribute the material in any medium or format for any purpose, even commercially.</p></li>
+<li><p><strong>Adapt</strong> — remix, transform, and build upon the material for any purpose, even commercially.</p></li>
+<li><p>The licensor cannot revoke these freedoms as long as you follow the license terms.</p></li>
+</ol>
+<p class="rubric" id="under-the-following-terms">Under the following terms</p>
+<ol class="arabic simple">
+<li><p><strong>Attribution</strong> — You must give <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/#ref-appropriate-credit">appropriate credit</a> , provide a link to the license, and <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/#ref-indicate-changes">indicate if changes were made</a> . You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</p></li>
+<li><p><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/#ref-same-license">same license</a> as the original.</p></li>
+<li><p><strong>No additional restrictions</strong> — You may not apply legal terms or <a class="reference external" href="https://creativecommons.org/licenses/by-sa/4.0/#ref-technological-measures">technological measures</a> that legally restrict others from doing anything the license permits.</p></li>
+</ol>
+<p class="rubric" id="notices">Notices</p>
+<p>You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/deed.en#ref-exception-or-limitation">exception or limitation</a> .</p>
+<p>No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/deed.en#ref-publicity-privacy-or-moral-rights">publicity, privacy, or moral rights</a> may limit how you use the material.</p>
+<p>This deed highlights only some of the key features and terms of the actual license. It is not a license and has no legal value. You should carefully review all of the terms and conditions of the actual license before using the licensed material.</p>
+</div>
+<div class="attention dropdown admonition">
+<p class="admonition-title">MIT for source code and code snippets</p>
+<p>MIT License</p>
+<p>Copyright (c) 2025, ENCCS project, The contributors</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+</div>
+</div>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2025, ENCCS, The contributors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/ENCCS/python-for-hpc" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <p class="caption" role="heading"><span class="caption-text">The lesson</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-intohpc">Introduction to HPC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-mpi4py">Introduction to MPI with Python (mpi4py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-episode">Episode template</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="#document-quick-reference">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#document-guide">Instructor’s guide</a></li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=d6d90d09"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=35a8b989"></script>
+    <script src="_static/minipres.js?v=a0d29692"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    </body>
+</html>
