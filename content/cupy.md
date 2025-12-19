@@ -484,7 +484,7 @@ The reason is that internally the reduction is performed
 in a strided fashion, thus it does not ensure a
 proper comparison order and cannot follow NumPy's rule
 to always propagate the first-encountered NaN.
-This difference does not apply when CUB library is enabled 
+This difference does not apply when {abbr}`CUB library (CUB is a accelerator backend shipped together with CuPy. It accelerates reduction operations -- such as sum, prod, amin, amax, argmin, argmax -- and other routines, such as inclusive scans -- ex: cumsum --, histograms, sparse matrix-vector multiplications and ReductionKernel)` [is enabled](https://docs.cupy.dev/en/stable/user_guide/performance.html#use-cub-cutensor-backends-for-reduction-and-other-routines).
 which is the default for CuPy v11 and later.
 
 ### Contiguity / Strides
