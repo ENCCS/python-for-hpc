@@ -14,9 +14,9 @@
 # -- Project information -----------------------------------------------------
 
 # FIXME: choose title
-project = "Your lesson name"
+project = "Python for HPC"
 # FIXME: insert correct author
-author = "The contributors"
+author = "Ashwin Mohanan, Francesco Fiusco, Qiang Li, Juan de Gracia"
 copyright = f"2025, ENCCS, {author}"
 
 # FIXME: github organization / user that the repository belongs to
