@@ -144,4 +144,5 @@ intersphinx_mapping = {
     # "instruct": ("https://enccs.github.io/instructor-training/", None),
     # "lesson": ("https://coderefinery.github.io/sphinx-lesson/", None),
     # "myst": ("https://myst-parser.readthedocs.io/en/latest/", None),
+    "cython": ("https://cython.readthedocs.io/en/stable", None),
 }
