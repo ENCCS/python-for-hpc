@@ -91,15 +91,15 @@ NumPy code and not CuPy code.
 
 ### Conversion to/from NumPy arrays
 
-Although cupy.ndarray is the CuPy counterpart of NumPy numpy.ndarray,
-the main difference is that cupy.ndarray resides on the `current device`,
+Although `cupy.ndarray` is the CuPy counterpart of NumPy `numpy.ndarray`,
+the main difference is that `cupy.ndarray` resides on the `current device`,
 and they are not implicitly convertible to each other.
 When you need to manipulate CPU and GPU arrays, an explicit data transfer
 may be required to move them to the same location – either CPU or GPU.
 For this purpose, CuPy implements the following methods:
 
-- To convert numpy.ndarray to cupy.ndarray, use cupy.array() or cupy.asarray()
-- To convert cupy.ndarray to numpy.ndarray, use cupy.asnumpy() or cupy.ndarray.get()
+- To convert `numpy.ndarray` to `cupy.ndarray`, use `cupy.array()` or `cupy.asarray()`
+- To convert `cupy.ndarray` to `numpy.ndarray`, use `cupy.asnumpy()` or `cupy.ndarray.get()`
 
 These methods can accept arbitrary input, meaning that they can be applied to any data
 that is located on either the host or device.
@@ -138,7 +138,7 @@ array([5, 7, 9])
 
 
 :::{note}
-Converting between cupy.ndarray and numpy.ndarray incurs data transfer
+Converting between `cupy.ndarray` and `numpy.ndarray` incurs data transfer
 between the host (CPU) device and the GPU device,
 which is costly in terms of performance.
 :::
@@ -148,7 +148,7 @@ which is costly in terms of performance.
 CuPy introduces the concept of a `current device`, 
 which represents the default GPU device on which 
 the allocation, manipulation, calculation, etc., 
-of arrays take place. cupy.ndarray.device attribute 
+of arrays take place. `cupy.ndarray.device` attribute 
 can be used to determine the device allocated to a CuPy array.
 By default, ID of the current device is 0. 
 
@@ -373,10 +373,10 @@ array([4592., 4593.])
 
 #### Reduction methods
 
-NumPy's reduction functions (e.g. numpy.sum()) return
-scalar values (e.g. numpy.float32). However
-CuPy counterparts return zero-dimensional cupy.ndarray.
-That is because CuPy scalar values (e.g. cupy.float32)
+NumPy's reduction functions (e.g. `numpy.sum()`) return
+scalar values (e.g. `numpy.float32`). However
+CuPy counterparts return zero-dimensional `cupy.ndarray`.
+That is because CuPy scalar values (e.g. `cupy.float32`)
 are aliases of NumPy scalar values and are allocated
 in CPU memory. If these types were returned, it would be
 required to synchronize between GPU and CPU. If you want to
@@ -392,11 +392,11 @@ True
 
 #### Type promotion
 
-CuPy automatically promotes dtypes of cupy.ndarray
+CuPy automatically promotes dtypes of `cupy.ndarray`
 in a function with two or more operands, the result dtype
 is determined by the dtypes of the inputs. This is different
 from NumPy's rule on type promotion, when operands contain
-zero-dimensional arrays. Zero-dimensional numpy.ndarray
+zero-dimensional arrays. Zero-dimensional `numpy.ndarray`
 are treated as if they were scalar values if they appear
 in operands of NumPy's function. This may affect the dtype
 of its output, depending on the values of the "scalar" inputs.
@@ -409,15 +409,15 @@ dtype('float32')
 dtype('float64')
 ```
 
-### Matrix type (numpy.matrix)
+### Matrix type (`numpy.matrix`)
 
-SciPy returns numpy.matrix (a subclass of numpy.ndarray)
+SciPy returns `numpy.matrix` (a subclass of `numpy.ndarray`)
 when dense matrices are computed from sparse matrices
 (e.g., coo_matrix + ndarray). However, CuPy returns
-cupy.ndarray for such operations.
+`cupy.ndarray` for such operations.
 
-There is no plan to provide numpy.matrix equivalent in CuPy.
-This is because the use of numpy.matrix is no longer
+There is no plan to provide `numpy.matrix` equivalent in CuPy.
+This is because the use of `numpy.matrix` is no longer
 recommended since NumPy 1.15.
 
 ### Data types
@@ -428,7 +428,7 @@ Data type of CuPy arrays cannot be non-numeric like strings or objects.
 
 Unlike NumPy, Universal Functions in CuPy only work with
 CuPy array or scalar. They do not accept other objects
-(e.g., lists or numpy.ndarray).
+(e.g., lists or `numpy.ndarray`).
 
 ```
 >>> np.power([np.arange(5)], 2)
@@ -463,7 +463,7 @@ much entropy to the underlying random number generator.
 
 ### NaN (not-a-number) handling
 
-Prior to CuPy v11, CuPy's reduction functions (e.g., cupy.sum())
+Prior to CuPy v11, CuPy's reduction functions (e.g., `cupy.sum()`)
 handle NaNs in complex numbers differently from NumPy's counterparts:
 
 ```
@@ -578,7 +578,7 @@ add[1, 32](a, b, out)
 print(out)  # => [ 0  3  6  9 12 15 18 21 24 27]
 ```
 
-In addition, cupy.asarray() supports zero-copy conversion from Numba CUDA array to CuPy array.
+In addition, `cupy.asarray()` supports zero-copy conversion from Numba CUDA array to CuPy array.
 ```
 >>> import numpy as np
 >>> import cupy as cp
@@ -599,7 +599,7 @@ In addition, cupy.asarray() supports zero-copy conversion from Numba CUDA array 
 Once beginning porting code to the GPU, one has to
 consider how to handle creating data on either the CPU or GPU.
 CuPy's compatibility with NumPy/SciPy makes it possible to write CPU/GPU agnostic code.
-For this purpose, CuPy implements the cupy.get_array_module() function that
+For this purpose, CuPy implements the `cupy.get_array_module()` function that
 returns a reference to cupy if any of its arguments resides on a GPU and numpy otherwise.
 
 Here is an example of a CPU/GPU agnostic function
@@ -807,10 +807,10 @@ the kernel names are not mangled so that they can be retrieved by name.
 :::
 
 
-### cupy.fuse decorator
+### `cupy.fuse` decorator
 
 Apart from using the above templates for custom kernels,
-CuPy provides the cupy.fuse decorator which "fuse" the
+CuPy provides the `cupy.fuse` decorator which "fuse" the
 custom kernel functions to a single kernel function, therefore
 creating a dramatic lowering of the launching overhead.
 Moreover, the syntax looks like a Numba decorator, it is
@@ -820,7 +820,7 @@ than using the ElementwiseKernel or ReductionKernel template.
 However, it is still experimental, i.e. there are bugs and
 incomplete functionalities to be fixed.
 
-Here is the example using cupy.fuse() decorator
+Here is the example using `cupy.fuse()` decorator
 
 ```
 >>> import cupy as cp
