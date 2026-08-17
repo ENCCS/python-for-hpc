@@ -21,6 +21,7 @@ Intro
 :maxdepth: 1
 
 episode.md
+pythran.md
 ```
 
 ```{toctree}
