@@ -4,14 +4,13 @@
 - When is a numerical Python function a good candidate for Pythran?
 - How do we compile a Python module into a native extension?
 - How do we check that optimization preserves numerical correctness?
-- How can SIMD and OpenMP improve a compiled numerical kernel?
+- Which further compiler and threading options are worth investigating?
 :::
 
 :::{objectives}
 - Add a Pythran export specification to a numerical Python function.
 - Compile and import a Pythran extension module.
 - Compare Python-loop, NumPy, and Pythran implementations fairly.
-- Use native CPU, SIMD, and OpenMP options with appropriate checks.
 - Recognize important limitations and choose between Pythran, Numba, and Cython.
 :::
 
@@ -21,8 +20,43 @@
 - No prior C++, compiler, or OpenMP knowledge is assumed
 :::
 
-This core episode is designed for approximately **45–60 minutes**, excluding
-optional deep dives.
+This core episode is designed for approximately **45–60 minutes**. That timing
+assumes the environment check below is completed before the session. SIMD,
+OpenMP, configuration, compiler internals, GIL behavior, and Transonic are
+separate extensions rather than requirements for completing the core lesson.
+
+## Prepare the environment before the session
+
+Pythran needs Python packages and a working C++ compiler. In an
+instructor-led session, prepare and test the environment before learners
+arrive. From the lesson repository, one reproducible setup is:
+
+```bash
+python3.13 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e . --group dev
+python -c "import numpy, pythran; print(numpy.__version__, pythran.__version__)"
+c++ --version
+```
+
+Keep that environment activated while following the commands in this episode.
+If you downloaded only the examples, create and activate a virtual environment,
+then install the smaller learner environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install numpy pytest pythran
+```
+
+On a managed HPC system, use the compiler and Python environment recommended by
+the site.
+
+:::{note}
+The basic compilation exercise uses the system C++ compiler. OpenMP has
+additional compiler requirements and is therefore an optional extension.
+:::
 
 ## Why Pythran?
 
@@ -140,6 +174,7 @@ from the previous time step, then the buffers exchange roles.
 
 ```{literalinclude} examples/pythran/diffusion_python.py
 :language: python
+:linenos:
 :pyobject: evolve_python
 ```
 
@@ -147,6 +182,7 @@ The NumPy implementation expresses the same update with slices:
 
 ```{literalinclude} examples/pythran/diffusion_reference.py
 :language: python
+:linenos:
 :pyobject: evolve_numpy
 ```
 
@@ -173,7 +209,18 @@ Each direct neighbor receives the old center value and three zeros:
 0.0 + 0.2 * (1.0 + 0 + 0 + 0 - 4*0.0) = 0.2
 ```
 
-The total value remains `1.0`: five cells now contain `0.2`.
+The local pattern changes from one hot cell into a cross:
+
+```text
+before       after
+0 0 0        0.0 0.2 0.0
+0 1 0   ->   0.2 0.2 0.2
+0 0 0        0.0 0.2 0.0
+```
+
+The total value remains `1.0`: five cells now contain `0.2`. This visible
+spreading is the behavior that the tests preserve while the implementation
+changes.
 :::
 
 ### Test before optimizing
@@ -181,7 +228,7 @@ The total value remains `1.0`: five cells now contain `0.2`.
 Run the shared tests from the repository root:
 
 ```bash
-.venv/bin/python -m pytest -q content/examples/pythran/test_diffusion.py
+python -m pytest -q content/examples/pythran/test_diffusion.py
 ```
 
 The tests compare the loop, NumPy, and still-uncompiled Pythran source for
@@ -193,22 +240,37 @@ This order matters: a fast result is useless if it solves a different problem.
 ## Add a Pythran specification
 
 Pythran needs to know which functions become part of the native module and
-which input types to compile. The following comment is an export specification:
-
-```python
-# pythran export evolve_pythran(float64[][], float64, int)
-```
-
-It requests a version of `evolve_pythran` accepting:
+which input types to compile. An export specification names the function,
+followed by the argument types in call order. Our function accepts:
 
 1. A two-dimensional `float64` array
 2. A `float64` scalar for `alpha`
 3. An integer number of time steps
 
-The complete target remains valid Python:
+:::{exercise} Write the compiled interface
+Before looking at the complete target, write the one-line Pythran export
+specification for `evolve_pythran(field, alpha, steps)`. Export a two-dimensional
+`float64` array, a `float64` scalar, and an integer.
+:::
+
+:::{solution}
+```python
+# pythran export evolve_pythran(float64[][], float64, int)
+```
+
+The function name and all three argument types form the compiled public
+interface. The return type is inferred.
+:::
+
+The complete target remains valid Python. The highlighted lines are the two
+Pythran-facing annotations: the exported type interface and the optional OpenMP
+directive. The export is used by the basic build; the OpenMP directive becomes
+active only in the OpenMP extension when compilation enables OpenMP.
 
 ```{literalinclude} examples/pythran/diffusion_pythran.py
 :language: python
+:linenos:
+:emphasize-lines: 6,11
 ```
 
 Specifications are part of the compiled interface. Passing an array with the
@@ -226,7 +288,7 @@ Change to the example directory, then build the basic native module:
 
 ```bash
 cd content/examples/pythran
-../../../.venv/bin/pythran diffusion_pythran.py
+pythran diffusion_pythran.py
 ```
 
 The output name includes a platform-specific extension, for example:
@@ -256,6 +318,25 @@ print(diffusion_pythran.__pythran__)
 Do not leave an old extension module beside edited source code. Python can keep
 importing the stale binary even though `diffusion_pythran.py` has changed.
 Recompile after edits or remove the generated extension while developing.
+:::
+
+:::{exercise} Prove that the native module is being used
+Compile the module, import it, and verify that it exposes `__pythran__`. Then
+rerun the correctness tests with the compiled extension beside the source.
+:::
+
+:::{solution}
+From `content/examples/pythran/`, run:
+
+```bash
+pythran diffusion_pythran.py
+python -c "import diffusion_pythran; print(diffusion_pythran.__pythran__)"
+python -m pytest -q test_diffusion.py
+```
+
+The metadata tuple and passing tests establish two different facts: Python
+loaded a Pythran-generated module, and that module still matches the reference
+implementation.
 :::
 
 ## Verify, then benchmark
@@ -305,11 +386,95 @@ was timed. The large ratios mostly show how expensive nested interpreted loops
 are; they are not guaranteed Pythran speedups for other programs or machines.
 :::
 
-:::{exercise} Find the crossover
-Run the benchmark for grid sizes 32, 64, 128, 256, and 512. At what size does
-the compiled version become consistently faster than the alternatives on your
-machine? Explain why tiny kernels can be dominated by call and allocation
-overhead.
+## Supported features and limitations
+
+Consult Pythran's
+[supported modules and functions](https://pythran.readthedocs.io/en/latest/SUPPORT.html)
+before choosing a kernel. The supported subset evolves, so treat that page as
+the authority rather than relying on a fixed list in this lesson.
+
+:::{warning}
+Pythran compiles a numerical subset of Python, not arbitrary Python programs.
+Check compatibility before deciding to compile a function.
+:::
+
+:::{admonition} Common patterns that need particular care
+:class: warning dropdown
+
+- Dynamic code whose values change type during execution
+- Arbitrary Python objects, classes, and dynamic dispatch
+- Calls into unsupported third-party packages
+- Heterogeneous containers, except supported tuple patterns
+- NumPy functions or signatures absent from Pythran's support matrix
+- Calculations relying on Python's arbitrary-size integer semantics
+- Code relying on Python object identity or mutation behavior
+:::
+
+Native compilation also adds build, packaging, and platform-compatibility
+costs.
+
+A good workflow keeps orchestration and dynamic behavior in Python while
+compiling a small, well-tested numerical boundary.
+
+## Choosing a Python optimization approach
+
+| Tool | Compilation model | Typical code change | Good fit |
+|---|---|---:|---|
+| NumPy | Precompiled operations | Low | Algorithms expressible as efficient array/library calls |
+| Pythran | Ahead of time | Low–moderate | Typed numerical functions and custom loops |
+| Numba | Usually just in time | Low | Interactive numerical loops supported by Numba |
+| Cython | Ahead of time | Moderate–high | Fine control, C/C++ interaction, and broader extension work |
+
+No row is universally fastest. Consider deployment requirements, supported
+syntax, team familiarity, startup or build cost, hardware, and measured
+performance on the real workload.
+
+## Summary
+
+The reliable optimization loop is:
+
+```text
+correct baseline -> test -> profile -> compile -> test -> benchmark
+optional extension: parallelize -> test -> benchmark
+```
+
+Pythran is most useful at a deliberate numerical boundary. Export only the
+functions and types that are needed, keep the source valid Python, and preserve
+one reference implementation for correctness testing.
+
+:::{keypoints}
+- Pythran ahead-of-time compiles a numerical subset of Python into a native
+  extension module.
+- Export specifications define the compiled interface and accepted types.
+- Correctness checks must precede every performance comparison.
+- Native CPU flags, SIMD, OpenMP, configuration, and GIL behavior are further
+  topics to investigate after the basic workflow is reliable.
+- Pythran complements NumPy, Numba, and Cython; it does not replace them in
+  every workload.
+:::
+
+## Optional extensions
+
+The core lesson ends above. Choose extensions according to the available time,
+compiler, and learning goals; learners do not need to complete every extension.
+
+### Find the performance crossover
+
+Suggested time: **15–20 minutes**.
+
+:::{exercise} Record and explain the crossover
+Run the benchmark for grid sizes 32, 64, 128, 256, and 512. Record the medians
+in a table. At what size does the compiled version become consistently faster
+than the alternatives on your machine? Explain why tiny kernels can be
+dominated by call and allocation overhead.
+
+| Grid size | Python loops | NumPy | Pythran | Fastest |
+|---:|---:|---:|---:|---|
+| 32 | | | | |
+| 64 | | | | |
+| 128 | | | | |
+| 256 | | | | |
+| 512 | | | | |
 :::
 
 :::{solution}
@@ -319,7 +484,9 @@ conclusion should be that overhead matters more for small problems, while the
 compiled loop becomes easier to assess when each call performs enough work.
 :::
 
-## Native CPU and SIMD compilation
+### Use native CPU and SIMD compilation
+
+Suggested time: **10–15 minutes**.
 
 Pythran forwards common compiler options to its C++ compiler. A more specialized
 build can be produced with:
@@ -341,7 +508,10 @@ loads and stores. It can therefore become limited by memory bandwidth. SIMD
 may help without producing the ideal multiplication of performance suggested
 by the vector width.
 
-## Parallelize the independent rows with OpenMP
+### Parallelize independent rows with OpenMP
+
+Suggested time: **30–45 minutes**. Use an environment prepared and tested by
+the instructor or HPC site.
 
 Within one time step, every interior output cell reads only from `current` and
 writes to a distinct element of `following`. Rows can therefore be processed
@@ -394,9 +564,9 @@ scaling.
 :::
 
 :::{exercise} Measure scaling
-Record Pythran execution time for 1, 2, 4, and—if available—8 threads. Compute
-speedup relative to one thread. Does doubling the threads halve the time?
-Identify at least two reasons why scaling may flatten.
+Record Pythran execution time for 1, 2, 4, and—if available—8 threads in a
+table. Compute speedup relative to one thread. Does doubling the threads halve
+the time? Identify at least two reasons why scaling may flatten.
 :::
 
 :::{solution}
@@ -413,7 +583,7 @@ Correctness should be checked separately for every compiled configuration
 before its timings are accepted.
 :::
 
-### Avoid oversubscription
+#### Avoid oversubscription
 
 OpenMP is not the only component that may create threads. NumPy libraries,
 process pools, MPI ranks, and job schedulers can all affect resource use. Four
@@ -423,12 +593,14 @@ performance.
 
 Record and control thread counts as part of a reproducible benchmark.
 
-## Configure repeated builds with `.pythranrc`
+### Configure repeated builds with `.pythranrc`
 
-Pythran reads user configuration from `$XDG_CONFIG_HOME/.pythranrc` (normally
-`~/.config/.pythranrc` when `XDG_CONFIG_HOME` is set according to local
-practice) or the location described by the installed Pythran version. A minimal
-compiler configuration can look like:
+Suggested time: **10 minutes**.
+
+Pythran reads user configuration from `$XDG_CONFIG_HOME/.pythranrc`; installed
+versions may fall back to `~/.pythranrc` when `XDG_CONFIG_HOME` is not set. The
+`PYTHRANRC` environment variable can select another path. A minimal compiler
+configuration can look like:
 
 ```ini
 [compiler]
@@ -444,7 +616,9 @@ them alongside benchmark results.
 Pythran also honors `CC`, `CXX`, `CXXFLAGS`, and `LDFLAGS`. Environment
 variables take precedence over configuration values.
 
-## The GIL and thread safety
+### Understand the GIL and thread safety
+
+Suggested time: **10 minutes**.
 
 During execution of a generated native function, Pythran releases Python's
 Global Interpreter Lock (GIL). That permits other Python threads to execute
@@ -457,80 +631,9 @@ non-OpenMP builds do not use thread-safe reference counting by default. Projects
 that call generated code concurrently from Python threads should review the
 `THREAD_SAFE_REF_COUNT` build option and test their actual ownership patterns.
 
-## Supported features and limitations
-
-Consult Pythran's
-[supported modules and functions](https://pythran.readthedocs.io/en/latest/SUPPORT.html)
-before choosing a kernel. The supported subset evolves, so treat that page as
-the authority rather than relying on a fixed list in this lesson.
-
-:::{warning}
-Pythran compiles a numerical subset of Python, not arbitrary Python programs.
-Check compatibility before deciding to compile a function.
-:::
-
-:::{admonition} Common patterns that need particular care
-:class: warning dropdown
-
-- Dynamic code whose values change type during execution
-- Arbitrary Python objects, classes, and dynamic dispatch
-- Calls into unsupported third-party packages
-- Heterogeneous containers, except supported tuple patterns
-- NumPy functions or signatures absent from Pythran's support matrix
-- Calculations relying on Python's arbitrary-size integer semantics
-- Code relying on Python object identity or mutation behavior
-:::
-
-Native compilation also adds build, packaging, and platform-compatibility
-costs.
-
-A good workflow keeps orchestration and dynamic behavior in Python while
-compiling a small, well-tested numerical boundary.
-
-## Choosing a Python optimization approach
-
-| Tool | Compilation model | Typical code change | Good fit |
-|---|---|---:|---|
-| NumPy | Precompiled operations | Low | Algorithms expressible as efficient array/library calls |
-| Pythran | Ahead of time | Low–moderate | Typed numerical functions and custom loops |
-| Numba | Usually just in time | Low | Interactive numerical loops supported by Numba |
-| Cython | Ahead of time | Moderate–high | Fine control, C/C++ interaction, and broader extension work |
-
-No row is universally fastest. Consider deployment requirements, supported
-syntax, team familiarity, startup or build cost, hardware, and measured
-performance on the real workload.
-
-## Summary
-
-The reliable optimization loop is:
-
-```text
-correct baseline -> test -> profile -> compile -> test -> benchmark
-                 -> parallelize -> test -> benchmark
-```
-
-Pythran is most useful at a deliberate numerical boundary. Export only the
-functions and types that are needed, keep the source valid Python, and preserve
-one reference implementation for correctness testing.
-
-:::{keypoints}
-- Pythran ahead-of-time compiles a numerical subset of Python into a native
-  extension module.
-- Export specifications define the compiled interface and accepted types.
-- Correctness checks must precede every performance comparison.
-- SIMD, native CPU flags, and OpenMP are optional optimizations that must be
-  measured and may reduce portability.
-- Generated functions release the GIL, but concurrent use still requires
-  attention to Pythran's thread-safety guidance.
-- Pythran complements NumPy, Numba, and Cython; it does not replace them in
-  every workload.
-:::
-
-## Going further
-
-The following topics are enrichment and are not required for the core lesson.
-
 ### Inspect Pythran's generated code
+
+Suggested time: **15–20 minutes**.
 
 Pythran can expose intermediate forms for advanced investigation:
 
