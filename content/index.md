@@ -13,14 +13,13 @@ Intro
 :delim: ;
 :widths: auto
 
-20 min ; {doc}`filename`
+60 min ; {doc}`pythran`
 ```
 
 ```{toctree}
 :caption: The lesson
 :maxdepth: 1
 
-episode.md
 pythran.md
 ```
 
