@@ -20,9 +20,13 @@ dev = [
   { include-group = "notebook" },
   "jupyterlab>=4.4.6",
   "jupyterlab-myst>=2.4.2",
+  "pytest>=8.4",
 ]
 # All dependencies used within Jupyter Notebooks
-notebook = []
+notebook = [
+  "numpy>=2.1",
+  "pythran>=0.18.1",
+]
 
 
 [build-system]

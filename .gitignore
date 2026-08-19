@@ -1,6 +1,13 @@
 /_build
 .ipynb_checkpoints
 /venv*
+/.venv/
+.pytest_cache/
+**/__pycache__/
+content/examples/pythran/*.so
+content/examples/pythran/*.dylib
+content/examples/pythran/*.pyd
+content/examples/pythran/*.cpp
 .jupyter_cache
 jupyter_execute
 uv.lock
